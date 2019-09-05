@@ -13,25 +13,17 @@
 </template>
 
 <script>
-import { latLngBounds, latLng } from "leaflet";
-import {
-  LMap,
-  LTileLayer,
-  LControl,
-  LMarker,
-  LPopup,
-  LTooltip
-} from "vue2-leaflet";
+import { latLng } from "leaflet"
+import { LMap, LTileLayer, LControl, LMarker, LPopup } from "vue2-leaflet"
 
 export default {
-  name: "Example",
+  name: "Map",
   components: {
     LMap,
     LTileLayer,
     LMarker,
     LControl,
-    LPopup,
-    LTooltip
+    LPopup
   },
   data() {
     return {
@@ -40,27 +32,27 @@ export default {
       url:
         "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
       attribution:
-        'Imagery &copy; <a href="http://giscience.uni-hd.de/">GIScience</a> | Map data &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+        "Imagery &copy; <a href=\"http://giscience.uni-hd.de/\">GIScience</a> | Map data &copy; <a href=\"https://www.openstreetmap.org/copyright\">OSM</a> contributors",
       mapOptions: {
         zoomSnap: 0.5
       },
       markers: []
-    };
+    }
   },
 
   methods: {
     fetchMarkers: function() {
-      this.markers = [];
+      this.markers = []
 
-      let base = "https://fruktkartan-api.herokuapp.com/trees";
-      let bounds = this.$refs.theMap.mapObject.getBounds();
+      let base = "https://fruktkartan-api.herokuapp.com/trees"
+      let bounds = this.$refs.theMap.mapObject.getBounds()
 
-      let markers = this.markers;
+      let markers = this.markers
       fetch(
         `${base}?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
         .then(function(response) {
-          return response.json();
+          return response.json()
         })
         .then(function(json) {
           for (var i in json) {
@@ -69,12 +61,12 @@ export default {
               lng: json[i].lon,
               id: i,
               text: json[i].key
-            });
+            })
           }
-        });
+        })
     }
   }
-};
+}
 </script>
 
 <style>

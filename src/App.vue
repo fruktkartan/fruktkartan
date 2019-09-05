@@ -5,19 +5,19 @@
 </template>
 
 <script>
-import Map from "./components/Map.vue";
+import Map from "./components/Map.vue"
 
 export default {
   name: "app",
   components: {
     Map
   },
-  data() {
+  data () {
     return {
       currentView: "Map"
-    };
+    }
   }
-};
+}
 </script>
 
 <style>
