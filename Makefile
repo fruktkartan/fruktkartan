@@ -1,0 +1,2 @@
+serve:
+	yarn serve
