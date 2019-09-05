@@ -1,3 +1,0 @@
-export PATH="$(yarn global bin):$PATH"
-command -v vue || yarn global add @vue/cli
-echo for rapid prototyping using vue serve/build, do: yarn global add @vue/cli-service-global

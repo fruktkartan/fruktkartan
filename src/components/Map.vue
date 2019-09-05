@@ -1,0 +1,87 @@
+<template>
+  <div>
+    <l-map ref="theMap" :center="center" :zoom="zoom" :options="mapOptions">
+      <l-tile-layer :url="url" :attribution="attribution" />
+      <l-control :position="'topleft'" class="fetch-control">
+        <p @click="fetchMarkers">fetch</p>
+      </l-control>
+      <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker">
+        <l-popup>{{ marker.text }}</l-popup>
+      </l-marker>
+    </l-map>
+  </div>
+</template>
+
+<script>
+import { latLngBounds, latLng } from "leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LControl,
+  LMarker,
+  LPopup,
+  LTooltip
+} from "vue2-leaflet";
+
+export default {
+  name: "Example",
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LControl,
+    LPopup,
+    LTooltip
+  },
+  data() {
+    return {
+      center: latLng(55.5917, 13.0199),
+      zoom: 12,
+      url:
+        "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
+      attribution:
+        'Imagery &copy; <a href="http://giscience.uni-hd.de/">GIScience</a> | Map data &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+      mapOptions: {
+        zoomSnap: 0.5
+      },
+      markers: []
+    };
+  },
+
+  methods: {
+    fetchMarkers: function() {
+      this.markers = [];
+
+      let base = "https://fruktkartan-api.herokuapp.com/trees";
+      let bounds = this.$refs.theMap.mapObject.getBounds();
+
+      let markers = this.markers;
+      fetch(
+        `${base}?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
+      )
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(json) {
+          for (var i in json) {
+            markers.push({
+              lat: json[i].lat,
+              lng: json[i].lon,
+              id: i,
+              text: json[i].key
+            });
+          }
+        });
+    }
+  }
+};
+</script>
+
+<style>
+.fetch-control {
+  background: #f0f0f0;
+  padding: 0 0.5em;
+  border: 1px solid black;
+  border-radius: 0.1em;
+}
+</style>
