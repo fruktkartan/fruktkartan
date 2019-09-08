@@ -68,7 +68,7 @@ export default {
               lat: json[i].lat,
               lng: json[i].lon,
               id: i,
-              text: json[i].key
+              text: json[i].type.trim()
             })
           }
         })
