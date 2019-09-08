@@ -5,9 +5,11 @@
       <l-control :position="'topleft'" class="fetch-control">
         <p @click="fetchMarkers">fetch</p>
       </l-control>
+      <l-marker-cluster :options="clusterOptions">
       <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker">
         <l-popup>{{ marker.text }}</l-popup>
       </l-marker>
+      </l-marker-cluster>
     </l-map>
   </div>
 </template>
@@ -15,6 +17,7 @@
 <script>
 import { latLng } from "leaflet"
 import { LMap, LTileLayer, LControl, LMarker, LPopup } from "vue2-leaflet"
+import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 export default {
   name: "Map",
@@ -23,7 +26,8 @@ export default {
     LTileLayer,
     LMarker,
     LControl,
-    LPopup
+    LPopup,
+    LMarkerCluster: Vue2LeafletMarkercluster
   },
   data() {
     return {
@@ -35,6 +39,10 @@ export default {
         "Imagery &copy; <a href=\"http://giscience.uni-hd.de/\">GIScience</a> | Map data &copy; <a href=\"https://www.openstreetmap.org/copyright\">OSM</a> contributors",
       mapOptions: {
         zoomSnap: 0.5
+      },
+      clusterOptions: {
+        disableClusteringAtZoom: 16,
+        spiderfyOnMaxZoom: false
       },
       markers: []
     }
@@ -70,6 +78,9 @@ export default {
 </script>
 
 <style>
+@import "~leaflet.markercluster/dist/MarkerCluster.css";
+@import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
+
 .fetch-control {
   background: #f0f0f0;
   padding: 0 0.5em;
