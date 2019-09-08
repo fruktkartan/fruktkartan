@@ -81,6 +81,15 @@ export default {
 @import "~leaflet.markercluster/dist/MarkerCluster.css";
 @import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
 
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large,
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: rgba(230, 180, 43, 0.4) !important;
+}
+
 .fetch-control {
   background: #f0f0f0;
   padding: 0 0.5em;
