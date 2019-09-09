@@ -54,70 +54,62 @@ export default {
   },
 
   created: function () {
-    // TODO non-https-bork
-    // almost straight from the old frontend
-    function makeIcon(icon) {
-      let iconBase = "http://static.sasongsmat.nu/fruktkartan/images/markers/"
+    function icon(filename) {
       return licon({
         iconSize: [42, 36],
         iconAnchor: [21, 34],
         popupAnchor: [0, -36],
-        iconUrl: `${iconBase}${icon}.svg`
+        iconUrl: require(`./icons/${filename}.svg`)
       })
     }
-    let cherryIcon = makeIcon("trädikon, körsbär")
-    let currantIcon = makeIcon("bärikon, vinbär")
-    let gojiIcon = makeIcon("bärikon, bocktörne")
-    let mirabellIcon = makeIcon("bärikon, slånbär")
-    let slanIcon = makeIcon("bärikon, slånbär")
-    let mullberryIcon = makeIcon("bärikon, mullbär")
-    let berryIcon = makeIcon("bärikon")
-    let elderIcon = makeIcon("bärikon, fläder")
-    let quinceIcon = makeIcon("trädikon, kvitten")
-    let plumIcon = makeIcon("trädikon, plommon")
     this.icons = {
-      "Äpple": makeIcon("trädikon, äpple"),
-      "Päron": makeIcon("trädikon, päron"),
-      "Plommon": plumIcon,
-      "Mirabellplommon": plumIcon,
-      "Fläder": elderIcon,
-      "Fläderbär": elderIcon,
-      "Fläderblom": elderIcon,
-      "Aroniabär": makeIcon("bärikon, aronia"),
-      "Björnbär": makeIcon("bärikon, björnbär"),
-      "Bocktörne": makeIcon("bärikon, bocktörne"),
-      "Havtorn": makeIcon("bärikon, havtorn"),
-      "Rönnbär": makeIcon("bärikon, rönnbär"),
-      "Smultron": makeIcon("bärikon, smultron"),
-      "Gojibär": makeIcon("bärikon, bocktörne"),
-      "Hallon": makeIcon("bärikon, hallon"),
-      "Nypon": makeIcon("bärikon, nypon"),
-      "Vinbär": currantIcon,
-      "Röda vinbär": currantIcon,
-      "Hasselnöt": makeIcon("nötikon, hasselnöt"),
-      "Kastanj": makeIcon("nötikon, kastanj"),
-      "Valnöt": makeIcon("nötikon, valnöt"),
-      "Ramslök": makeIcon("örtikon, ramslök"),
-      "Brännässla": makeIcon("örtikon, brännässla"),
-      "Körvel": makeIcon("örtikon, körvel"),
-      "Rosenkvitten": quinceIcon,
-      "Kvitten": quinceIcon,
-      "Rabarber": makeIcon("trädikon, rabarber"),
-      "Svart mullbär": mullberryIcon,
-      "Mullbär": mullberryIcon,
-      "Körsbär": cherryIcon,
-      "Surkörsbär": cherryIcon,
-      "Bigarråer": cherryIcon,
-      "Krikon": slanIcon,
-      "Slånbär": slanIcon,
-      "Berberisbär": berryIcon,
-      "Krusbär": berryIcon,
-      "Jordgubbar": berryIcon,
-      "Blåbär": berryIcon,
-      "Lingon": berryIcon,
-      "Körsbärsplommon": mirabellIcon,
-      "Mirabell": mirabellIcon,
-      "Annan sort": makeIcon("trädikon")
+      "Berberisbär":     icon("berry"),
+      "Blåbär":          icon("berry"),
+      "Blåhallon":       icon("berry"),
+      "Jordgubbar":      icon("berry"),
+      "Krusbär":         icon("berry"),
+      "Körsbärskornell": icon("berry"),
+      "Lingon":          icon("berry"),
+      "Björnbär":        icon("berry-blackberry"),
+      "Aroniabär":       icon("berry-chokeberry"),
+      "Röda vinbär":     icon("berry-currant"),
+      "Vinbär":          icon("berry-currant"),
+      "Fläder":          icon("berry-elder"),
+      "Fläderblom":      icon("berry-elder"),
+      "Fläderbär":       icon("berry-elder"),
+      "Bocktörne":       icon("berry-goji"),
+      "Gojibär":         icon("berry-goji"),
+      "Mullbär":         icon("berry-mullberry"),
+      "Svart mullbär":   icon("berry-mullberry"),
+      "Hallon":          icon("berry-raspberry"),
+      "Nypon":           icon("berry-rosehip"),
+      "Rönnbär":         icon("berry-rowanberry"),
+      "Havtorn":         icon("berry-seabuckthorn"),
+      "Krikon":          icon("berry-sloeberry"),
+      "Slånbär":         icon("berry-sloeberry"),
+      "Smultron":        icon("berry-wildstrawberry"),
+      "Mandel":          icon("nut"),
+      "Hasselnöt":       icon("nut-hazelnut"),
+      "Kastanj":         icon("nut-sweetchestnut"),
+      "Valnöt":          icon("nut-walnut"),
+      "Äpple":           icon("tree-apple"),
+      "Bigarråer":       icon("tree-cherry"),
+      "Körsbär":         icon("tree-cherry"),
+      "Surkörsbär":      icon("tree-cherry"),
+      "Päron":           icon("tree-pear"),
+      "Körsbärsplommon": icon("tree-plum"),
+      "Mirabell":        icon("tree-plum"),
+      "Mirabellplommon": icon("tree-plum"),
+      "Plommon":         icon("tree-plum"),
+      "Kvitten":         icon("tree-quince"),
+      "Rosenkvitten":    icon("tree-quince"),
+      "Rabarber":        icon("tree-rhubarb"),
+      "Humle":           icon("herb"),
+      "Kamomill":        icon("herb-chamomille"),
+      "Körvel":          icon("herb-chervil"),
+      "Brännässla":      icon("herb-nettle"),
+      "Ramslök":         icon("herb-wildgarlic"),
+      "Annan sort":      icon("tree"),
     }
   },
 
