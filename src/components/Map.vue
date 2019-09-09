@@ -7,7 +7,7 @@
       </l-control>
       <l-marker-cluster :options="clusterOptions">
       <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker" :icon="marker.icon">
-        <l-popup>{{ marker.type }}</l-popup>
+        <l-popup>type: {{ marker.type }}<br />key: {{ marker.key }}</l-popup>
         <l-tooltip>{{ marker.type }}</l-tooltip>
       </l-marker>
       </l-marker-cluster>
@@ -16,16 +16,17 @@
 </template>
 
 <script>
-import { latLng } from "leaflet"
-import { LMap, LTileLayer, LIcon, LMarker, LTooltip, LPopup, LControl } from "vue2-leaflet"
+import { latLng, icon as licon } from "leaflet"
+import { LMap, LTileLayer, LMarker, LTooltip, LPopup, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
+
+const APIBASE = "https://fruktkartan-api.herokuapp.com"
 
 export default {
   name: "Map",
   components: {
     LMap,
     LTileLayer,
-    LIcon,
     LMarker,
     LTooltip,
     LPopup,
@@ -53,26 +54,27 @@ export default {
   },
 
   created: function () {
+    // TODO non-https-bork
     // almost straight from the old frontend
     function makeIcon(icon) {
       let iconBase = "http://static.sasongsmat.nu/fruktkartan/images/markers/"
-      return L.icon({
+      return licon({
         iconSize: [42, 36],
         iconAnchor: [21, 34],
         popupAnchor: [0, -36],
         iconUrl: `${iconBase}${icon}.svg`
       })
     }
-    let cherryIcon = makeIcon("trädikon, körsbär");
-    let currantIcon = makeIcon("bärikon, vinbär");
-    let gojiIcon = makeIcon("bärikon, bocktörne");
-    let mirabellIcon = makeIcon("bärikon, slånbär");
-    let slanIcon = makeIcon("bärikon, slånbär");
-    let mullberryIcon = makeIcon("bärikon, mullbär");
-    let berryIcon = makeIcon("bärikon");
-    let elderIcon = makeIcon("bärikon, fläder");
-    let quinceIcon = makeIcon("trädikon, kvitten");
-    let plumIcon = makeIcon("trädikon, plommon");
+    let cherryIcon = makeIcon("trädikon, körsbär")
+    let currantIcon = makeIcon("bärikon, vinbär")
+    let gojiIcon = makeIcon("bärikon, bocktörne")
+    let mirabellIcon = makeIcon("bärikon, slånbär")
+    let slanIcon = makeIcon("bärikon, slånbär")
+    let mullberryIcon = makeIcon("bärikon, mullbär")
+    let berryIcon = makeIcon("bärikon")
+    let elderIcon = makeIcon("bärikon, fläder")
+    let quinceIcon = makeIcon("trädikon, kvitten")
+    let plumIcon = makeIcon("trädikon, plommon")
     this.icons = {
       "Äpple": makeIcon("trädikon, äpple"),
       "Päron": makeIcon("trädikon, päron"),
@@ -131,13 +133,12 @@ export default {
     fetchMarkers: function() {
       this.markers = []
 
-      let base = "https://fruktkartan-api.herokuapp.com/trees"
       let bounds = this.$refs.theMap.mapObject.getBounds()
 
       let markers = this.markers
       let getIcon = this.getIcon
       fetch(
-        `${base}?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
+        `${APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
         .then(function(response) {
           return response.json()
@@ -148,6 +149,7 @@ export default {
               lat: json[i].lat,
               lng: json[i].lon,
               id: i,
+              key: json[i].key,
               type: json[i].type.trim(),
               icon: getIcon(json[i].type.trim())
             })
