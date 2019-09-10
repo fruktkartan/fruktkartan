@@ -8,7 +8,6 @@
       <l-marker-cluster :options="clusterOptions">
       <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker" :icon="marker.icon">
         <l-popup>type: {{ marker.type }}<br />key: {{ marker.key }}</l-popup>
-        <l-tooltip>{{ marker.type }}</l-tooltip>
       </l-marker>
       </l-marker-cluster>
     </l-map>
@@ -17,7 +16,7 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LTooltip, LPopup, LControl } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LPopup, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
@@ -28,7 +27,6 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LTooltip,
     LPopup,
     LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
