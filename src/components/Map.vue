@@ -3,7 +3,7 @@
     <l-map ref="theMap" :center="center" :zoom="zoom" :options="mapOptions">
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-control :position="'topleft'" class="fetch-control">
-        <p @click="fetchMarkers">fetch</p>
+        <p @click="fetchMarkers">hämta träd</p>
       </l-control>
       <l-marker-cluster :options="clusterOptions">
       <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker" :icon="marker.icon">
@@ -163,10 +163,11 @@ export default {
   background-color: rgba(230, 180, 43, 0.4) !important;
 }
 
-.fetch-control {
+.fetch-control > p {
   background: #f0f0f0;
-  padding: 0 0.5em;
+  padding: .5em 1em;
   border: 1px solid black;
-  border-radius: 0.1em;
+  border-radius: .5em;
 }
+
 </style>
