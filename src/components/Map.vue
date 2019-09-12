@@ -33,8 +33,8 @@ export default {
   },
   data() {
     return {
-      center: latLng(55.5917, 13.0199),
-      zoom: 12,
+      center: latLng(62.3908, 17.3069),
+      zoom: 5,
       url:
         "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
       attribution:
