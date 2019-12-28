@@ -6,8 +6,16 @@
         <p @click="fetchMarkers">hämta träd</p>
       </l-control>
       <l-marker-cluster :options="clusterOptions">
-      <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker" :icon="marker.icon">
-        <Popup :type="marker.type" :key_="marker.key" />
+      <l-marker
+        @popupopen="() => fetchPopupContent(marker.key)"
+        @popupclose="() => popupDescription = null"
+        v-for="marker in markers"
+        :key="marker.id" :lat-lng="marker" :icon="marker.icon"
+      >
+        <l-popup>
+          <div class="treeType">{{ marker.type }}</div>
+          <div class="treeDesc">{{ popupDescription === null ? "laddar..." : popupDescription }}</div>
+        </l-popup>
       </l-marker>
       </l-marker-cluster>
     </l-map>
@@ -16,9 +24,8 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LPopup, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
-import Popup from "./Popup.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 
@@ -28,7 +35,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    Popup,
+    LPopup,
     LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
   },
@@ -48,7 +55,8 @@ export default {
         spiderfyOnMaxZoom: false
       },
       markers: [],
-      icons: {}
+      icons: {},
+      popupDescription: null,
     }
   },
 
@@ -113,6 +121,16 @@ export default {
   },
 
   methods: {
+    fetchPopupContent: function (key) {
+      let self = this
+      fetch(
+        `${APIBASE}/tree/${key}`
+      )
+        .then(response => response.json())
+        .then(data => {
+          self.popupDescription = data.description
+        })
+    },
     getIcon: function(type) {
       let icon = this.icons[type]
       if (!icon) {
