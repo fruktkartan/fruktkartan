@@ -160,12 +160,8 @@ export default {
 
     fetchMarkers: function() {
       let self = this
-      this.markers = []
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
-
-      let markers = this.markers
-      let getIcon = this.getIcon
       fetch(
         `${APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
@@ -173,18 +169,12 @@ export default {
           return response.json()
         })
         .then(function(json) {
-          for (var i in json) {
-            markers.push({
-              lat: json[i].lat,
-              lng: json[i].lon,
-              id: i,
-              img: json[i].img,
-              desc: json[i].desc,
-              key: json[i].key,
-              type: json[i].type.trim(),
-              icon: getIcon(json[i].type.trim())
-            })
-          }
+          self.markers = json
+            .map(m => ({
+              ...m,
+              icon: self.getIcon(m.type.trim()),
+            }))
+
           self.updateFilters()
         })
     }
