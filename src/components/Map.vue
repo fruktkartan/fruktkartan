@@ -1,5 +1,17 @@
 <template>
   <div>
+    <header>
+      <h1>Fruktkartan</h1>
+    </header>
+    <menu id="filters">
+      <form @change="updateFilters">
+        <label>
+          <input type="checkbox" v-model="filter_hideempty">
+          <span class="label">Dölj träd utan bild eller beskrivning?</span>
+        </label>
+      </form>
+    </menu>
+
     <l-map ref="theMap" :center="center" :zoom="zoom" :options="mapOptions">
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-control :position="'topleft'" class="fetch-control">
@@ -9,7 +21,7 @@
       <l-marker
         @popupopen="() => fetchPopupContent(marker.key)"
         @popupclose="() => popupDescription = null"
-        v-for="marker in markers"
+        v-for="marker in filteredMarkers"
         :key="marker.id" :lat-lng="marker" :icon="marker.icon"
       >
         <l-popup>
@@ -55,8 +67,10 @@ export default {
         spiderfyOnMaxZoom: false
       },
       markers: [],
+      filteredMarkers : [],
       icons: {},
       popupDescription: null,
+      filter_hideempty: true,
     }
   },
 
@@ -138,8 +152,14 @@ export default {
       }
       return icon
     },
+    
+    updateFilters: function() {
+      this.filteredMarkers = this.markers
+        .filter(m => this.filter_hideempty ? m.desc || m.img : true)
+    },
 
     fetchMarkers: function() {
+      let self = this
       this.markers = []
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
@@ -158,11 +178,14 @@ export default {
               lat: json[i].lat,
               lng: json[i].lon,
               id: i,
+              img: json[i].img,
+              desc: json[i].desc,
               key: json[i].key,
               type: json[i].type.trim(),
               icon: getIcon(json[i].type.trim())
             })
           }
+          self.updateFilters()
         })
     }
   }
