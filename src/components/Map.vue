@@ -20,9 +20,10 @@
       @update:bounds="fetchMarkers"
     >
       <l-tile-layer :url="url" :attribution="attribution" />
-      <l-control :position="'topleft'" class="fetch-control">
-        <p @click="fetchMarkers">hämta träd</p>
+      <!--
+      <l-control :position="'topleft'" class="control">
       </l-control>
+      -->
       <l-marker-cluster :options="clusterOptions">
       <l-marker
         @popupopen="() => fetchPopupContent(marker.key)"
@@ -42,7 +43,7 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LPopup, LControl } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LPopup, /* LControl */ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
@@ -54,7 +55,7 @@ export default {
     LTileLayer,
     LMarker,
     LPopup,
-    LControl,
+    // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
   },
   data() {
@@ -225,7 +226,7 @@ export default {
   background-color: rgba(230, 180, 43, 0.4) !important;
 }
 
-.fetch-control > p {
+.control > p {
   background: #f0f0f0;
   padding: .5em 1em;
   border: 1px solid black;
