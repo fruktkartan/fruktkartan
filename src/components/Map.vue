@@ -33,7 +33,7 @@
       >
         <l-popup>
           <div class="treeType">{{ marker.type }}</div>
-          <div class="treeDesc">{{ popupDescription === null ? "laddar..." : popupDescription }}</div>
+          <div class="treeDesc">{{ popupData.description === null ? "laddar..." : popupData.description }}</div>
         </l-popup>
       </l-marker>
       </l-marker-cluster>
@@ -72,15 +72,17 @@ export default {
       },
       clusterOptions: {
         disableClusteringAtZoom: 15,
-        spiderfyOnMaxZoom: false
+        spiderfyOnMaxZoom: false,
       },
       popupOptions: {
-        closeOnEscapeKey: false  // buggy with Vue
+        closeOnEscapeKey: false,  // buggy with Vue
       },
       markers: [],
       filteredMarkers: [],
       icons: {},
-      popupDescription: null,
+      popupData: {
+        description: null,
+      },
       filter_hideempty: true,
     }
   },
@@ -173,15 +175,17 @@ export default {
   methods: {
     fetchPopupContent: function (marker) {
       let self = this
-      if (marker.popupDescription) {
+      if (marker.popupData) {
         // cached tree data. There is probably a better way of doing this
-        self.popupDescription = marker.popupDescription
+        self.popupData = marker.popupData
         return
       }
       fetch(`${APIBASE}/tree/${marker.key}`)
         .then(response => response.json())
-        .then(data => marker.popupDescription = data.description)
-        .finally(() => {self.popupDescription = marker.popupDescription})
+        .then(data => {
+          marker.popupData = data
+          self.popupData = data
+        })
     },
 
     getIcon: function(type) {
