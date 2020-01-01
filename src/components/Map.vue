@@ -12,7 +12,13 @@
       </form>
     </menu>
 
-    <l-map ref="theMap" :center="center" :zoom="zoom" :options="mapOptions">
+    <l-map
+      ref="theMap"
+      :center="center"
+      :zoom="zoom"
+      :options="mapOptions"
+      @update:bounds="fetchMarkers"
+    >
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-control :position="'topleft'" class="fetch-control">
         <p @click="fetchMarkers">hämta träd</p>
@@ -136,15 +142,26 @@ export default {
   
   mounted: function () {
     let self = this
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
+
+    let getUserPosition = new Promise((resolve, reject) => {
+      /* Promise to return user position */
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      } else {
+        reject()
+      }
+    })
+    
+    getUserPosition
+      .then(pos => {
         let ll = latLng(pos.coords.latitude, pos.coords.longitude)
         let bounds = ll.toBounds(pos.coords.accuracy ? pos.coords.accuracy : 1000)
         self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
-      }, () => {
-        // Could not get position. 
       })
-    }
+      .catch(() => {
+        // use default bounds
+        self.fetchMarkers()
+      })
   },
 
   methods: {
