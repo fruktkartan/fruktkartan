@@ -133,6 +133,19 @@ export default {
       "Annan sort":      icon("tree"),
     }
   },
+  
+  mounted: function () {
+    let self = this
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        let ll = latLng(pos.coords.latitude, pos.coords.longitude)
+        let bounds = ll.toBounds(pos.coords.accuracy ? pos.coords.accuracy : 1000)
+        self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
+      }, () => {
+        // Could not get position. 
+      })
+    }
+  },
 
   methods: {
     fetchPopupContent: function (key) {
