@@ -33,7 +33,10 @@
       >
         <l-popup>
           <div class="treeType">{{ marker.type }}</div>
-          <div class="treeDesc">{{ popupData.description === null ? "laddar..." : popupData.description }}</div>
+          <div class="treeDesc">
+            <img class="treeImg" v-if="popupData.img" :src="popupData.img" width="200" />
+            <p>{{ popupData.description === null ? "laddar..." : popupData.description }}</p>
+          </div>
         </l-popup>
       </l-marker>
       </l-marker-cluster>
@@ -240,6 +243,10 @@ export default {
   padding: .5em 1em;
   border: 1px solid black;
   border-radius: .5em;
+}
+
+.treeImg {
+  float: left;
 }
 
 </style>
