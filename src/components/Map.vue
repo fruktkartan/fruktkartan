@@ -176,12 +176,9 @@ export default {
           self.popupDescription = data.description
         })
     },
+
     getIcon: function(type) {
-      let icon = this.icons[type]
-      if (!icon) {
-        icon = this.icons["Annan sort"]
-      }
-      return icon
+      return this.icons[type] ?? this.icons["Annan sort"]
     },
     
     updateFilters: function() {
