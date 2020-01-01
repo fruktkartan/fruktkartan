@@ -47,6 +47,7 @@ import { LMap, LTileLayer, LMarker, LPopup, /* LControl */ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
+const DEFAULT_MAP_SIZE = 1000  // meters across map
 
 export default {
   name: "Map",
@@ -156,11 +157,12 @@ export default {
     getUserPosition
       .then(pos => {
         let ll = latLng(pos.coords.latitude, pos.coords.longitude)
-        let bounds = ll.toBounds(pos.coords.accuracy ? pos.coords.accuracy : 1000)
+        let bounds = ll.toBounds(pos.coords.accuracy ? pos.coords.accuracy : DEFAULT_MAP_SIZE)
         self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
+        // fetchMarkers() will be triggered by map update
       })
       .catch(() => {
-        // use default bounds
+        // keep default bounds
         self.fetchMarkers()
       })
   },
@@ -168,9 +170,7 @@ export default {
   methods: {
     fetchPopupContent: function (key) {
       let self = this
-      fetch(
-        `${APIBASE}/tree/${key}`
-      )
+      fetch(`${APIBASE}/tree/${key}`)
         .then(response => response.json())
         .then(data => {
           self.popupDescription = data.description
@@ -193,16 +193,13 @@ export default {
       fetch(
         `${APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
-        .then(function(response) {
-          return response.json()
-        })
-        .then(function(json) {
+        .then(response => response.json())
+        .then(json => {
           self.markers = json
             .map(m => ({
               ...m,
               icon: self.getIcon(m.type),
             }))
-
           self.updateFilters()
         })
     }
