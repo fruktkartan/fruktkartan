@@ -74,8 +74,11 @@ export default {
         disableClusteringAtZoom: 15,
         spiderfyOnMaxZoom: false
       },
+      popupOptions: {
+        closeOnEscapeKey: false  // buggy with Vue
+      },
       markers: [],
-      filteredMarkers : [],
+      filteredMarkers: [],
       icons: {},
       popupDescription: null,
       filter_hideempty: true,
@@ -172,9 +175,7 @@ export default {
       let self = this
       fetch(`${APIBASE}/tree/${key}`)
         .then(response => response.json())
-        .then(data => {
-          self.popupDescription = data.description
-        })
+        .then(data => self.popupDescription = data.description)
     },
 
     getIcon: function(type) {
