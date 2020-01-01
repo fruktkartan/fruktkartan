@@ -200,7 +200,7 @@ export default {
           self.markers = json
             .map(m => ({
               ...m,
-              icon: self.getIcon(m.type.trim()),
+              icon: self.getIcon(m.type),
             }))
 
           self.updateFilters()
