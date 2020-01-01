@@ -226,6 +226,10 @@ export default {
   background-color: rgba(230, 180, 43, 0.4) !important;
 }
 
+.vue2leaflet-map {
+  flex-grow: 1;
+}
+
 .control > p {
   background: #f0f0f0;
   padding: .5em 1em;
