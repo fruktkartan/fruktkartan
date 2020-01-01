@@ -27,7 +27,7 @@
       <l-marker-cluster :options="clusterOptions">
       <l-marker
         @popupopen="fetchPopupContent(marker)"
-        @popupclose="() => popupDescription = null"
+        @popupclose="popupData.description = null"
         v-for="marker in filteredMarkers"
         :key="marker.id" :lat-lng="marker" :icon="marker.icon"
       >
@@ -178,16 +178,19 @@ export default {
   methods: {
     fetchPopupContent: function (marker) {
       let self = this
+      /*
+      Doesnt work
       if (marker.popupData) {
         // cached tree data. There is probably a better way of doing this
         self.popupData = marker.popupData
         return
       }
+      */
       fetch(`${APIBASE}/tree/${marker.key}`)
         .then(response => response.json())
         .then(data => {
-          marker.popupData = data
-          self.popupData = data
+          marker.popupData = {...data}
+          self.popupData = marker.popupData
         })
     },
 
