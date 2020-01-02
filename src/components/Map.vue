@@ -33,9 +33,12 @@
       >
         <l-popup>
           <div class="treeType">{{ marker.type }}</div>
-          <div class="treeDesc">
-            <img class="treeImg" v-if="popupIsLoaded && currPopupData.img" :src="currPopupData.img" width="200" />
-            <p>{{ popupIsLoaded ? currPopupData.description : "laddar..." }}</p>
+          <div class="treeDesc" v-if="popupIsLoaded">
+            <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
+            <p>{{ currPopupData.description  }}</p>
+          </div>
+          <div class="treeDesc" v-else>
+            <p>Laddar...</p>
           </div>
         </l-popup>
       </l-marker>
