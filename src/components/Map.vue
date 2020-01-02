@@ -34,8 +34,8 @@
         <l-popup>
           <div class="treeType">{{ marker.type }}</div>
           <div class="treeDesc">
-            <img class="treeImg" v-if="popupData.img" :src="popupData.img" width="200" />
-            <p>{{ popupIsLoaded ? popupData.description : "laddar..." }}</p>
+            <img class="treeImg" v-if="popupIsLoaded && currPopupData.img" :src="currPopupData.img" width="200" />
+            <p>{{ popupIsLoaded ? currPopupData.description : "laddar..." }}</p>
           </div>
         </l-popup>
       </l-marker>
@@ -83,9 +83,8 @@ export default {
       markers: [],
       filteredMarkers: [],
       icons: {},
-      popupData: {
-        description: null,
-      },
+      popupData: {},
+      currPopupData: null,
       popupIsOpen: false,
       popupIsLoaded: false,
       filter_hideempty: true,
@@ -181,21 +180,22 @@ export default {
     fetchPopupContent: function (marker) {
       let self = this
       self.popupIsOpen = true
-      /*
-      Doesnt work
-      if (marker.popupData) {
-        // cached tree data. There is probably a better way of doing this
-        self.popupData = marker.popupData
-        return
-      }
-      */
-      fetch(`${APIBASE}/tree/${marker.key}`)
-        .then(response => response.json())
-        .then(data => {
-          marker.popupData = {...data}
-          self.popupData = marker.popupData
-          self.popupIsLoaded = true
-        })
+      let getData = new Promise(resolve => {
+        if (self.popupData[marker.key]) {
+          resolve(self.popupData[marker.key])
+        } else {
+          fetch(`${APIBASE}/tree/${marker.key}`)
+            .then(response => response.json())
+            .then(resolve)
+        }
+      })
+      
+      getData.then(data => {
+        self.currPopupData = {...data}
+        self.popupData[marker.key] = self.currPopupData
+        self.popupIsLoaded = true
+      })
+
     },
 
     getIcon: function(type) {
@@ -209,7 +209,7 @@ export default {
 
     fetchMarkers: function() {
       if (this.popupIsOpen) {
-        // abort if 3a popup is open, as leaflet freaks out otherwise
+        // abort if a popup is open, as leaflet freaks out otherwise
         return
       }
       let self = this
