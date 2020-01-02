@@ -27,7 +27,7 @@
       <l-marker-cluster :options="clusterOptions">
       <l-marker
         @popupopen="fetchPopupContent(marker)"
-        @popupclose="popupData.description = null"
+        @popupclose="() => {popupIsLoaded = false; popupIsOpen = false}"
         v-for="marker in filteredMarkers"
         :key="marker.id" :lat-lng="marker" :icon="marker.icon"
       >
@@ -35,7 +35,7 @@
           <div class="treeType">{{ marker.type }}</div>
           <div class="treeDesc">
             <img class="treeImg" v-if="popupData.img" :src="popupData.img" width="200" />
-            <p>{{ popupData.description === null ? "laddar..." : popupData.description }}</p>
+            <p>{{ popupIsLoaded ? popupData.description : "laddar..." }}</p>
           </div>
         </l-popup>
       </l-marker>
@@ -86,6 +86,8 @@ export default {
       popupData: {
         description: null,
       },
+      popupIsOpen: false,
+      popupIsLoaded: false,
       filter_hideempty: true,
     }
   },
@@ -178,6 +180,7 @@ export default {
   methods: {
     fetchPopupContent: function (marker) {
       let self = this
+      self.popupIsOpen = true
       /*
       Doesnt work
       if (marker.popupData) {
@@ -191,6 +194,7 @@ export default {
         .then(data => {
           marker.popupData = {...data}
           self.popupData = marker.popupData
+          self.popupIsLoaded = true
         })
     },
 
@@ -204,6 +208,10 @@ export default {
     },
 
     fetchMarkers: function() {
+      if (this.popupIsOpen) {
+        // abort if 3a popup is open, as leaflet freaks out otherwise
+        return
+      }
       let self = this
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
