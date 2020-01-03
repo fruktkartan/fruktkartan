@@ -1,10 +1,15 @@
 <template>
   <div>
-    <header>
-      <h1>Fruktkartan</h1>
-    </header>
     <menu id="filters">
       <form @change="updateFilters">
+        <label>
+          <select v-model="filter_type">
+            <option value="*">Alla</option>
+            <option value="Äpple">Äppelträd</option>
+            <option value="Päron">Päronträd</option>
+          </select>
+          <span class="label">Välj träd att visa</span>
+        </label>
         <label>
           <input type="checkbox" v-model="filter_hideempty">
           <span class="label">Dölj träd utan bild eller beskrivning?</span>
@@ -91,6 +96,7 @@ export default {
       popupIsOpen: false,
       popupIsLoaded: false,
       filter_hideempty: true,
+      filter_type: "*",
     }
   },
 
@@ -208,6 +214,7 @@ export default {
     updateFilters: function() {
       this.filteredMarkers = this.markers
         .filter(m => this.filter_hideempty ? m.desc || m.img : true)
+        .filter(m => this.filter_type === "*" ? true  : this.filter_type === m.type)
     },
 
     fetchMarkers: function() {
@@ -246,10 +253,6 @@ export default {
 .marker-cluster-medium div,
 .marker-cluster-large div {
   background-color: rgba(230, 180, 43, 0.4) !important;
-}
-
-.vue2leaflet-map {
-  flex-grow: 1;
 }
 
 .control > p {

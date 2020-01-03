@@ -1,6 +1,9 @@
 <template>
-  <div id="app">
-    <component id="full_div" :is="currentView" />
+  <div id="app" class="full_div" >
+    <header>
+      <h1>Fruktkartan</h1>
+    </header>
+    <component :is="currentView" class="map" />
   </div>
 </template>
 
@@ -23,11 +26,13 @@ export default {
 <style>
 @import "../node_modules/leaflet/dist/leaflet.css";
 
-#full_div {
+#app {
+  font-family: sans-serif;
+}
+.full_div {
   display: flex;
   flex-direction: column;
 
- 
   position: absolute;
   overflow-x: auto;
   height: 100%;
@@ -37,7 +42,7 @@ export default {
   bottom: 0;
 }
 
-#app {
-  font-family: sans-serif;
+.map {
+  flex-grow: 1;
 }
 </style>
