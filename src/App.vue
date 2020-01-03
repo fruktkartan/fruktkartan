@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="full_div" >
-    <header>
-      <h1>Fruktkartan</h1>
+    <header class="header">
+      <h1 alt="Fruktkartan">
+        <img src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
+      </h1>
     </header>
     <component :is="currentView" class="map" />
   </div>
@@ -40,6 +42,14 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
+}
+.header {
+  background-color: #FFCC00;
+  text-align:center;
+}
+
+.header h1 {
+  margin: .2em 0 0 0;
 }
 
 .map {
