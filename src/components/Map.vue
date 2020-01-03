@@ -37,14 +37,19 @@
         :key="marker.id" :lat-lng="marker" :icon="marker.icon"
       >
         <l-popup>
-          <div class="treeType">{{ marker.type }}</div>
-          <div class="treeDesc" v-if="popupIsLoaded">
-            <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
-            <p>{{ currPopupData.description  }}</p>
-          </div>
-          <div class="treeDesc" v-else>
-            <p>Laddar...</p>
-          </div>
+          <article class="tree">
+            <header class="treeType">{{ marker.type }}</header>
+            <div class="treeDesc" v-if="popupIsLoaded">
+              <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
+              <p>{{ currPopupData.description  }}</p>
+            </div>
+            <div class="treeDesc" v-else>
+              <p>Laddar...</p>
+            </div>
+            <footer>
+              <button @click="deleteTree(marker)">Radera</button>
+            </footer>
+          </article>
         </l-popup>
       </l-marker>
       </l-marker-cluster>
@@ -209,6 +214,20 @@ export default {
 
     getIcon: function(type) {
       return this.icons[type] ?? this.icons["Annan sort"]
+    },
+    
+    deleteTree: function(marker) {
+      let result = window.confirm(`Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`)
+      if (result) {
+        console.log("raderar träd")
+        /*
+        fetch(`${APIBASE}/tree/${marker.key}`, {method: "DELETE"})
+          .then(() => {
+            this.$refs.map.closePopup()
+            this.fetchMarkers()
+          })
+        */
+      }
     },
     
     updateFilters: function() {
