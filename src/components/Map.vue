@@ -223,7 +223,7 @@ export default {
         /*
         fetch(`${APIBASE}/tree/${marker.key}`, {method: "DELETE"})
           .then(() => {
-            this.$refs.map.closePopup()
+            this.$refs.map.mapObject.closePopup()
             this.fetchMarkers()
           })
         */
