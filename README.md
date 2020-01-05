@@ -1,29 +1,36 @@
 # fruktkartan
 
-## Project setup
+Writing a new frontend for https://fruktkartan.se
+
+Branch `production` is deployed automatically at https://fruktkartan.netlify.com
+
+Branch `master` at https://master--fruktkartan.netlify.com
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/11680892-fb54-4e91-aa43-f07ef9c32f4d/deploy-status)](https://app.netlify.com/sites/fruktkartan/deploys)
+
+## Developing
+
+### Project setup
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+npm run build
 ```
 
 ### Run your tests
 ```
-yarn run test
+npm run test
 ```
 
 ### Lints and fixes files
 ```
-yarn run lint
+npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
