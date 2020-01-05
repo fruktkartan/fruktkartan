@@ -164,7 +164,7 @@ export default {
       "Annan sort":      icon("tree"),
     }
   },
-  
+
   mounted: function () {
     let self = this
 
@@ -176,7 +176,7 @@ export default {
         reject()
       }
     })
-    
+
     getUserPosition
       .then(pos => {
         let ll = latLng(pos.coords.latitude, pos.coords.longitude)
@@ -203,7 +203,7 @@ export default {
             .then(resolve)
         }
       })
-      
+
       getData.then(data => {
         self.currPopupData = {...data}
         self.popupData[marker.key] = self.currPopupData
@@ -215,7 +215,7 @@ export default {
     getIcon: function(type) {
       return this.icons[type] ?? this.icons["Annan sort"]
     },
-    
+
     deleteTree: function(marker) {
       let result = window.confirm(`Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`)
       if (result) {
@@ -229,7 +229,7 @@ export default {
         */
       }
     },
-    
+
     updateFilters: function() {
       this.filteredMarkers = this.markers
         .filter(m => this.filter_hideempty ? m.desc || m.img : true)
