@@ -1,12 +1,14 @@
 <template>
-  <div id="app" class="full_div" >
-    <header class="header">
-      <h1 alt="Fruktkartan">
-        <img src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
-      </h1>
-    </header>
-    <component :is="currentView" class="map" />
-  </div>
+  <v-app>
+    <div id="app" class="full_div" >
+      <header class="header">
+        <h1 alt="Fruktkartan">
+          <img src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
+        </h1>
+      </header>
+      <component :is="currentView" class="map" />
+    </div>
+  </v-app>
 </template>
 
 <script>
