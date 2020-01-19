@@ -20,7 +20,7 @@
         <form>
         <!--<form @change="updateFilters"> -->
           <label>
-            <select v-model="filter_type">
+            <select v-model="filters.type">
               <option value="*">Alla</option>
               <option value="Äpple">Äppelträd</option>
               <option value="Päron">Päronträd</option>
@@ -28,7 +28,7 @@
             <span class="label">Välj träd att visa</span>
           </label>
           <label>
-            <input type="checkbox" v-model="filter_hideempty">
+            <input type="checkbox" v-model="filters.hideempty">
             <span class="label">Dölj träd utan bild eller beskrivning?</span>
           </label>
         </form>
@@ -41,7 +41,7 @@
       <div id="main">
         <component
           :is="currentView"
-          :filter_hideempty="filter_hideempty"
+          :treeFilters="filters"
           class="map"
         />
       </div>
@@ -71,9 +71,10 @@ export default {
       color: "#FFCC0099",
       width: "317",
 
-      /* filter */
-      filter_hideempty: true,
-      filter_type: "*",
+      filters: {
+        hideempty: true,
+        type: "*",
+      },
     }
   }
 }

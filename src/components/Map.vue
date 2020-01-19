@@ -84,19 +84,16 @@ export default {
       popupIsOpen: false,
       popupIsLoaded: false,
       
-      /*
-      filter_hideempty: true,
-      filter_type: "*",
-      */
     }
   },
 
-  props: ["filter_hideempty"],
+  props: ["treeFilters"],
   
   watch: {
-    filter_hideempty: {
+    treeFilters: {
       // the callback will be called immediately after the start of the observation
       // immediate: true, 
+      deep: true,
       handler() {
         this.updateFilters()
       }
@@ -230,8 +227,8 @@ export default {
 
     updateFilters: function() {
       this.filteredMarkers = this.markers
-        .filter(m => this.filter_hideempty ? m.desc || m.img : true)
-        //.filter(m => this.filter_type === "*" ? true  : this.filter_type === m.type)
+        .filter(m => this.treeFilters.hideempty ? m.desc || m.img : true)
+        //.filter(m => this.treeFilters.type === "*" ? true  : this.filter_type === m.type)
     },
 
     fetchMarkers: function() {
