@@ -1,13 +1,51 @@
 <template>
-  <v-app>
-    <div id="app" class="full_div" >
+  <v-app id="app">
+    <v-navigation-drawer
+      v-model="drawer"
+      :color="color"
+      :width="width"
+      :expand-on-hover="expandOnHover"
+      :mini-variant="miniVariant"
+      :right="right"
+      :bottom="bottom"
+      absolute
+      dark
+    >
       <header class="header">
         <h1 alt="Fruktkartan">
           <img src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
         </h1>
       </header>
-      <component :is="currentView" class="map" />
-    </div>
+      <menu id="filters">
+        <form>
+        <!--<form @change="updateFilters"> -->
+          <label>
+            <select v-model="filter_type">
+              <option value="*">Alla</option>
+              <option value="Äpple">Äppelträd</option>
+              <option value="Päron">Päronträd</option>
+            </select>
+            <span class="label">Välj träd att visa</span>
+          </label>
+          <label>
+            <input type="checkbox" v-model="filter_hideempty">
+            <span class="label">Dölj träd utan bild eller beskrivning?</span>
+          </label>
+        </form>
+      </menu>
+      <footer>
+        <p>Om Fruktkartan...</p>
+      </footer>
+    </v-navigation-drawer>
+    <v-content>
+      <div id="main">
+        <component
+          :is="currentView"
+          :filter_hideempty="filter_hideempty"
+          class="map"
+        />
+      </div>
+    </v-content>
   </v-app>
 </template>
 
@@ -21,7 +59,21 @@ export default {
   },
   data () {
     return {
-      currentView: "Map"
+      currentView: "Map",
+
+      /* v-navigation-drawer */
+      drawer: true,
+      right: true,
+      miniVariant: false,
+      expandOnHover: true,
+      bottom: true,
+      app: true,
+      color: "#FFCC0099",
+      width: "317",
+
+      /* filter */
+      filter_hideempty: true,
+      filter_type: "*",
     }
   }
 }
@@ -33,7 +85,7 @@ export default {
 #app {
   font-family: sans-serif;
 }
-.full_div {
+#main {
   display: flex;
   flex-direction: column;
 
@@ -44,6 +96,10 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
+}
+
+.v-navigation-drawer {
+  z-index: 500 !important;
 }
 .header {
   background-color: #FFCC00;

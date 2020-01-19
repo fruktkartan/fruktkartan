@@ -1,22 +1,5 @@
 <template>
   <div>
-    <menu id="filters">
-      <form @change="updateFilters">
-        <label>
-          <select v-model="filter_type">
-            <option value="*">Alla</option>
-            <option value="Äpple">Äppelträd</option>
-            <option value="Päron">Päronträd</option>
-          </select>
-          <span class="label">Välj träd att visa</span>
-        </label>
-        <label>
-          <input type="checkbox" v-model="filter_hideempty">
-          <span class="label">Dölj träd utan bild eller beskrivning?</span>
-        </label>
-      </form>
-    </menu>
-
     <l-map
       ref="theMap"
       :center="center"
@@ -100,8 +83,23 @@ export default {
       currPopupData: null,
       popupIsOpen: false,
       popupIsLoaded: false,
+      
+      /*
       filter_hideempty: true,
       filter_type: "*",
+      */
+    }
+  },
+
+  props: ["filter_hideempty"],
+  
+  watch: {
+    filter_hideempty: {
+      // the callback will be called immediately after the start of the observation
+      // immediate: true, 
+      handler() {
+        this.updateFilters()
+      }
     }
   },
 
@@ -233,7 +231,7 @@ export default {
     updateFilters: function() {
       this.filteredMarkers = this.markers
         .filter(m => this.filter_hideempty ? m.desc || m.img : true)
-        .filter(m => this.filter_type === "*" ? true  : this.filter_type === m.type)
+        //.filter(m => this.filter_type === "*" ? true  : this.filter_type === m.type)
     },
 
     fetchMarkers: function() {
