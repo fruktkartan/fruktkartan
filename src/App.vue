@@ -17,21 +17,15 @@
         </h1>
       </header>
       <menu id="filters">
-        <form>
-        <!--<form @change="updateFilters"> -->
-          <label>
-            <select v-model="filters.type">
-              <option value="*">Alla</option>
-              <option value="Äpple">Äppelträd</option>
-              <option value="Päron">Päronträd</option>
-            </select>
-            <span class="label">Välj träd att visa</span>
-          </label>
-          <label>
-            <input type="checkbox" v-model="filters.hideempty">
-            <span class="label">Dölj träd utan bild eller beskrivning?</span>
-          </label>
-        </form>
+        <v-select
+         :items="treeTypes"
+         label="Välj träd att visa"
+         v-model="filters.type"
+         />
+         <v-switch
+          v-model="filters.hideempty"
+          label="Dölj träd utan bild eller beskrivning?"
+         />
       </menu>
       <footer>
         <p>Om Fruktkartan...</p>
@@ -65,12 +59,17 @@ export default {
       drawer: true,
       right: true,
       miniVariant: false,
-      expandOnHover: true,
+      // expandOnHover: true,
       bottom: true,
       app: true,
-      color: "#FFCC0099",
+      color: "#FFCC00CC",
       width: "317",
 
+      treeTypes: [
+        {text: "Alla", value: "*"},
+        {text: "Äppelträd", value: "Äpple"},
+        {text: "Päronträd", value: "Päron"},
+      ],
       filters: {
         hideempty: true,
         type: "*",
