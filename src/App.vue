@@ -10,11 +10,10 @@
       :bottom="bottom"
       absolute
     >
-      <header class="header">
-        <h1 alt="Fruktkartan">
-          <img src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
-        </h1>
-      </header>
+      <h1 alt="Fruktkartan" class="header">
+        <img v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
+        <img v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoMicro.png" />
+      </h1>
       <v-form>
         <v-select
          :items="treeTypes"
@@ -27,14 +26,11 @@
          />
          <v-btn @click="reset()">Återställ</v-btn>
       </v-form>
-
+      <p>Om Fruktkartan...</p>
       <v-btn @click="miniVariant = !miniVariant">
-        Visa/Dölj
+        <v-icon>mdi-chevron-left</v-icon>
+        <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
-  
-      <footer>
-        <p>Om Fruktkartan...</p>
-      </footer>
     </v-navigation-drawer>
 
     <v-content>
@@ -118,9 +114,6 @@ export default {
   text-align:center;
 }
 
-.header h1 {
-  margin: .2em 0 0 0;
-}
 
 .map {
   flex-grow: 1;
