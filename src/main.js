@@ -1,6 +1,7 @@
 import Vue from "vue"
 import { Icon } from "leaflet"
 import App from "./App.vue"
+import vuetify from "./plugins/vuetify"
 
 Vue.config.productionTip = false
 
@@ -12,5 +13,6 @@ Icon.Default.mergeOptions({
 })
 
 new Vue({
+  vuetify,
   render: h => h(App)
 }).$mount("#app")

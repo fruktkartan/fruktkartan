@@ -1,65 +1,49 @@
 <template>
   <div>
-    <menu id="filters">
-      <form @change="updateFilters">
-        <label>
-          <select v-model="filter_type">
-            <option value="*">Alla</option>
-            <option value="Äpple">Äppelträd</option>
-            <option value="Päron">Päronträd</option>
-          </select>
-          <span class="label">Välj träd att visa</span>
-        </label>
-        <label>
-          <input type="checkbox" v-model="filter_hideempty">
-          <span class="label">Dölj träd utan bild eller beskrivning?</span>
-        </label>
-      </form>
-    </menu>
-
     <l-map
       ref="theMap"
       :center="center"
       :zoom="zoom"
       :options="mapOptions"
       @update:bounds="fetchMarkers"
-    >
+      style="z-index: 0"
+    ><!-- z-index to avoid shadowing Vuetify elements -->
       <l-tile-layer :url="url" :attribution="attribution" />
       <!--
       <l-control :position="'topleft'" class="control">
       </l-control>
       -->
       <l-marker-cluster :options="clusterOptions">
-      <l-marker
-        @popupopen="fetchPopupContent(marker)"
-        @popupclose="() => {popupIsLoaded = false; popupIsOpen = false}"
-        v-for="marker in filteredMarkers"
-        :key="marker.id" :lat-lng="marker" :icon="marker.icon"
-      >
-        <l-popup>
-          <article class="tree">
-            <header class="treeType">{{ marker.type }}</header>
-            <div class="treeDesc" v-if="popupIsLoaded">
-              <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
-              <p>{{ currPopupData.description  }}</p>
-            </div>
-            <div class="treeDesc" v-else>
-              <p>Laddar...</p>
-            </div>
-            <footer>
-              <button @click="deleteTree(marker)">Radera</button>
-            </footer>
-          </article>
-        </l-popup>
-      </l-marker>
+        <l-marker
+          @click="fetchPopupContent(marker)"
+          v-for="marker in filteredMarkers"
+          :key="marker.id" :lat-lng="marker" :icon="marker.icon"
+        />
       </l-marker-cluster>
+      <v-dialog
+        v-model="popupOpen"
+        max-width="290"
+      >
+        <v-card :loading="!Object.entries(currPopupData).length">
+          <v-card-title>{{ currPopupData.type }} </v-card-title>
+          <v-card-text>{{ currPopupData.description }}</v-card-text>
+          <v-img
+            v-if="currPopupData.img"
+            :src="currPopupData.img"
+            height="194"
+          />
+          <v-card-actions>
+            <button @click="deleteTree(currPopupData)">Radera</button>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </l-map>
   </div>
 </template>
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LPopup, /* LControl */ } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, /* LControl */ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
@@ -71,8 +55,6 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LPopup,
-    // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
   },
   data() {
@@ -90,20 +72,26 @@ export default {
         disableClusteringAtZoom: 15,
         spiderfyOnMaxZoom: false,
       },
-      popupOptions: {
-        closeOnEscapeKey: false,  // buggy with Vue
-      },
-      markers: [],
-      filteredMarkers: [],
-      icons: {},
+      popupOpen: false,
       popupData: {},
-      currPopupData: null,
-      popupIsOpen: false,
-      popupIsLoaded: false,
-      filter_hideempty: true,
-      filter_type: "*",
+      currPopupData: {},
+
+      markers: [],
+      //filteredMarkers: [],
+      icons: {},
+      
     }
   },
+  
+  computed: {
+    filteredMarkers() {
+      return this.markers
+        .filter(m => this.treeFilters.hideempty ? m.desc || m.img : true)
+        .filter(m => this.treeFilters.type === "*" ? true  : this.treeFilters.type === m.type)
+    }
+  },
+
+  props: ["treeFilters"],
 
   created: function () {
     function icon(filename) {
@@ -193,11 +181,18 @@ export default {
   methods: {
     fetchPopupContent: function (marker) {
       let self = this
-      self.popupIsOpen = true
+      this.currPopupData = {}
+      this.popupOpen = true
+
       let getData = new Promise(resolve => {
         if (self.popupData[marker.key]) {
           resolve(self.popupData[marker.key])
         } else {
+          var start = Date.now(),
+              now = start
+          while (now - start < 2000) {
+            now = Date.now()
+          }
           fetch(`${APIBASE}/tree/${marker.key}`)
             .then(response => response.json())
             .then(resolve)
@@ -205,9 +200,8 @@ export default {
       })
 
       getData.then(data => {
-        self.currPopupData = {...data}
+        self.currPopupData = {...marker, ...data}
         self.popupData[marker.key] = self.currPopupData
-        self.popupIsLoaded = true
       })
 
     },
@@ -223,24 +217,14 @@ export default {
         /*
         fetch(`${APIBASE}/tree/${marker.key}`, {method: "DELETE"})
           .then(() => {
-            this.$refs.map.mapObject.closePopup()
+            this.popupOpen = false
             this.fetchMarkers()
           })
         */
       }
     },
 
-    updateFilters: function() {
-      this.filteredMarkers = this.markers
-        .filter(m => this.filter_hideempty ? m.desc || m.img : true)
-        .filter(m => this.filter_type === "*" ? true  : this.filter_type === m.type)
-    },
-
     fetchMarkers: function() {
-      if (this.popupIsOpen) {
-        // abort if a popup is open, as leaflet freaks out otherwise
-        return
-      }
       let self = this
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
@@ -254,7 +238,6 @@ export default {
               ...m,
               icon: self.getIcon(m.type),
             }))
-          self.updateFilters()
         })
     }
   }
