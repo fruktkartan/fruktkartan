@@ -34,7 +34,7 @@
             <p>Laddar...</p>
           </div>
           <footer>
-            <button @click="deleteTree(currPopupData.key)">Radera</button>
+            <button @click="deleteTree(currPopupData)">Radera</button>
           </footer>
         </article>
       </v-dialog>
@@ -76,15 +76,13 @@ export default {
         spiderfyOnMaxZoom: false,
       },
       popupOpen: false,
-      popupOptions: {
-        closeOnEscapeKey: false,  // buggy with Vue
-      },
+
       markers: [],
       filteredMarkers: [],
       icons: {},
       popupData: {},
       currPopupData: {},
-      popupIsOpen: false,
+
       popupIsLoaded: false,
       
     }
@@ -194,7 +192,6 @@ export default {
       self.currPopupData = {}
       self.popupOpen = true
 
-      //self.popupIsOpen = true
       let getData = new Promise(resolve => {
         if (self.popupData[marker.key]) {
           resolve(self.popupData[marker.key])
@@ -206,7 +203,7 @@ export default {
       })
 
       getData.then(data => {
-        self.currPopupData = {...data}
+        self.currPopupData = {...data, ...marker}
         self.popupData[marker.key] = self.currPopupData
         self.popupIsLoaded = true
       })
@@ -224,7 +221,7 @@ export default {
         /*
         fetch(`${APIBASE}/tree/${marker.key}`, {method: "DELETE"})
           .then(() => {
-            this.$refs.map.mapObject.closePopup()
+            this.popupOpen = false
             this.fetchMarkers()
           })
         */
@@ -238,10 +235,6 @@ export default {
     },
 
     fetchMarkers: function() {
-      if (this.popupIsOpen) {
-        // abort if a popup is open, as leaflet freaks out otherwise
-        return
-      }
       let self = this
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
