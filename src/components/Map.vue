@@ -228,7 +228,7 @@ export default {
     updateFilters: function() {
       this.filteredMarkers = this.markers
         .filter(m => this.treeFilters.hideempty ? m.desc || m.img : true)
-        //.filter(m => this.treeFilters.type === "*" ? true  : this.treeFilters.type === m.type)
+        .filter(m => this.treeFilters.type === "*" ? true  : this.treeFilters.type === m.type)
     },
 
     fetchMarkers: function() {
