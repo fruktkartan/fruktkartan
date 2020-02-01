@@ -5,7 +5,7 @@
       :color="color"
       :width="width"
       :expand-on-hover="expandOnHover"
-      :mini-variant="miniVariant"
+      :mini-variant.sync="miniVariant"
       :right="right"
       :bottom="bottom"
       absolute
@@ -27,10 +27,16 @@
          />
          <v-btn @click="reset()">Återställ</v-btn>
       </v-form>
+
+      <v-btn @click="miniVariant = !miniVariant">
+        Visa/Dölj
+      </v-btn>
+  
       <footer>
         <p>Om Fruktkartan...</p>
       </footer>
     </v-navigation-drawer>
+
     <v-content>
       <div id="main">
         <component
