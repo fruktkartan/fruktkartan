@@ -179,6 +179,7 @@ export default {
   },
 
   methods: {
+
     fetchPopupContent: function (marker) {
       let self = this
       this.currPopupData = {}
@@ -188,11 +189,6 @@ export default {
         if (self.popupData[marker.key]) {
           resolve(self.popupData[marker.key])
         } else {
-          var start = Date.now(),
-              now = start
-          while (now - start < 2000) {
-            now = Date.now()
-          }
           fetch(`${APIBASE}/tree/${marker.key}`)
             .then(response => response.json())
             .then(resolve)
@@ -262,10 +258,6 @@ export default {
   padding: .5em 1em;
   border: 1px solid black;
   border-radius: .5em;
-}
-
-.treeImg {
-  float: left;
 }
 
 </style>
