@@ -24,19 +24,18 @@
         v-model="popupOpen"
         max-width="290"
       >
-        <article class="tree">
-          <header class="treeType">{{ currPopupData.type }}</header>
-          <div class="treeDesc" v-if="popupIsLoaded">
-            <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
-            <p>{{ currPopupData.description  }}</p>
-          </div>
-          <div class="treeDesc" v-else>
-            <p>Laddar...</p>
-          </div>
-          <footer>
+        <v-card :loading="!Object.entries(currPopupData).length">
+          <v-card-title>{{ currPopupData.type }} </v-card-title>
+          <v-card-text>{{ currPopupData.description }}</v-card-text>
+          <v-img
+            v-if="currPopupData.img"
+            :src="currPopupData.img"
+            height="194"
+          />
+          <v-card-actions>
             <button @click="deleteTree(currPopupData)">Radera</button>
-          </footer>
-        </article>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
     </l-map>
   </div>
@@ -44,7 +43,7 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker /*, LPopup, /* LControl */ } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, /* LControl */ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
@@ -56,8 +55,6 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    // LPopup,
-    // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
   },
   data() {
@@ -76,30 +73,25 @@ export default {
         spiderfyOnMaxZoom: false,
       },
       popupOpen: false,
-
-      markers: [],
-      filteredMarkers: [],
-      icons: {},
       popupData: {},
       currPopupData: {},
 
-      popupIsLoaded: false,
+      markers: [],
+      //filteredMarkers: [],
+      icons: {},
       
+    }
+  },
+  
+  computed: {
+    filteredMarkers() {
+      return this.markers
+        .filter(m => this.treeFilters.hideempty ? m.desc || m.img : true)
+        .filter(m => this.treeFilters.type === "*" ? true  : this.treeFilters.type === m.type)
     }
   },
 
   props: ["treeFilters"],
-  
-  watch: {
-    treeFilters: {
-      // the callback will be called immediately after the start of the observation
-      // immediate: true, 
-      deep: true,
-      handler() {
-        this.updateFilters()
-      }
-    }
-  },
 
   created: function () {
     function icon(filename) {
@@ -189,13 +181,18 @@ export default {
   methods: {
     fetchPopupContent: function (marker) {
       let self = this
-      self.currPopupData = {}
-      self.popupOpen = true
+      this.currPopupData = {}
+      this.popupOpen = true
 
       let getData = new Promise(resolve => {
         if (self.popupData[marker.key]) {
           resolve(self.popupData[marker.key])
         } else {
+          var start = Date.now(),
+              now = start
+          while (now - start < 2000) {
+            now = Date.now()
+          }
           fetch(`${APIBASE}/tree/${marker.key}`)
             .then(response => response.json())
             .then(resolve)
@@ -203,9 +200,8 @@ export default {
       })
 
       getData.then(data => {
-        self.currPopupData = {...data, ...marker}
+        self.currPopupData = {...marker, ...data}
         self.popupData[marker.key] = self.currPopupData
-        self.popupIsLoaded = true
       })
 
     },
@@ -228,12 +224,6 @@ export default {
       }
     },
 
-    updateFilters: function() {
-      this.filteredMarkers = this.markers
-        .filter(m => this.treeFilters.hideempty ? m.desc || m.img : true)
-        .filter(m => this.treeFilters.type === "*" ? true  : this.treeFilters.type === m.type)
-    },
-
     fetchMarkers: function() {
       let self = this
 
@@ -248,7 +238,6 @@ export default {
               ...m,
               icon: self.getIcon(m.type),
             }))
-          self.updateFilters()
         })
     }
   }
