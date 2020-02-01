@@ -9,14 +9,13 @@
       :right="right"
       :bottom="bottom"
       absolute
-      dark
     >
       <header class="header">
         <h1 alt="Fruktkartan">
           <img src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
         </h1>
       </header>
-      <menu id="filters">
+      <v-form>
         <v-select
          :items="treeTypes"
          label="Välj träd att visa"
@@ -26,7 +25,8 @@
           v-model="filters.hideempty"
           label="Dölj träd utan bild eller beskrivning?"
          />
-      </menu>
+         <v-btn @click="reset()">Återställ</v-btn>
+      </v-form>
       <footer>
         <p>Om Fruktkartan...</p>
       </footer>
@@ -45,6 +45,10 @@
 
 <script>
 import Map from "./components/Map.vue"
+const DEFAULT_FILTERS = {
+  hideempty: true,
+  type: "*",
+}
 
 export default {
   name: "app",
@@ -70,11 +74,13 @@ export default {
         {text: "Äppelträd", value: "Äpple"},
         {text: "Päronträd", value: "Päron"},
       ],
-      filters: {
-        hideempty: true,
-        type: "*",
-      },
+      filters: {...DEFAULT_FILTERS},
     }
+  },
+  methods: {
+    reset () {
+      this.filters = {...DEFAULT_FILTERS}
+    },
   }
 }
 </script>
