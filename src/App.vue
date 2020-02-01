@@ -59,7 +59,7 @@ export default {
       drawer: true,
       right: true,
       miniVariant: false,
-      // expandOnHover: true,
+      expandOnHover: false,
       bottom: true,
       app: true,
       color: "#FFCC00CC",

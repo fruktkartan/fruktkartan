@@ -6,43 +6,45 @@
       :zoom="zoom"
       :options="mapOptions"
       @update:bounds="fetchMarkers"
-    >
+      style="z-index: 0"
+    ><!-- z-index to avoid shadowing Vuetify elements -->
       <l-tile-layer :url="url" :attribution="attribution" />
       <!--
       <l-control :position="'topleft'" class="control">
       </l-control>
       -->
       <l-marker-cluster :options="clusterOptions">
-      <l-marker
-        @popupopen="fetchPopupContent(marker)"
-        @popupclose="() => {popupIsLoaded = false; popupIsOpen = false}"
-        v-for="marker in filteredMarkers"
-        :key="marker.id" :lat-lng="marker" :icon="marker.icon"
-      >
-        <l-popup>
-          <article class="tree">
-            <header class="treeType">{{ marker.type }}</header>
-            <div class="treeDesc" v-if="popupIsLoaded">
-              <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
-              <p>{{ currPopupData.description  }}</p>
-            </div>
-            <div class="treeDesc" v-else>
-              <p>Laddar...</p>
-            </div>
-            <footer>
-              <button @click="deleteTree(marker)">Radera</button>
-            </footer>
-          </article>
-        </l-popup>
-      </l-marker>
+        <l-marker
+          @click="fetchPopupContent(marker)"
+          v-for="marker in filteredMarkers"
+          :key="marker.id" :lat-lng="marker" :icon="marker.icon"
+        />
       </l-marker-cluster>
+      <v-dialog
+        v-model="popupOpen"
+        max-width="290"
+      >
+        <article class="tree">
+          <header class="treeType">{{ currPopupData.type }}</header>
+          <div class="treeDesc" v-if="popupIsLoaded">
+            <img class="treeImg" v-if="currPopupData.img" :src="currPopupData.img" width="200" />
+            <p>{{ currPopupData.description  }}</p>
+          </div>
+          <div class="treeDesc" v-else>
+            <p>Laddar...</p>
+          </div>
+          <footer>
+            <button @click="deleteTree(currPopupData.key)">Radera</button>
+          </footer>
+        </article>
+      </v-dialog>
     </l-map>
   </div>
 </template>
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LPopup, /* LControl */ } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker /*, LPopup, /* LControl */ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
@@ -54,7 +56,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LPopup,
+    // LPopup,
     // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
   },
@@ -73,6 +75,7 @@ export default {
         disableClusteringAtZoom: 15,
         spiderfyOnMaxZoom: false,
       },
+      popupOpen: false,
       popupOptions: {
         closeOnEscapeKey: false,  // buggy with Vue
       },
@@ -80,7 +83,7 @@ export default {
       filteredMarkers: [],
       icons: {},
       popupData: {},
-      currPopupData: null,
+      currPopupData: {},
       popupIsOpen: false,
       popupIsLoaded: false,
       
@@ -188,7 +191,10 @@ export default {
   methods: {
     fetchPopupContent: function (marker) {
       let self = this
-      self.popupIsOpen = true
+      self.currPopupData = {}
+      self.popupOpen = true
+
+      //self.popupIsOpen = true
       let getData = new Promise(resolve => {
         if (self.popupData[marker.key]) {
           resolve(self.popupData[marker.key])
