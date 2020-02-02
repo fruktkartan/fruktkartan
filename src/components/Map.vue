@@ -161,13 +161,11 @@ export default {
       let result = window.confirm(`Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`)
       if (result) {
         console.log("raderar träd")
-        /*
         fetch(`${APIBASE}/tree/${marker.key}`, {method: "DELETE"})
           .then(() => {
             this.popupOpen = false
             this.fetchMarkers()
           })
-        */
       }
     },
 
