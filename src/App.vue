@@ -16,19 +16,22 @@
       </h1>
       <v-list>
         <v-subheader>Filtrera</v-subheader>
+
         <v-list-item>
           <v-select
-           :items="treeTypes"
+           :items="selectTreeTypes"
            label="Välj träd att visa"
            v-model="filters.type"
            />
         </v-list-item>
+
         <v-list-item>
            <v-switch
             v-model="filters.hideempty"
             label="Dölj träd utan bild eller beskrivning?"
            />
         </v-list-item>
+
         <v-list-item @click="reset()">
           <v-list-item-icon>
             <v-icon>mdi-reload</v-icon>
@@ -37,6 +40,7 @@
             Återställ
           </v-list-item-content>
         </v-list-item>
+
       </v-list>
       <p>Om Fruktkartan...</p>
       <v-btn @click="miniVariant = !miniVariant">
@@ -83,11 +87,8 @@ export default {
       color: "#FFCC00CC",
       width: "317",
 
-      treeTypes: [
-        {text: "Alla", value: "*"},
-        {text: "Äppelträd", value: "Äpple"},
-        {text: "Päronträd", value: "Päron"},
-      ],
+      selectTreeTypes: require("./assets/selectTrees.json"),
+
       filters: {...DEFAULT_FILTERS},
     }
   },
