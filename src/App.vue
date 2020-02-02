@@ -14,18 +14,30 @@
         <img v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
         <img v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoMicro.png" />
       </h1>
-      <v-form>
-        <v-select
-         :items="treeTypes"
-         label="Välj träd att visa"
-         v-model="filters.type"
-         />
-         <v-switch
-          v-model="filters.hideempty"
-          label="Dölj träd utan bild eller beskrivning?"
-         />
-         <v-btn @click="reset()">Återställ</v-btn>
-      </v-form>
+      <v-list>
+        <v-subheader>Filtrera</v-subheader>
+        <v-list-item>
+          <v-select
+           :items="treeTypes"
+           label="Välj träd att visa"
+           v-model="filters.type"
+           />
+        </v-list-item>
+        <v-list-item>
+           <v-switch
+            v-model="filters.hideempty"
+            label="Dölj träd utan bild eller beskrivning?"
+           />
+        </v-list-item>
+        <v-list-item @click="reset()">
+          <v-list-item-icon>
+            <v-icon>mdi-reload</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            Återställ
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
       <p>Om Fruktkartan...</p>
       <v-btn @click="miniVariant = !miniVariant">
         <v-icon>mdi-chevron-left</v-icon>
