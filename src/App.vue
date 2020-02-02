@@ -15,17 +15,27 @@
         <img v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoMicro.png" />
       </h1>
       <v-list>
-        <v-subheader>Filtrera</v-subheader>
+        <v-subheader>
+          <v-list-item-icon>
+            <v-icon>mdi-filter</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>Filtrera</v-list-item-content>
+        </v-subheader>
 
         <v-list-item>
-          <v-select
-           :items="selectTreeTypes"
-           label="Välj träd att visa"
-           v-model="filters.type"
-           />
+          <v-list-item-icon>
+            <v-img :src="selectedTreeIcon" max-width="32" />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-select
+             :items="selectTreeTypes"
+             label="Välj träd att visa"
+             v-model="filters.type"
+             />
+         </v-list-item-content>
         </v-list-item>
 
-        <v-list-item>
+        <v-list-item v-if="!miniVariant">
            <v-switch
             v-model="filters.hideempty"
             label="Dölj träd utan bild eller beskrivning?"
@@ -90,6 +100,12 @@ export default {
       selectTreeTypes: require("./assets/selectTrees.json"),
 
       filters: {...DEFAULT_FILTERS},
+    }
+  },
+  computed: {
+    selectedTreeIcon () {
+      let tree = this.filters.type === "*" ? "tree" : this.filters.type
+      return require(`./components/icons/${tree}.svg`)
     }
   },
   methods: {
