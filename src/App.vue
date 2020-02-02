@@ -46,13 +46,11 @@
           <v-list-item-icon>
             <v-icon>mdi-reload</v-icon>
           </v-list-item-icon>
-          <v-list-item-content>
-            Återställ
-          </v-list-item-content>
+          <v-list-item-content>Återställ</v-list-item-content>
         </v-list-item>
 
       </v-list>
-      <p>Om Fruktkartan...</p>
+      <v-card>Om Fruktkartan...</v-card>
       <v-btn @click="miniVariant = !miniVariant">
         <v-icon>mdi-chevron-left</v-icon>
         <v-icon>mdi-chevron-right</v-icon>
