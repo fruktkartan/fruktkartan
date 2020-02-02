@@ -102,55 +102,10 @@ export default {
         iconUrl: require(`./icons/${filename}.svg`)
       })
     }
-    this.icons = {
-      "Berberisbär":     icon("berry"),
-      "Blåbär":          icon("berry"),
-      "Blåhallon":       icon("berry"),
-      "Jordgubbar":      icon("berry"),
-      "Krusbär":         icon("berry"),
-      "Körsbärskornell": icon("berry"),
-      "Lingon":          icon("berry"),
-      "Björnbär":        icon("berry-blackberry"),
-      "Aroniabär":       icon("berry-chokeberry"),
-      "Röda vinbär":     icon("berry-currant"),
-      "Vinbär":          icon("berry-currant"),
-      "Fläder":          icon("berry-elder"),
-      "Fläderblom":      icon("berry-elder"),
-      "Fläderbär":       icon("berry-elder"),
-      "Bocktörne":       icon("berry-goji"),
-      "Gojibär":         icon("berry-goji"),
-      "Mullbär":         icon("berry-mullberry"),
-      "Svart mullbär":   icon("berry-mullberry"),
-      "Hallon":          icon("berry-raspberry"),
-      "Nypon":           icon("berry-rosehip"),
-      "Rönnbär":         icon("berry-rowanberry"),
-      "Havtorn":         icon("berry-seabuckthorn"),
-      "Krikon":          icon("berry-sloeberry"),
-      "Slånbär":         icon("berry-sloeberry"),
-      "Smultron":        icon("berry-wildstrawberry"),
-      "Mandel":          icon("nut"),
-      "Hasselnöt":       icon("nut-hazelnut"),
-      "Kastanj":         icon("nut-sweetchestnut"),
-      "Valnöt":          icon("nut-walnut"),
-      "Äpple":           icon("tree-apple"),
-      "Bigarråer":       icon("tree-cherry"),
-      "Körsbär":         icon("tree-cherry"),
-      "Surkörsbär":      icon("tree-cherry"),
-      "Päron":           icon("tree-pear"),
-      "Körsbärsplommon": icon("tree-plum"),
-      "Mirabell":        icon("tree-plum"),
-      "Mirabellplommon": icon("tree-plum"),
-      "Plommon":         icon("tree-plum"),
-      "Kvitten":         icon("tree-quince"),
-      "Rosenkvitten":    icon("tree-quince"),
-      "Rabarber":        icon("tree-rhubarb"),
-      "Humle":           icon("herb"),
-      "Kamomill":        icon("herb-chamomille"),
-      "Körvel":          icon("herb-chervil"),
-      "Brännässla":      icon("herb-nettle"),
-      "Ramslök":         icon("herb-wildgarlic"),
-      "Annan sort":      icon("tree"),
-    }
+    this.icons = Object.entries(require("../assets/group-data.json"))
+      .map(([k, v]) => [k, icon(v.icon)])
+      .reduce((o, [k, v]) => {o[k] = v; return o}, {})
+
   },
 
   mounted: function () {
@@ -202,10 +157,6 @@ export default {
 
     },
 
-    getIcon: function(type) {
-      return this.icons[type] ?? this.icons["Annan sort"]
-    },
-
     deleteTree: function(marker) {
       let result = window.confirm(`Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`)
       if (result) {
@@ -232,7 +183,7 @@ export default {
           self.markers = json
             .map(m => ({
               ...m,
-              icon: self.getIcon(m.type),
+              icon: self.icons[m.group] ?? self.icons.tree,
             }))
         })
     }
