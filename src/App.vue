@@ -139,32 +139,13 @@ export default {
 <style>
 @import "../node_modules/leaflet/dist/leaflet.css";
 
-html {overflow-y: auto}
-
-#app {
-  font-family: sans-serif;
+html {
+  overflow: hidden !important;
 }
 #main {
   display: flex;
-  flex-direction: column;
-
-  overflow-x: auto;
   height: 100%;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
 }
-
-.v-navigation-drawer {
-  z-index: 500 !important;
-}
-.header {
-  background-color: #FFCC00;
-  text-align:center;
-}
-
-
 .map {
   flex-grow: 1;
 }
