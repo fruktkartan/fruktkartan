@@ -10,13 +10,15 @@
       :bottom="bottom"
       absolute
     >
+      <v-card flat="true">
+        <h1><v-card-title>
+          <v-img alt="Fruktkartan" v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png" />
+          <v-img alt="Fruktkartan" v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
+        </v-card-title></h1>
+      </v-card>
+
       <v-list>
-        <v-list-item>
-          <v-list-item-image>
-            <v-img :max-width="width" v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png" />
-            <v-img max-width="28px" v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
-          </v-list-item-image>
-        </v-list-item>
+
         <v-subheader>
           <v-list-item-icon>
             <v-icon>mdi-filter</v-icon>
@@ -24,23 +26,22 @@
           <v-list-item-content>Filtrera</v-list-item-content>
         </v-subheader>
 
+        <v-list-item v-if="!miniVariant">
+          <v-list-item-icon />
+          <v-switch
+            v-model="filters.hideempty"
+            label="Dölj träd utan bild eller beskrivning?"
+           />
+        </v-list-item>
+
         <v-list-item>
           <v-list-item-icon>
             <v-img :src="selectedTreeIcon" max-width="32" />
           </v-list-item-icon>
-          <v-list-item-content>
-            <v-select
-             :items="selectTreeTypes"
-             label="Välj träd att visa"
-             v-model="filters.type"
-             />
-         </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item v-if="!miniVariant">
-           <v-switch
-            v-model="filters.hideempty"
-            label="Dölj träd utan bild eller beskrivning?"
+          <v-select
+            :items="selectTreeTypes"
+            label="Välj träd att visa"
+            v-model="filters.type"
            />
         </v-list-item>
 
@@ -51,17 +52,32 @@
           <v-list-item-content>Återställ</v-list-item-content>
         </v-list-item>
 
+        <!--
         <v-subheader>
           <v-list-item-icon>
             <v-icon>mdi-information</v-icon>
           </v-list-item-icon>
           <v-list-item-content>Om Fruktkartan</v-list-item-content>
         </v-subheader>
-
+        -->
+        <v-divider />
         <v-list-item v-if="!miniVariant">
-          fruktkartan.se är en öppen databas med fruktträd. Vem som helst kan lägga till nya träd. Informationen om träden sparas på sajten säsongsmat.nu och kan användas tillsammans med artiklar och säsongsinformation om frukterna där.
-          
-          Andra sajter och appar kan använda information härifrån, via ett öppet API.
+          <v-list-item-content>
+            <v-card flat="true">
+              <v-card-title>
+                Om Fruktkartan
+              </v-card-title>
+              <v-card-text>
+                <p>Fruktkartan är en öppen databas med fruktträd på allmänningar och i parker.
+                Vem som helst kan lägga till nya träd, och redigera eller ta bort sådana som inte längre passar.
+                Sajten är byggd av Leo Wallentin, Matti Ryhänen och Daniel Lublin.</p>
+                
+                <p>Andra sajter och appar kan använda information härifrån, via ett öppet API.</p>
+                
+                <p>Läs mer >></p>
+              </v-card-text>
+            </v-card>
+          </v-list-item-content>
         </v-list-item>
 
       </v-list>
