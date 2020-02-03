@@ -10,11 +10,13 @@
       :bottom="bottom"
       absolute
     >
-      <h1 alt="Fruktkartan" class="header">
-        <img v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoSmall.png" />
-        <img v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/LogoMicro.png" />
-      </h1>
       <v-list>
+        <v-list-item>
+          <v-list-item-image>
+            <v-img :max-width="width" v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png" />
+            <v-img max-width="28px" v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
+          </v-list-item-image>
+        </v-list-item>
         <v-subheader>
           <v-list-item-icon>
             <v-icon>mdi-filter</v-icon>
@@ -49,12 +51,32 @@
           <v-list-item-content>Återställ</v-list-item-content>
         </v-list-item>
 
+        <v-subheader>
+          <v-list-item-icon>
+            <v-icon>mdi-information</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>Om Fruktkartan</v-list-item-content>
+        </v-subheader>
+
+        <v-list-item v-if="!miniVariant">
+          fruktkartan.se är en öppen databas med fruktträd. Vem som helst kan lägga till nya träd. Informationen om träden sparas på sajten säsongsmat.nu och kan användas tillsammans med artiklar och säsongsinformation om frukterna där.
+          
+          Andra sajter och appar kan använda information härifrån, via ett öppet API.
+        </v-list-item>
+
       </v-list>
-      <v-card>Om Fruktkartan...</v-card>
-      <v-btn @click="miniVariant = !miniVariant">
-        <v-icon>mdi-chevron-left</v-icon>
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
+      <template v-slot:append>
+        <v-list>
+          <v-list-item @click="miniVariant = !miniVariant">
+            <v-list-item-icon>
+              <v-icon v-if="!miniVariant">mdi-close</v-icon>
+              <v-icon v-if="miniVariant">mdi-menu-open</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>Dölj panelen</v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </template>        
+
     </v-navigation-drawer>
 
     <v-content>
@@ -92,7 +114,7 @@ export default {
       expandOnHover: false,
       bottom: true,
       app: true,
-      color: "#FFCC00CC",
+      color: null, //"#FFCC00CC",
       width: "317",
 
       selectTreeTypes: require("./assets/selectTrees.json"),
@@ -117,6 +139,8 @@ export default {
 <style>
 @import "../node_modules/leaflet/dist/leaflet.css";
 
+html {overflow-y: auto}
+
 #app {
   font-family: sans-serif;
 }
@@ -124,7 +148,6 @@ export default {
   display: flex;
   flex-direction: column;
 
-  position: absolute;
   overflow-x: auto;
   height: 100%;
   top: 0;
