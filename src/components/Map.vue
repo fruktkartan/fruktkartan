@@ -62,11 +62,12 @@ export default {
       center: latLng(62.3908, 17.3069),
       zoom: 5,
       url:
-        "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
+        "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
       attribution:
-        "Imagery &copy; <a href=\"http://giscience.uni-hd.de/\">GIScience</a> | Map data &copy; <a href=\"https://www.openstreetmap.org/copyright\">OSM</a> contributors",
+        "Karta från <a href=\"https://openstreetmap.se/\" target=\"_blank\">OpenStreetMap Sverige</a>",
       mapOptions: {
-        zoomSnap: 0.5
+        zoomSnap: 0.5,
+        maxZoom: 18,
       },
       clusterOptions: {
         disableClusteringAtZoom: 15,
