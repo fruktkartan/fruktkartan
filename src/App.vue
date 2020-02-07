@@ -10,7 +10,7 @@
       :bottom="bottom"
       absolute
     >
-      <v-card flat="true">
+      <v-card flat>
         <h1><v-card-title>
           <v-img alt="Fruktkartan" v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png" />
           <v-img alt="Fruktkartan" v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
@@ -63,7 +63,7 @@
         <v-divider />
         <v-list-item v-if="!miniVariant">
           <v-list-item-content>
-            <v-card flat="true">
+            <v-card flat>
               <v-card-title>
                 Om Fruktkartan
               </v-card-title>
