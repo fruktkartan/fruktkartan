@@ -1,5 +1,12 @@
 <template>
   <div>
+    <v-snackbar v-model="placeholder_marker.visible" :timeout="0">
+      Dra markören rätt plats!
+      <v-btn text color="green">Klar!</v-btn>
+      <v-btn text
+         @click="placeholder_marker.visible=false"
+      >Avbryt</v-btn>
+   </v-snackbar>
     <l-map
       ref="theMap"
       :center="center"
@@ -9,10 +16,9 @@
       style="z-index: 0"
     ><!-- z-index to avoid shadowing Vuetify elements -->
       <l-tile-layer :url="url" :attribution="attribution" />
-      <!--
-      <l-control :position="'topleft'" class="control">
+      <l-control position="topleft" class="control">
+        <v-icon style="background:white;border-radius:5px" @click="addTree()">mdi-plus</v-icon>
       </l-control>
-      -->
       <l-marker-cluster :options="clusterOptions">
         <l-marker
           @click="fetchPopupContent(marker)"
@@ -20,6 +26,14 @@
           :key="marker.id" :lat-lng="marker" :icon="marker.icon"
         />
       </l-marker-cluster>
+      <!-- add-a-tree marker -->
+      <l-marker
+        key="placeholder_marker"
+        :visible="placeholder_marker.visible"
+        :lat-lng="placeholder_marker.latLng"
+        draggable
+      />
+
       <v-dialog
         v-model="popupOpen"
         max-width="290"
@@ -43,11 +57,12 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, /* LControl */ } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 const DEFAULT_MAP_SIZE = 1000  // meters across map
+const MAP_CENTER = latLng(62.3908, 17.3069)
 
 export default {
   name: "Map",
@@ -55,11 +70,12 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
+    LControl,
     LMarkerCluster: Vue2LeafletMarkercluster
   },
   data() {
     return {
-      center: latLng(62.3908, 17.3069),
+      center: MAP_CENTER,
       zoom: 5,
       url:
         "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
@@ -81,6 +97,10 @@ export default {
       //filteredMarkers: [],
       icons: {},
       
+      placeholder_marker: {
+        latLng: MAP_CENTER,
+        visible: false,
+      },
     }
   },
   
@@ -135,6 +155,14 @@ export default {
   },
 
   methods: {
+    
+    addTree: function () {
+      let map = this.$refs.theMap.mapObject
+      this.placeholder_marker = {
+        visible: true,
+        latLng: map.getCenter(),
+      }
+    },
 
     fetchPopupContent: function (marker) {
       let self = this
