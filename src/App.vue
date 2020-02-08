@@ -54,17 +54,11 @@
 
         <v-divider />
 
-        <v-list-item @click="$refs.map.addTree()">
-          <v-list-item-icon>
-            <v-tooltip left>
-              <template v-slot:activator="{on}">
-              <v-icon v-on="on">mdi-plus</v-icon>
-            </template>
-              <span>Lägg till träd</span>
-            </v-tooltip>
-          </v-list-item-icon>
-          <v-list-item-content>Lägg till träd</v-list-item-content>
-        </v-list-item>
+        <SidebarItem
+          @onAction="$refs.map.addTree()"
+          icon="plus"
+          tooltip="Lägg till träd"
+        >Lägg till träd</SidebarItem>          
 
         <v-divider />
 
@@ -86,10 +80,6 @@
             </v-card>
           </v-list-item-content>
         </v-list-item>
-
-        <SidebarItem
-          @onAction="$refs.map.addTree()"
-        />
 
       </v-list>
       <template v-slot:append>

@@ -8,7 +8,9 @@
         <span>{{ tooltip }}</span>
       </v-tooltip>
     </v-list-item-icon>
-    <v-list-item-content>{{ text }}</v-list-item-content>
+    <v-list-item-content>
+      <slot></slot>
+    </v-list-item-content>
   </v-list-item>
 </template>
 
