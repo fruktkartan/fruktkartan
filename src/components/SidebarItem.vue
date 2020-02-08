@@ -3,7 +3,7 @@
     <v-list-item-icon>
       <v-tooltip left>
         <template v-slot:activator="{on}">
-        <v-icon v-on="on">mdi-{{ icon }}</v-icon>
+        <v-icon v-on="on">{{ icon }}</v-icon>
       </template>
         <span>{{ tooltip }}</span>
       </v-tooltip>

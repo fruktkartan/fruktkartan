@@ -47,7 +47,7 @@
 
         <SidebarItem
           @onClick="reset()"
-          icon="reload"
+          icon="mdi-reload"
           tooltip="Återställ filter"
         >Återställ filter</SidebarItem>          
 
@@ -55,7 +55,7 @@
 
         <SidebarItem
           @onClick="$refs.map.addTree()"
-          icon="plus"
+          icon="mdi-plus"
           tooltip="Lägg till träd"
         >Lägg till träd</SidebarItem>          
 
