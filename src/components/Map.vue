@@ -1,11 +1,20 @@
 <template>
   <div>
-    <v-snackbar v-model="placeholder_marker.visible" :timeout="0">
+    <v-snackbar v-model="addTreeMarker.visible" :timeout="0">
       Dra markören rätt plats!
-      <v-btn text color="green">Klar!</v-btn>
-      <v-btn text
-         @click="placeholder_marker.visible=false"
-      >Avbryt</v-btn>
+      <v-btn
+        text
+        color="green"
+        @click="addTreeDialog=true"
+      >
+        Klar!
+      </v-btn>
+      <v-btn
+        text
+        @click="addTreeMarker.visible=false"
+      >
+        Avbryt
+      </v-btn>
    </v-snackbar>
     <l-map
       ref="theMap"
@@ -28,9 +37,9 @@
       </l-marker-cluster>
       <!-- add-a-tree marker -->
       <l-marker
-        key="placeholder_marker"
-        :visible="placeholder_marker.visible"
-        :lat-lng="placeholder_marker.latLng"
+        key="addTreeMarker"
+        :visible="addTreeMarker.visible"
+        :lat-lng="addTreeMarker.latLng"
         draggable
       />
 
@@ -47,10 +56,35 @@
             height="194"
           />
           <v-card-actions>
-            <button @click="deleteTree(currPopupData)">Radera</button>
+            <v-btn @click="popupOpen=false">Stäng</v-btn>
+            <v-btn color="yellow" @click="deleteTree(currPopupData)">Radera</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog
+        v-model="addTreeDialog"
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title>Lägg till träd</v-card-title>
+          <p>Ett formulär här...</p>
+          <v-card-actions>
+            <v-btn
+              @click="doAddTree"
+              color="green"
+            >
+              Lägg till träd
+            </v-btn>
+            <v-btn
+              @click="() => {addTreeDialog=false; addTreeMarker.visible=false}"
+            >
+              Avbryt
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+  
     </l-map>
   </div>
 </template>
@@ -97,10 +131,12 @@ export default {
       //filteredMarkers: [],
       icons: {},
       
-      placeholder_marker: {
+      addTreeMarker: {
         latLng: MAP_CENTER,
         visible: false,
       },
+      
+      addTreeDialog: false,
     }
   },
   
@@ -146,7 +182,8 @@ export default {
         let ll = latLng(pos.coords.latitude, pos.coords.longitude)
         let bounds = ll.toBounds(pos.coords.accuracy ? pos.coords.accuracy : DEFAULT_MAP_SIZE)
         self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
-        // fetchMarkers() will be triggered by map update
+        // fetchMarkers() will be triggered by the map update,
+        // so no need to call it here
       })
       .catch(() => {
         // keep default bounds
@@ -156,12 +193,26 @@ export default {
 
   methods: {
     
+    /**
+     * Let the user add a new tree by moving a marker.
+     */
     addTree: function () {
       let map = this.$refs.theMap.mapObject
-      this.placeholder_marker = {
+      this.addTreeMarker = {
         visible: true,
         latLng: map.getCenter(),
       }
+    },
+
+    /**
+     * Actually add the tree to the DB
+     */
+    doAddTree: function () {
+      // Call the API
+      this.addTreeDialog = false
+      this.addTreeMarker.visible = false
+      // Currently does not work, see
+      // https://github.com/vue-leaflet/Vue2Leaflet/issues/512
     },
 
     fetchPopupContent: function (marker) {
