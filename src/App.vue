@@ -52,15 +52,22 @@
           <v-list-item-content>Återställ</v-list-item-content>
         </v-list-item>
 
-        <!--
-        <v-subheader>
-          <v-list-item-icon>
-            <v-icon>mdi-information</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>Om Fruktkartan</v-list-item-content>
-        </v-subheader>
-        -->
         <v-divider />
+
+        <v-list-item @click="$refs.map.addTree()">
+          <v-list-item-icon>
+            <v-tooltip left>
+              <template v-slot:activator="{on}">
+              <v-icon v-on="on">mdi-plus</v-icon>
+            </template>
+              <span>Lägg till träd</span>
+            </v-tooltip>
+          </v-list-item-icon>
+          <v-list-item-content>Lägg till träd</v-list-item-content>
+        </v-list-item>
+
+        <v-divider />
+
         <v-list-item v-if="!miniVariant">
           <v-list-item-content>
             <v-card flat>
@@ -80,6 +87,10 @@
           </v-list-item-content>
         </v-list-item>
 
+        <SidebarItem
+          @onAction="$refs.map.addTree()"
+        />
+
       </v-list>
       <template v-slot:append>
         <v-list>
@@ -91,8 +102,8 @@
             <v-list-item-content>Dölj panelen</v-list-item-content>
           </v-list-item>
         </v-list>
-      </template>        
-
+      </template>
+  
     </v-navigation-drawer>
 
     <v-content>
@@ -101,6 +112,7 @@
           :is="currentView"
           :treeFilters="filters"
           class="map"
+          ref="map"
         />
       </div>
     </v-content>
@@ -109,6 +121,8 @@
 
 <script>
 import Map from "./components/Map.vue"
+import SidebarItem from "./components/SidebarItem.vue"
+
 const DEFAULT_FILTERS = {
   hideempty: true,
   type: "*",
@@ -117,7 +131,8 @@ const DEFAULT_FILTERS = {
 export default {
   name: "app",
   components: {
-    Map
+    Map,
+    SidebarItem
   },
   data () {
     return {
