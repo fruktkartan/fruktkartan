@@ -2,8 +2,7 @@
   <v-app id="app">
     <v-navigation-drawer
       v-model="drawer"
-      :color="color"
-      :width="width"
+      :width="340"
       :expand-on-hover="expandOnHover"
       :mini-variant.sync="miniVariant"
       :right="right"
@@ -19,37 +18,33 @@
 
       <v-list>
 
-        <v-subheader>
-          <v-list-item-icon>
-            <v-icon>mdi-filter</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>Filtrera</v-list-item-content>
-        </v-subheader>
-
-        <v-list-item v-if="!miniVariant">
-          <v-list-item-icon />
+        <SidebarItem
+          icon="mdi-filter"
+          :active="filters.hideempty"
+          :tooltip="filters.hideempty ? 'Döljer träd utan beskrivning' : 'Visar även träd utan beskrivning.'"
+        >
           <v-switch
             v-model="filters.hideempty"
-            label="Dölj träd utan bild eller beskrivning?"
-           />
-        </v-list-item>
+            label="Dölj träd utan beskrivning?"
+          />
+        </SidebarItem>
 
-        <v-list-item>
-          <v-list-item-icon>
-            <v-img :src="selectedTreeIcon" max-width="32" />
-          </v-list-item-icon>
+        <SidebarItem
+          :iconImg="selectedTreeIcon"
+          :tooltip="`Visar ${selectedTreeName.toLowerCase()}`"
+        >
           <v-select
             :items="selectTreeTypes"
             label="Välj träd att visa"
             v-model="filters.type"
            />
-        </v-list-item>
+        </SidebarItem>
 
         <SidebarItem
           @onClick="reset()"
           icon="mdi-reload"
           tooltip="Återställ filter"
-        >Återställ filter</SidebarItem>          
+        >Återställ filter</SidebarItem>
 
         <v-divider />
 
@@ -57,7 +52,7 @@
           @onClick="$refs.map.addTree()"
           icon="mdi-plus"
           tooltip="Lägg till träd"
-        >Lägg till träd</SidebarItem>          
+        >Lägg till träd</SidebarItem>
 
         <v-divider />
 
@@ -134,8 +129,6 @@ export default {
       expandOnHover: false,
       bottom: true,
       app: true,
-      color: null, //"#FFCC00CC",
-      width: "317",
 
       selectTreeTypes: require("./assets/selectTrees.json"),
 
@@ -146,6 +139,14 @@ export default {
     selectedTreeIcon () {
       let tree = this.filters.type === "*" ? "tree" : this.filters.type
       return require(`./components/icons/${tree}.svg`)
+    },
+    selectedTreeName () {
+      let treeKey = this.filters.type
+      if (treeKey=== "*") {
+        return "alla träd"
+      } else {
+        return this.selectTreeTypes.filter(x => x.value === treeKey)[0].text
+      }
     }
   },
   methods: {
