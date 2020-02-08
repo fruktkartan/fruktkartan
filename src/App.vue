@@ -1,12 +1,10 @@
 <template>
   <v-app id="app">
     <v-navigation-drawer
-      v-model="drawer"
       :width="340"
-      :expand-on-hover="expandOnHover"
       :mini-variant.sync="miniVariant"
-      :right="right"
-      :bottom="bottom"
+      right
+      bottom
       absolute
     >
       <v-card flat>
@@ -89,8 +87,7 @@
 
     <v-content>
       <div id="main">
-        <component
-          :is="currentView"
+        <Map
           :treeFilters="filters"
           class="map"
           ref="map"
@@ -136,18 +133,12 @@ export default {
   data () {
     return {
       showFAQ: false,
-      currentView: "Map",
 
       /* v-navigation-drawer */
-      drawer: true,
-      right: true,
       miniVariant: false,
-      expandOnHover: false,
-      bottom: true,
-      app: true,
 
+      /* tree filters */
       selectTreeTypes: require("./assets/selectTrees.json"),
-
       filters: {...DEFAULT_FILTERS},
     }
   },
