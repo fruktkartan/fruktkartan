@@ -45,17 +45,16 @@
            />
         </v-list-item>
 
-        <v-list-item @click="reset()">
-          <v-list-item-icon>
-            <v-icon>mdi-reload</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>Återställ</v-list-item-content>
-        </v-list-item>
+        <SidebarItem
+          @onClick="reset()"
+          icon="reload"
+          tooltip="Återställ filter"
+        >Återställ filter</SidebarItem>          
 
         <v-divider />
 
         <SidebarItem
-          @onAction="$refs.map.addTree()"
+          @onClick="$refs.map.addTree()"
           icon="plus"
           tooltip="Lägg till träd"
         >Lägg till träd</SidebarItem>          

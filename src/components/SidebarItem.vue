@@ -1,5 +1,5 @@
 <template>
-  <v-list-item @click="$emit('onAction')">
+  <v-list-item @click="$emit('onClick')">
     <v-list-item-icon>
       <v-tooltip left>
         <template v-slot:activator="{on}">
