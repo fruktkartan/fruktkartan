@@ -208,7 +208,7 @@ export default {
       /*
       fetch(`${APIBASE}/tree`, {
         method: "PUT",
-        body: JSON.stringify(tree),
+        body: JSON.stringify(treePayload),
         headers: {
           'Content-Type': 'application/json',
         },
