@@ -199,9 +199,25 @@ export default {
       // Call the API
       this.addTreeDialog = false
       this.addTreeMarker.visible = false
-      console.log(tree)
-      // Currently does not work, see
-      // https://github.com/vue-leaflet/Vue2Leaflet/issues/512
+      let treePayload = {
+        ...tree,
+        lat: this.addTreeMarker.latLng.lat,
+        lon: this.addTreeMarker.latLng.lng,
+      }
+      console.log("Adding tree", treePayload)
+      /*
+      fetch(`${APIBASE}/tree`, {
+        method: "PUT",
+        body: JSON.stringify(tree),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => {
+          console.log(res)
+          this.fetchMarkers()
+        })
+      */
     },
 
     fetchPopupContent: function (marker) {
