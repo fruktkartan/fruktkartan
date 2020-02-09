@@ -39,14 +39,14 @@
     </v-card>
     <v-card v-if="step==='preview'">
       <v-card-subtitle>FÖRHANDSGRANSKNING</v-card-subtitle>
-      <v-card-title>{{ tree.type.text }}</v-card-title>
+      <v-card-title>{{ tree.type.text || tree.type.value || tree.type }}</v-card-title>
       <v-card-text>{{ tree.desc }}</v-card-text>
       <v-card-actions>
         <v-btn
           @click="step='edit'"
         >Tillbaka</v-btn>
         <v-btn
-          @click="step='edit';$emit('submit', tree)"
+          @click="step='edit';tree={...TREE_TEMPLATE};$emit('submit', tree)"
           color="green"
         >Publicera trädet</v-btn>
         <v-btn
@@ -59,6 +59,10 @@
 
 <script>
 
+const TREE_TEMPLATE = {
+  type: null,
+  desc: null,
+}
 export default {
   name: "AddTreeDialog",
   props: ["open"],
@@ -66,10 +70,7 @@ export default {
     return {
       step: "edit",
       valid: false,
-      tree: {
-        type: null,
-        desc: null,
-      },
+      tree: {...TREE_TEMPLATE},
     }
   },
 }
