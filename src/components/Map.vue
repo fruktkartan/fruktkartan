@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-snackbar v-model="addTreeMarker.visible" :timeout="0">
+    <v-snackbar
+      v-model="addTreeMarker.visible"
+      :timeout="0"
+      style="z-index:4"
+    >
       Dra markören till rätt plats.
       <v-btn text
         color="green"
@@ -62,36 +66,39 @@
       >
         <v-card>
           <v-card-title>Lägg till träd</v-card-title>
-          <v-card-content>
-            <v-form class="px-4">
-            <v-combobox
-              v-model="newTree.type"
-              :items="[
-                {text: 'Äppelträd', value: 'Äpple'},
-                {text: 'Päronträd', value: 'Päron'},
-                {text: 'Körsbärsträd', value: 'Körsbär'},
-                {text: 'Plommonträd', value: 'Plommon'},
-                {text: 'Fläderbuske', value: 'Fläder'},
-              ]"
-              label="Välj trädtyp ur listen, eller skriv in en egen"
-            />
-            <v-textarea
-              label="Beskriv trädet, och hur man hittar fram till det."
-            ></v-textarea>
-          </v-form>
-          </v-card-content>
+          <v-card-text>
+            <v-form v-model="addTreeFormIsValid">
+              <v-combobox
+                required
+                v-model="newTree.type"  
+                :rules="[v => !!v || 'Du måste välja en trädtyp!']"
+                :items="[
+                  {text: 'Äppelträd', value: 'Äpple'},
+                  {text: 'Päronträd', value: 'Päron'},
+                  {text: 'Körsbärsträd', value: 'Körsbär'},
+                  {text: 'Plommonträd', value: 'Plommon'},
+                  {text: 'Fläderbuske', value: 'Fläder'},
+                ]"
+                label="Trädtyp"
+              />
+              <v-textarea
+                v-model="newTree.desc"
+                label="Beskrivning"
+              ></v-textarea>
+            </v-form>
+          </v-card-text>
           <v-card-actions>
+            <v-btn
+              @click="addTreeDialog=false"
+            >Tillbaka</v-btn>
             <v-btn
               @click="doAddTree"
               color="green"
-            >
-              Lägg till träd
-            </v-btn>
+              :disabled="!addTreeFormIsValid"
+            >Lägg till träd</v-btn>
             <v-btn
-              @click="() => {addTreeDialog=false; addTreeMarker.visible=false}"
-            >
-              Avbryt
-            </v-btn>
+              @click="addTreeDialog=false; addTreeMarker.visible=false"
+            >Avbryt</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -149,8 +156,10 @@ export default {
       
       addTreeDialog: false,
       
+      addTreeFormIsValid: false,
       newTree: {
         type: null,
+        desc: null,
       }
     }
   },
@@ -226,6 +235,7 @@ export default {
       // Call the API
       this.addTreeDialog = false
       this.addTreeMarker.visible = false
+      console.log(this.newTree)
       // Currently does not work, see
       // https://github.com/vue-leaflet/Vue2Leaflet/issues/512
     },
