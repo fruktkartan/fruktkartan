@@ -195,11 +195,11 @@ export default {
     /**
      * Actually add the tree to the DB
      */
-    doAddTree: function () {
+    doAddTree: function (tree) {
       // Call the API
       this.addTreeDialog = false
       this.addTreeMarker.visible = false
-      console.log(this.newTree)
+      console.log(tree)
       // Currently does not work, see
       // https://github.com/vue-leaflet/Vue2Leaflet/issues/512
     },
