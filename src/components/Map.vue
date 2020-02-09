@@ -59,50 +59,18 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
+      
       <v-dialog
         persistent
         v-model="addTreeDialog"
       >
-        <v-card>
-          <v-card-title>Lägg till träd</v-card-title>
-          <v-card-text>
-            <v-form v-model="addTreeFormIsValid">
-              <v-combobox
-                required
-                v-model="newTree.type"  
-                :rules="[v => !!v || 'Du måste välja en trädtyp!']"
-                :items="[
-                  {text: 'Äppelträd', value: 'Äpple'},
-                  {text: 'Päronträd', value: 'Päron'},
-                  {text: 'Körsbärsträd', value: 'Körsbär'},
-                  {text: 'Plommonträd', value: 'Plommon'},
-                  {text: 'Fläderbuske', value: 'Fläder'},
-                ]"
-                label="Trädtyp"
-              />
-              <v-textarea
-                v-model="newTree.desc"
-                label="Beskrivning"
-              ></v-textarea>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              @click="addTreeDialog=false"
-            >Tillbaka</v-btn>
-            <v-btn
-              @click="doAddTree"
-              color="green"
-              :disabled="!addTreeFormIsValid"
-            >Lägg till träd</v-btn>
-            <v-btn
-              @click="addTreeDialog=false; addTreeMarker.visible=false"
-            >Avbryt</v-btn>
-          </v-card-actions>
-        </v-card>
+        <AddTreeDialog
+          @submit="doAddTree"
+          @goBack="addTreeDialog=false"
+          @close="addTreeDialog=false; addTreeMarker.visible=false"
+        />
       </v-dialog>
-  
+
     </l-map>
   </div>
 </template>
@@ -111,6 +79,7 @@
 import { latLng, icon as licon } from "leaflet"
 import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
+import AddTreeDialog from "./AddTreeDialog.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 const DEFAULT_MAP_SIZE = 1000  // meters across map
@@ -123,7 +92,8 @@ export default {
     LTileLayer,
     LMarker,
     LControl,
-    LMarkerCluster: Vue2LeafletMarkercluster
+    LMarkerCluster: Vue2LeafletMarkercluster,
+    AddTreeDialog
   },
   data() {
     return {
@@ -155,12 +125,6 @@ export default {
       },
       
       addTreeDialog: false,
-      
-      addTreeFormIsValid: false,
-      newTree: {
-        type: null,
-        desc: null,
-      }
     }
   },
   
