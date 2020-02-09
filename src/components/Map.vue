@@ -1,20 +1,14 @@
 <template>
   <div>
     <v-snackbar v-model="addTreeMarker.visible" :timeout="0">
-      Dra markören rätt plats!
-      <v-btn
-        text
+      Dra markören till rätt plats.
+      <v-btn text
         color="green"
         @click="addTreeDialog=true"
-      >
-        Klar!
-      </v-btn>
-      <v-btn
-        text
+      >Fortsätt</v-btn>
+      <v-btn text
         @click="addTreeMarker.visible=false"
-      >
-        Avbryt
-      </v-btn>
+      >Avbryt</v-btn>
    </v-snackbar>
     <l-map
       ref="theMap"
@@ -63,12 +57,29 @@
       </v-dialog>
 
       <v-dialog
+        persistent
         v-model="addTreeDialog"
-        max-width="290"
       >
         <v-card>
           <v-card-title>Lägg till träd</v-card-title>
-          <p>Ett formulär här...</p>
+          <v-card-content>
+            <v-form class="px-4">
+            <v-combobox
+              v-model="newTree.type"
+              :items="[
+                {text: 'Äppelträd', value: 'Äpple'},
+                {text: 'Päronträd', value: 'Päron'},
+                {text: 'Körsbärsträd', value: 'Körsbär'},
+                {text: 'Plommonträd', value: 'Plommon'},
+                {text: 'Fläderbuske', value: 'Fläder'},
+              ]"
+              label="Välj trädtyp ur listen, eller skriv in en egen"
+            />
+            <v-textarea
+              label="Beskriv trädet, och hur man hittar fram till det."
+            ></v-textarea>
+          </v-form>
+          </v-card-content>
           <v-card-actions>
             <v-btn
               @click="doAddTree"
@@ -137,6 +148,10 @@ export default {
       },
       
       addTreeDialog: false,
+      
+      newTree: {
+        type: null,
+      }
     }
   },
   
