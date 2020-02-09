@@ -39,14 +39,14 @@
     </v-card>
     <v-card v-if="step==='preview'">
       <v-card-subtitle>FÖRHANDSGRANSKNING</v-card-subtitle>
-      <v-card-title>{{ tree.type.text || tree.type.value || tree.type }}</v-card-title>
+      <v-card-title>{{ tree.type.value || tree.type.text || tree.type }}</v-card-title>
       <v-card-text>{{ tree.desc }}</v-card-text>
       <v-card-actions>
         <v-btn
           @click="step='edit'"
         >Tillbaka</v-btn>
         <v-btn
-          @click="step='edit';tree={...TREE_TEMPLATE};$emit('submit', tree)"
+          @click="submitTree"
           color="green"
         >Publicera trädet</v-btn>
         <v-btn
@@ -59,10 +59,6 @@
 
 <script>
 
-const TREE_TEMPLATE = {
-  type: null,
-  desc: null,
-}
 export default {
   name: "AddTreeDialog",
   props: ["open"],
@@ -70,8 +66,27 @@ export default {
     return {
       step: "edit",
       valid: false,
-      tree: {...TREE_TEMPLATE},
+      tree: {
+        type: null,
+        desc: null,
+      },
     }
   },
+  methods: {
+    submitTree() {
+      let newTree = {
+        type: this.tree.type.text || this.tree.type.value || this.tree.type,
+        desc: this.tree.desc,
+      }
+      this.$emit("submit", newTree)
+      
+      // Reset everything, to make sure the form is blank if the users wants
+      // to add anotrher tree
+      this.step = "edit"
+      this.tree.type = null
+      this.tree.desc = null
+
+    }
+  }
 }
 </script>
