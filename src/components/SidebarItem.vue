@@ -1,6 +1,6 @@
 <template>
   <v-list-item @click="$emit('onClick')">
-    <v-list-item-icon>
+    <v-list-item-icon @click="$emit('miniAction')">
       <v-tooltip left>
         <template v-slot:activator="{on}">
           <v-img v-if="iconImg" :src="iconImg" max-width="32" v-on="on"/>
