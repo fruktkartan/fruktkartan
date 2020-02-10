@@ -2,7 +2,7 @@
   <v-app id="app">
     <v-navigation-drawer
       :width="340"
-      :mini-variant.sync="miniVariant"
+      :mini-variant="miniVariant"
       right
       bottom
       absolute
@@ -18,6 +18,7 @@
 
         <SidebarItem
           icon="mdi-filter"
+          @miniAction="filters.hideempty = !filters.hideempty"
           :active="filters.hideempty"
           :tooltip="filters.hideempty ? 'Döljer träd utan beskrivning' : 'Visar även träd utan beskrivning.'"
         >
@@ -28,6 +29,7 @@
         </SidebarItem>
 
         <SidebarItem
+          @miniAction="miniVariant = false"
           :iconImg="selectedTreeIcon"
           :tooltip="`Visar ${selectedTreeName.toLowerCase()}`"
         >
