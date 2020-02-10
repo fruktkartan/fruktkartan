@@ -55,7 +55,8 @@
           />
           <v-card-actions>
             <v-btn @click="popupOpen=false">Stäng</v-btn>
-            <v-btn color="yellow" @click="deleteTree(currPopupData)">Radera</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="red lighten-3" @click="deleteTree(currPopupData)">Radera</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
