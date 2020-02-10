@@ -23,9 +23,11 @@
       style="z-index: 0"
     ><!-- z-index to avoid shadowing Vuetify elements -->
       <l-tile-layer :url="url" :attribution="attribution" />
+      <!--
       <l-control position="topleft" class="control">
         <v-icon style="background:white;border-radius:5px" @click="addTree()">mdi-plus</v-icon>
       </l-control>
+      -->
       <l-marker-cluster :options="clusterOptions">
         <l-marker
           @click="fetchPopupContent(marker)"
@@ -78,7 +80,7 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, /*LControl*/ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
 
@@ -92,7 +94,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LControl,
+    // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster,
     AddTreeDialog
   },
