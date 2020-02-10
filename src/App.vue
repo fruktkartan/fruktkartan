@@ -5,6 +5,7 @@
       :mini-variant="miniVariant"
       right
       bottom
+      disable-resize-watcher
       absolute
     >
       <v-card flat>
