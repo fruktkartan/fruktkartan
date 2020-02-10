@@ -1,17 +1,18 @@
 <template>
   <v-app id="app">
     <v-navigation-drawer
+      v-model="drawer"
+      :mobile-break-point="960"
       :width="340"
       :mini-variant="miniVariant"
       right
       bottom
-      disable-resize-watcher
       absolute
     >
-      <v-card flat>
+      <v-card flat class="d-none d-lg-block">
         <h1><v-card-title>
           <v-img alt="Fruktkartan" v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png" />
-          <v-img alt="Fruktkartan" v-if="miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
+          <v-img alt="Fruktkartan" v-else src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
         </v-card-title></h1>
       </v-card>
 
@@ -75,7 +76,7 @@
 
       </v-list>
       <template v-slot:append>
-        <v-list>
+        <v-list class="d-none d-lg-block">
           <v-list-item @click="miniVariant = !miniVariant">
             <v-list-item-icon>
               <v-icon v-if="!miniVariant">mdi-close</v-icon>
@@ -138,6 +139,7 @@ export default {
       showFAQ: false,
 
       /* v-navigation-drawer */
+      drawer: true,
       miniVariant: false,
 
       /* tree filters */
