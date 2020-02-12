@@ -207,20 +207,14 @@ export default {
         lat: this.addTreeMarker.latLng.lat,
         lon: this.addTreeMarker.latLng.lng,
       }
-      console.log("Adding tree", treePayload)
-      /*
       fetch(`${APIBASE}/tree`, {
         method: "PUT",
         body: JSON.stringify(treePayload),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       })
-        .then((res) => {
-          console.log(res)
-          this.fetchMarkers()
-        })
-      */
+        .then(this.fetchMarkers)
     },
 
     fetchPopupContent: function (marker) {
