@@ -40,6 +40,7 @@
         key="addTreeMarker"
         :visible="addTreeMarker.visible"
         :lat-lng="addTreeMarker.latLng"
+        :icon="addTreeMarker.icon"
         draggable
       />
 
@@ -190,6 +191,7 @@ export default {
       this.addTreeMarker = {
         visible: true,
         latLng: map.getCenter(),
+        icon: this.icons["addnew"]
       }
     },
 
