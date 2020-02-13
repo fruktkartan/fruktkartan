@@ -109,7 +109,7 @@
       <div id="main">
         <Map ref="map" :tree-filters="filters" class="map" />
 
-        <v-dialog v-model="showFAQ">
+        <v-dialog v-model="showFAQ" max-width="500">
           <v-card>
             <v-card-title>
               Om Fruktkartan

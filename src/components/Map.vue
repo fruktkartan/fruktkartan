@@ -37,7 +37,7 @@
         draggable
       />
 
-      <v-dialog v-model="popupOpen" max-width="290">
+      <v-dialog v-model="popupOpen" max-width="350">
         <v-card :loading="!Object.entries(currPopupData).length">
           <v-card-title>{{ currPopupData.type }} </v-card-title>
           <v-card-text>{{ currPopupData.description }}</v-card-text>
@@ -56,7 +56,7 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="addTreeDialog" persistent>
+      <v-dialog v-model="addTreeDialog" max-width="500" persistent>
         <AddTreeDialog
           @submit="doAddTree"
           @goBack="addTreeDialog = false"
