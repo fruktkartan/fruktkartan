@@ -24,6 +24,14 @@
             />
           </v-card-title>
         </h1>
+        <v-card-text class="text-center">
+          <p>
+            <a v-if="!miniVariant" href="#" @click="showFAQ = true"
+              >Om Fruktkartan
+            </a>
+            <a v-else href="#" @click="showFAQ = true">Om</a>
+          </p>
+        </v-card-text>
       </v-card>
 
       <v-list>
@@ -70,27 +78,6 @@
           @onClick="$refs.map.addTree()"
           >Lägg till träd</SidebarItem
         >
-
-        <v-divider />
-
-        <v-list-item v-if="!miniVariant">
-          <v-list-item-content>
-            <v-card flat>
-              <v-card-title>
-                Om Fruktkartan
-              </v-card-title>
-              <v-card-text>
-                <p>
-                  Fruktkartan är en öppen databas med fruktträd på allmänningar
-                  och i parker. Du kan själv lägga till nya träd, och redigera
-                  eller ta bort sådana som inte hör hemma här.
-                </p>
-
-                <p><a href="#" @click="showFAQ = true">Läs mer &rarr;</a></p>
-              </v-card-text>
-            </v-card>
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
       <template v-slot:append>
         <v-list class="d-none d-lg-block">
@@ -118,7 +105,7 @@
               <p>
                 Fruktkartan är en öppen databas med fruktträd på allmänningar
                 och i parker. Vem som helst kan lägga till nya träd, och
-                redigera eller ta bort sådana som inte längre passar. Sajten är
+                redigera eller ta bort sådana som inte passar här. Sajten är
                 byggd av Leo Wallentin, Matti Ryhänen och Daniel Lublin.
               </p>
 
