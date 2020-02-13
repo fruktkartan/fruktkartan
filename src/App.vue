@@ -65,9 +65,10 @@
                 Om Fruktkartan
               </v-card-title>
               <v-card-text>
-                <p>Fruktkartan är en öppen databas med fruktträd på allmänningar och i parker.
-                Du kan själv lägga till nya träd, och redigera eller ta bort sådana som inte hör hemma här.</p>
-                
+                <p>Fruktkartan är en öppen databas med fruktträd på
+                allmänningar och i parker. Du kan själv lägga till nya träd,
+                och redigera eller ta bort sådana som inte hör hemma här.</p>
+
                 <p><a  href="#" @click="showFAQ=true">Läs mer &rarr;</a></p>
               </v-card-text>
             </v-card>
@@ -86,7 +87,7 @@
           </v-list-item>
         </v-list>
       </template>
-  
+
     </v-navigation-drawer>
 
     <v-content>
@@ -96,18 +97,20 @@
           class="map"
           ref="map"
         />
-        
+
         <v-dialog v-model="showFAQ">
           <v-card>
             <v-card-title>
               Om Fruktkartan
             </v-card-title>
             <v-card-text>
-              <p>Fruktkartan är en öppen databas med fruktträd på allmänningar och i parker.
-              Vem som helst kan lägga till nya träd, och redigera eller ta bort sådana som inte längre passar.
-              Sajten är byggd av Leo Wallentin, Matti Ryhänen och Daniel Lublin.</p>
-              
-              <p>Andra sajter och appar kan använda information härifrån, via ett öppet API.</p>
+              <p>Fruktkartan är en öppen databas med fruktträd på allmänningar
+              och i parker. Vem som helst kan lägga till nya träd, och redigera
+              eller ta bort sådana som inte längre passar. Sajten är byggd av
+              Leo Wallentin, Matti Ryhänen och Daniel Lublin.</p>
+
+              <p>Andra sajter och appar kan använda information härifrån, via
+              ett öppet API.</p>
             </v-card-text>
             <v-card-actions>
               <v-btn @click="showFAQ=false">Stäng</v-btn>
