@@ -2,9 +2,11 @@
   <v-list-item @click="$emit('onClick')">
     <v-list-item-icon @click="$emit('miniAction')">
       <v-tooltip left>
-        <template v-slot:activator="{on}">
-          <v-img v-if="iconImg" :src="iconImg" max-width="32" v-on="on"/>
-          <v-icon v-else v-on="on" :color="active ? 'blue' : 'gray'">{{ icon }}</v-icon>
+        <template v-slot:activator="{ on }">
+          <v-img v-if="iconImg" :src="iconImg" max-width="32" v-on="on" />
+          <v-icon v-else :color="active ? 'blue' : 'gray'" v-on="on">{{
+            icon
+          }}</v-icon>
         </template>
         <span>{{ tooltip }}</span>
       </v-tooltip>
@@ -16,9 +18,29 @@
 </template>
 
 <script>
-
 export default {
   name: "SidebarItem",
-  props: ["text", "tooltip", "icon", "icon-img", "active"]
+  props: {
+    text: {
+      type: String,
+      default: "",
+    },
+    tooltip: {
+      type: String,
+      default: "",
+    },
+    icon: {
+      type: String,
+      default: "",
+    },
+    iconImg: {
+      type: String,
+      default: "",
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+  },
 }
 </script>

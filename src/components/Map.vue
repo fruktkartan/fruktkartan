@@ -1,27 +1,18 @@
 <template>
   <div>
-    <v-snackbar
-      v-model="addTreeMarker.visible"
-      :timeout="0"
-      style="z-index:4"
-    >
+    <v-snackbar v-model="addTreeMarker.visible" :timeout="0" style="z-index:4">
       Dra markören till rätt plats.
-      <v-btn text
-        color="green"
-        @click="addTreeDialog=true"
-      >Fortsätt</v-btn>
-      <v-btn text
-        @click="addTreeMarker.visible=false"
-      >Avbryt</v-btn>
-   </v-snackbar>
+      <v-btn text color="green" @click="addTreeDialog = true">Fortsätt</v-btn>
+      <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
+    </v-snackbar>
     <l-map
       ref="theMap"
       :center="center"
       :zoom="zoom"
       :options="mapOptions"
-      @update:bounds="fetchMarkers"
       style="z-index: 0"
-    ><!-- z-index to avoid shadowing Vuetify elements -->
+      @update:bounds="fetchMarkers"
+      ><!-- z-index to avoid shadowing Vuetify elements -->
       <l-tile-layer :url="url" :attribution="attribution" />
       <!--
       <l-control position="topleft" class="control">
@@ -30,9 +21,11 @@
       -->
       <l-marker-cluster :options="clusterOptions">
         <l-marker
-          @click="fetchPopupContent(marker)"
           v-for="marker in filteredMarkers"
-          :key="marker.id" :lat-lng="marker" :icon="marker.icon"
+          :key="marker.id"
+          :lat-lng="marker"
+          :icon="marker.icon"
+          @click="fetchPopupContent(marker)"
         />
       </l-marker-cluster>
       <!-- add-a-tree marker -->
@@ -44,10 +37,7 @@
         draggable
       />
 
-      <v-dialog
-        v-model="popupOpen"
-        max-width="290"
-      >
+      <v-dialog v-model="popupOpen" max-width="290">
         <v-card :loading="!Object.entries(currPopupData).length">
           <v-card-title>{{ currPopupData.type }} </v-card-title>
           <v-card-text>{{ currPopupData.description }}</v-card-text>
@@ -57,36 +47,37 @@
             height="194"
           />
           <v-card-actions>
-            <v-btn @click="popupOpen=false">Stäng</v-btn>
+            <v-btn @click="popupOpen = false">Stäng</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="red lighten-3" @click="deleteTree(currPopupData)">Radera</v-btn>
+            <v-btn color="red lighten-3" @click="deleteTree(currPopupData)"
+              >Radera</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
 
-      <v-dialog
-        persistent
-        v-model="addTreeDialog"
-      >
+      <v-dialog v-model="addTreeDialog" persistent>
         <AddTreeDialog
           @submit="doAddTree"
-          @goBack="addTreeDialog=false"
-          @close="addTreeDialog=false; addTreeMarker.visible=false"
+          @goBack="addTreeDialog = false"
+          @close="
+            addTreeDialog = false
+            addTreeMarker.visible = false
+          "
         />
       </v-dialog>
-
     </l-map>
   </div>
 </template>
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker, /*LControl*/ } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker /*LControl*/ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
-const DEFAULT_MAP_SIZE = 1000  // meters across map
+const DEFAULT_MAP_SIZE = 1000 // meters across map
 const MAP_CENTER = latLng(62.3908, 17.3069)
 
 export default {
@@ -97,16 +88,27 @@ export default {
     LMarker,
     // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster,
-    AddTreeDialog
+    AddTreeDialog,
+  },
+
+  props: {
+    treeFilters: {
+      type: Object,
+      default: function() {
+        return {
+          hideempty: true,
+          type: "*",
+        }
+      },
+    },
   },
   data() {
     return {
       center: MAP_CENTER,
       zoom: 5,
-      url:
-        "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
+      url: "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
       attribution:
-        "Karta från <a href=\"https://openstreetmap.se/\" target=\"_blank\">OpenStreetMap Sverige</a>",
+        "Karta från <a href='https://openstreetmap.se/' target='_blank'>OpenStreetMap Sverige</a>",
       mapOptions: {
         zoomSnap: 0.5,
         maxZoom: 18,
@@ -135,28 +137,33 @@ export default {
   computed: {
     filteredMarkers() {
       return this.markers
-        .filter(m => this.treeFilters.hideempty ? m.desc || m.img : true)
-        .filter(m => this.treeFilters.type === "*" ? true  : m.group.startsWith(this.treeFilters.type))
-    }
+        .filter(m => (this.treeFilters.hideempty ? m.desc || m.img : true))
+        .filter(m =>
+          this.treeFilters.type === "*"
+            ? true
+            : m.group.startsWith(this.treeFilters.type)
+        )
+    },
   },
 
-  props: ["treeFilters"],
-
-  created: function () {
+  created: function() {
     function icon(filename) {
       return licon({
         iconSize: [42, 36],
         iconAnchor: [21, 34],
         popupAnchor: [0, -36],
-        iconUrl: require(`./icons/${filename}.svg`)
+        iconUrl: require(`./icons/${filename}.svg`),
       })
     }
     this.icons = Object.entries(require("../assets/group-data.json"))
       .map(([k, v]) => [k, icon(v.icon)])
-      .reduce((o, [k, v]) => {o[k] = v; return o}, {})
+      .reduce((o, [k, v]) => {
+        o[k] = v
+        return o
+      }, {})
   },
 
-  mounted: function () {
+  mounted: function() {
     let self = this
 
     let getUserPosition = new Promise((resolve, reject) => {
@@ -171,7 +178,9 @@ export default {
     getUserPosition
       .then(pos => {
         let ll = latLng(pos.coords.latitude, pos.coords.longitude)
-        let bounds = ll.toBounds(pos.coords.accuracy ? pos.coords.accuracy : DEFAULT_MAP_SIZE)
+        let bounds = ll.toBounds(
+          pos.coords.accuracy ? pos.coords.accuracy : DEFAULT_MAP_SIZE
+        )
         self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
         // fetchMarkers() will be triggered by the map update,
         // so no need to call it here
@@ -186,19 +195,19 @@ export default {
     /**
      * Let the user add a new tree by moving a marker.
      */
-    addTree: function () {
+    addTree: function() {
       let map = this.$refs.theMap.mapObject
       this.addTreeMarker = {
         visible: true,
         latLng: map.getCenter(),
-        icon: this.icons["addnew"]
+        icon: this.icons["addnew"],
       }
     },
 
     /**
      * Actually add the tree to the DB
      */
-    doAddTree: function (tree) {
+    doAddTree: function(tree) {
       // Call the API
       this.addTreeDialog = false
       this.addTreeMarker.visible = false
@@ -213,11 +222,10 @@ export default {
         headers: {
           "Content-Type": "application/json",
         },
-      })
-        .then(this.fetchMarkers)
+      }).then(this.fetchMarkers)
     },
 
-    fetchPopupContent: function (marker) {
+    fetchPopupContent: function(marker) {
       let self = this
       this.currPopupData = {}
       this.popupOpen = true
@@ -233,21 +241,23 @@ export default {
       })
 
       getData.then(data => {
-        self.currPopupData = {...marker, ...data}
+        self.currPopupData = { ...marker, ...data }
         self.popupData[marker.key] = self.currPopupData
       })
-
     },
 
     deleteTree: function(marker) {
-      let result = window.confirm(`Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`)
+      let result = window.confirm(
+        `Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`
+      )
       if (result) {
         console.log("raderar träd")
-        fetch(`${APIBASE}/tree/${marker.key}`, {method: "DELETE"})
-          .then(() => {
+        fetch(`${APIBASE}/tree/${marker.key}`, { method: "DELETE" }).then(
+          () => {
             this.popupOpen = false
             this.fetchMarkers()
-          })
+          }
+        )
       }
     },
 
@@ -260,14 +270,13 @@ export default {
       )
         .then(response => response.json())
         .then(json => {
-          self.markers = json
-            .map(m => ({
-              ...m,
-              icon: self.icons[m.group] ?? self.icons.tree,
-            }))
+          self.markers = json.map(m => ({
+            ...m,
+            icon: self.icons[m.group] ?? self.icons.tree,
+          }))
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -286,9 +295,8 @@ export default {
 
 .control > p {
   background: #f0f0f0;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   border: 1px solid black;
-  border-radius: .5em;
+  border-radius: 0.5em;
 }
-
 </style>
