@@ -10,19 +10,32 @@
       absolute
     >
       <v-card flat class="d-none d-lg-block">
-        <h1><v-card-title>
-          <v-img alt="Fruktkartan" v-if="!miniVariant" src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png" />
-          <v-img alt="Fruktkartan" v-else src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png" />
-        </v-card-title></h1>
+        <h1>
+          <v-card-title>
+            <v-img
+              v-if="!miniVariant"
+              alt="Fruktkartan"
+              src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png"
+            />
+            <v-img
+              v-else
+              alt="Fruktkartan"
+              src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png"
+            />
+          </v-card-title>
+        </h1>
       </v-card>
 
       <v-list>
-
         <SidebarItem
           icon="mdi-filter"
-          @miniAction="filters.hideempty = !filters.hideempty"
           :active="filters.hideempty"
-          :tooltip="filters.hideempty ? 'Döljer träd utan beskrivning' : 'Visar även träd utan beskrivning.'"
+          :tooltip="
+            filters.hideempty
+              ? 'Döljer träd utan beskrivning'
+              : 'Visar även träd utan beskrivning.'
+          "
+          @miniAction="filters.hideempty = !filters.hideempty"
         >
           <v-switch
             v-model="filters.hideempty"
@@ -31,30 +44,32 @@
         </SidebarItem>
 
         <SidebarItem
-          @miniAction="miniVariant = false"
-          :iconImg="selectedTreeIcon"
+          :icon-img="selectedTreeIcon"
           :tooltip="`Visar ${selectedTreeName.toLowerCase()}`"
+          @miniAction="miniVariant = false"
         >
           <v-select
+            v-model="filters.type"
             :items="selectTreeTypes"
             label="Välj träd att visa"
-            v-model="filters.type"
-           />
+          />
         </SidebarItem>
 
         <SidebarItem
-          @onClick="reset()"
           icon="mdi-reload"
           tooltip="Återställ filter"
-        >Återställ filter</SidebarItem>
+          @onClick="reset()"
+          >Återställ filter</SidebarItem
+        >
 
         <v-divider />
 
         <SidebarItem
-          @onClick="$refs.map.addTree()"
           icon="mdi-plus"
           tooltip="Lägg till träd"
-        >Lägg till träd</SidebarItem>
+          @onClick="$refs.map.addTree()"
+          >Lägg till träd</SidebarItem
+        >
 
         <v-divider />
 
@@ -65,16 +80,17 @@
                 Om Fruktkartan
               </v-card-title>
               <v-card-text>
-                <p>Fruktkartan är en öppen databas med fruktträd på
-                allmänningar och i parker. Du kan själv lägga till nya träd,
-                och redigera eller ta bort sådana som inte hör hemma här.</p>
+                <p>
+                  Fruktkartan är en öppen databas med fruktträd på allmänningar
+                  och i parker. Du kan själv lägga till nya träd, och redigera
+                  eller ta bort sådana som inte hör hemma här.
+                </p>
 
-                <p><a  href="#" @click="showFAQ=true">Läs mer &rarr;</a></p>
+                <p><a href="#" @click="showFAQ = true">Läs mer &rarr;</a></p>
               </v-card-text>
             </v-card>
           </v-list-item-content>
         </v-list-item>
-
       </v-list>
       <template v-slot:append>
         <v-list class="d-none d-lg-block">
@@ -87,16 +103,11 @@
           </v-list-item>
         </v-list>
       </template>
-
     </v-navigation-drawer>
 
     <v-content>
       <div id="main">
-        <Map
-          :treeFilters="filters"
-          class="map"
-          ref="map"
-        />
+        <Map ref="map" :tree-filters="filters" class="map" />
 
         <v-dialog v-model="showFAQ">
           <v-card>
@@ -104,19 +115,23 @@
               Om Fruktkartan
             </v-card-title>
             <v-card-text>
-              <p>Fruktkartan är en öppen databas med fruktträd på allmänningar
-              och i parker. Vem som helst kan lägga till nya träd, och redigera
-              eller ta bort sådana som inte längre passar. Sajten är byggd av
-              Leo Wallentin, Matti Ryhänen och Daniel Lublin.</p>
+              <p>
+                Fruktkartan är en öppen databas med fruktträd på allmänningar
+                och i parker. Vem som helst kan lägga till nya träd, och
+                redigera eller ta bort sådana som inte längre passar. Sajten är
+                byggd av Leo Wallentin, Matti Ryhänen och Daniel Lublin.
+              </p>
 
-              <p>Andra sajter och appar kan använda information härifrån, via
-              ett öppet API.</p>
+              <p>
+                Andra sajter och appar kan använda information härifrån, via ett
+                öppet API.
+              </p>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="showFAQ=false">Stäng</v-btn>
+              <v-btn @click="showFAQ = false">Stäng</v-btn>
             </v-card-actions>
           </v-card>
-      </v-dialog>
+        </v-dialog>
       </div>
     </v-content>
   </v-app>
@@ -132,12 +147,12 @@ const DEFAULT_FILTERS = {
 }
 
 export default {
-  name: "app",
+  name: "App",
   components: {
     Map,
-    SidebarItem
+    SidebarItem,
   },
-  data () {
+  data() {
     return {
       showFAQ: false,
 
@@ -147,28 +162,28 @@ export default {
 
       /* tree filters */
       selectTreeTypes: require("./assets/selectTrees.json"),
-      filters: {...DEFAULT_FILTERS},
+      filters: { ...DEFAULT_FILTERS },
     }
   },
   computed: {
-    selectedTreeIcon () {
+    selectedTreeIcon() {
       let tree = this.filters.type === "*" ? "tree" : this.filters.type
       return require(`./components/icons/${tree}.svg`)
     },
-    selectedTreeName () {
+    selectedTreeName() {
       let treeKey = this.filters.type
-      if (treeKey=== "*") {
+      if (treeKey === "*") {
         return "alla träd"
       } else {
         return this.selectTreeTypes.filter(x => x.value === treeKey)[0].text
       }
-    }
+    },
   },
   methods: {
-    reset () {
-      this.filters = {...DEFAULT_FILTERS}
+    reset() {
+      this.filters = { ...DEFAULT_FILTERS }
     },
-  }
+  },
 }
 </script>
 
