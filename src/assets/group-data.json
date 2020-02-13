@@ -27,5 +27,6 @@
   "herb-chervil": {"icon": "herb-chervil"},
   "herb-nettle": {"icon": "herb-nettle"},
   "herb-wildgarlic": {"icon": "herb-wildgarlic"},
-  "tree": {"icon": "tree"}
+  "tree": {"icon": "tree"},
+  "addnew": {"icon": "addnew"}
 }
