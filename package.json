@@ -8,9 +8,6 @@
     "url": "https://github.com/npm/cli.git"
   },
   "author": "Daniel Lublin <daniel@lublin.se>",
-  "contributors": [
-    "Leo Wallentin <mejl@leowallentin.se>"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
