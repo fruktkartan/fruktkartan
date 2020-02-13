@@ -32,7 +32,7 @@
       <l-marker
         key="addTreeMarker"
         :visible="addTreeMarker.visible"
-        :lat-lng="addTreeMarker.latLng"
+        :lat-lng.sync="addTreeMarker.latLng"
         :icon="addTreeMarker.icon"
         draggable
       />
