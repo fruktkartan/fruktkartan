@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card :loading="loading">
     <v-snackbar v-model="addTreeMarker.visible" :timeout="0" style="z-index:4">
       Dra markören till rätt plats.
       <v-btn text color="green" @click="addTreeDialog = true">Fortsätt</v-btn>
@@ -67,7 +67,7 @@
         />
       </v-dialog>
     </l-map>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -104,6 +104,8 @@ export default {
   },
   data() {
     return {
+      loading: true,
+
       center: MAP_CENTER,
       zoom: 5,
       url: "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
@@ -262,6 +264,7 @@ export default {
     },
 
     fetchMarkers: function() {
+      this.loading = true
       let self = this
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
@@ -274,6 +277,9 @@ export default {
             ...m,
             icon: self.icons[m.group] ?? self.icons.tree,
           }))
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
   },
