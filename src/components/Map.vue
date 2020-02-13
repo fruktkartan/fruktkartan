@@ -62,7 +62,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      
+
       <v-dialog
         persistent
         v-model="addTreeDialog"
@@ -121,16 +121,16 @@ export default {
       markers: [],
       //filteredMarkers: [],
       icons: {},
-      
+
       addTreeMarker: {
         latLng: MAP_CENTER,
         visible: false,
       },
-      
+
       addTreeDialog: false,
     }
   },
-  
+
   computed: {
     filteredMarkers() {
       return this.markers
@@ -153,7 +153,6 @@ export default {
     this.icons = Object.entries(require("../assets/group-data.json"))
       .map(([k, v]) => [k, icon(v.icon)])
       .reduce((o, [k, v]) => {o[k] = v; return o}, {})
-
   },
 
   mounted: function () {
@@ -183,7 +182,6 @@ export default {
   },
 
   methods: {
-    
     /**
      * Let the user add a new tree by moving a marker.
      */

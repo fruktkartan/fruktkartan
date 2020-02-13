@@ -6,7 +6,7 @@
         <v-form v-model="valid">
           <v-combobox
             required
-            v-model="tree.type"  
+            v-model="tree.type"
             :rules="[v => !!v || 'Du måste välja en trädtyp!']"
             :items="[
               {text: 'Äppelträd', value: 'Äpple'},
@@ -79,13 +79,12 @@ export default {
         desc: this.tree.desc,
       }
       this.$emit("submit", newTree)
-      
+
       // Reset everything, to make sure the form is blank if the users wants
       // to add anotrher tree
       this.step = "edit"
       this.tree.type = null
       this.tree.desc = null
-
     }
   }
 }
