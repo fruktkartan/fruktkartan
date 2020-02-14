@@ -21,14 +21,8 @@ module.exports = {
       "error",
       2,
       {
-        FunctionDeclaration: {
-          parameters: "first",
-        },
-        VariableDeclarator: {
-          var: 2,
-          let: 2,
-          const: 3,
-        },
+        FunctionDeclaration: { parameters: "first" },
+        VariableDeclarator: { var: 2, let: 2, const: 3 },
         ignoredNodes: [],
         SwitchCase: 1,
       },
@@ -36,12 +30,7 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "never"],
-    "no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "next",
-      },
-    ],
+    "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
     "prettier/prettier": 2,
   },
 }
