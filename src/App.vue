@@ -113,6 +113,12 @@
                 Andra sajter och appar kan använda information härifrån, via ett
                 öppet API.
               </p>
+              <p>
+                Källkoden för sajten är öppen och fri. Utveckling sker på
+                <a href="https://github.com/fruktkartan" target="_blank">
+                  https://github.com/fruktkartan</a
+                >
+              </p>
             </v-card-text>
             <v-card-actions>
               <v-btn @click="showFAQ = false">Stäng</v-btn>
