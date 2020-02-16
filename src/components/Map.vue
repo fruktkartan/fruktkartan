@@ -116,7 +116,7 @@ export default {
         maxZoom: 18,
       },
       clusterOptions: {
-        disableClusteringAtZoom: 15,
+        disableClusteringAtZoom: 14,
         spiderfyOnMaxZoom: false,
       },
       popupOpen: false,
