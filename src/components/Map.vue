@@ -77,7 +77,7 @@ import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
-const DEFAULT_MAP_SIZE = 1000 // meters across map
+const DEFAULT_MAP_SIZE = 750 // meters across map
 const MAP_CENTER = latLng(62.3908, 17.3069)
 
 export default {
@@ -181,7 +181,9 @@ export default {
       .then(pos => {
         let ll = latLng(pos.coords.latitude, pos.coords.longitude)
         let bounds = ll.toBounds(
-          pos.coords.accuracy ? pos.coords.accuracy : DEFAULT_MAP_SIZE
+          pos.coords.accuracy
+            ? Math.max(pos.coords.accuracy, DEFAULT_MAP_SIZE)
+            : DEFAULT_MAP_SIZE
         )
         self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
         // fetchMarkers() will be triggered by the map update,
