@@ -16,7 +16,9 @@
               v-if="!miniVariant"
               alt="Fruktkartan"
               src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png"
-            />
+            >
+              <span class="beta" :style="{ display: betaDisplay }">beta</span>
+            </v-img>
             <v-img
               v-else
               alt="Fruktkartan"
@@ -152,6 +154,7 @@ export default {
       /* v-navigation-drawer */
       drawer: true,
       miniVariant: false,
+      betaDisplay: "none",
 
       /* tree filters */
       selectTreeTypes: require("./assets/selectTrees.json"),
@@ -171,6 +174,11 @@ export default {
         return this.selectTreeTypes.filter(x => x.value === treeKey)[0].text
       }
     },
+  },
+  created: function() {
+    if (window.location.hostname != "fruktkartan.se") {
+      this.betaDisplay = "block"
+    }
   },
   methods: {
     reset() {
@@ -192,5 +200,14 @@ html {
 }
 .map {
   flex-grow: 1;
+}
+
+.beta {
+  display: none;
+  float: right;
+  padding: 0.25em;
+  color: black;
+  background-color: rgba(112, 206, 155, 0.85);
+  border-radius: 50%;
 }
 </style>
