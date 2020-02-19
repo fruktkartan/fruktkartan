@@ -71,7 +71,7 @@ export default {
       this.$emit("submit", newTree)
 
       // Reset everything, to make sure the form is blank if the users wants
-      // to add anotrher tree
+      // to add another tree
       this.step = "edit"
       this.tree.type = null
       this.tree.desc = null

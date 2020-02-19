@@ -40,7 +40,12 @@
       <v-dialog v-model="popupOpen" max-width="350">
         <v-card :loading="!Object.entries(currPopupData).length">
           <v-card-title>{{ currPopupData.type }} </v-card-title>
-          <v-card-text>{{ currPopupData.description }}</v-card-text>
+          <v-card-text>
+            <p>
+              <em>Uppdaterat {{ prettyDate(currPopupData.added) }}</em>
+            </p>
+            <p>{{ currPopupData.description }}</p>
+          </v-card-text>
           <v-img
             v-if="currPopupData.img"
             :src="currPopupData.img"
@@ -75,6 +80,9 @@ import { latLng, icon as licon } from "leaflet"
 import { LMap, LTileLayer, LMarker /*LControl*/ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
+import dayjs from "dayjs"
+import "dayjs/locale/sv"
+dayjs.locale("sv")
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 const DEFAULT_MAP_SIZE = 750 // meters across map
@@ -283,6 +291,14 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+
+    prettyDate: function(date) {
+      if (!date) {
+        return ""
+      }
+      const d = dayjs(date)
+      return `${d.format("D MMMM YYYY")} kl ${d.format("H.mm")}`
     },
   },
 }
