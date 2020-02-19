@@ -118,7 +118,8 @@ export default {
       zoom: 5,
       url: "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
       attribution:
-        "Karta från <a href='https://openstreetmap.se/' target='_blank'>OpenStreetMap Sverige</a>",
+        "Kartgrafik från <a href='https://openstreetmap.se/' target='_blank'>OpenStreetMap Sverige</a>" +
+        ", Kartdata &copy; <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> bidragsgivare",
       mapOptions: {
         zoomSnap: 0.5,
         maxZoom: 18,
