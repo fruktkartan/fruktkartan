@@ -13,7 +13,11 @@
       style="z-index: 0"
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
-      <l-tile-layer :url="url" :attribution="attribution" />
+      <l-tile-layer
+        :url="url"
+        :options="layerOptions"
+        :attribution="attribution"
+      />
       <!--
       <l-control position="topleft" class="control">
         <v-icon style="background:white;border-radius:5px" @click="addTree()">mdi-plus</v-icon>
@@ -112,7 +116,9 @@ export default {
         ", Kartdata &copy; <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> bidragsgivare",
       mapOptions: {
         zoomSnap: 0.5,
-        maxZoom: 18,
+      },
+      layerOptions: {
+        maxZoom: 20, // as supported by Kalles carto-style-hydda
       },
       clusterOptions: {
         disableClusteringAtZoom: 14,
