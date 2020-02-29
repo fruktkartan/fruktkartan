@@ -3,26 +3,11 @@
     <v-card v-if="step === 'edit'">
       <v-card-title>Lägg till träd</v-card-title>
       <v-card-text>
-        <v-form v-model="valid">
-          <v-combobox
-            v-model="tree.type"
-            required
-            :rules="[v => !!v || 'Du måste välja en trädtyp!']"
-            :items="[
-              { text: 'Äppelträd', value: 'Äpple' },
-              { text: 'Päronträd', value: 'Päron' },
-              { text: 'Körsbärsträd', value: 'Körsbär' },
-              { text: 'Plommonträd', value: 'Plommon' },
-              { text: 'Fläderbuske', value: 'Fläder' },
-            ]"
-            label="Trädtyp"
-          />
-          <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
-        </v-form>
+        <TreeEditor v-model="tree" />
       </v-card-text>
       <v-card-actions>
         <v-btn @click="$emit('goBack')">Tillbaka</v-btn>
-        <v-btn color="green" :disabled="!valid" @click="step = 'preview'"
+        <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
           >Fortsätt</v-btn
         >
         <v-btn @click="$emit('close')">Avbryt</v-btn>
@@ -50,16 +35,17 @@
 </template>
 
 <script>
+import TreeEditor from "./TreeEditor.vue"
+
 export default {
   name: "AddTreeDialog",
+  components: {
+    TreeEditor,
+  },
   data() {
     return {
       step: "edit",
-      valid: false,
-      tree: {
-        type: null,
-        desc: null,
-      },
+      tree: {},
     }
   },
   methods: {
