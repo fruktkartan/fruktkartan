@@ -34,7 +34,7 @@
         <v-btn @click="step = 'view'">Tillbaka</v-btn>
         <v-btn
           color="green"
-          :disabled="!newTree.valid"
+          :disabled="!newTree.valid || treesAreEqual(newTree, tree)"
           @click="step = 'preview'"
         >
           Fortsätt
@@ -119,6 +119,14 @@ export default {
       // to add another tree
       this.step = "view"
       this.newTree = {}
+    },
+    /* Check if there are differences we care about betw trees*/
+    treesAreEqual(tree1, tree2) {
+      return (
+        tree1.type == tree2.type &&
+        tree1.desc === tree2.desc &&
+        tree1.img === tree2.img
+      )
     },
   },
 }
