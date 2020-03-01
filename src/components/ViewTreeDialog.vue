@@ -107,7 +107,10 @@ export default {
     submitTree() {
       let editedTree = {
         key: this.newTree.key,
-        type: this.newTree.type.value,
+        type:
+          this.newTree.type.value ||
+          this.newTree.type.text ||
+          this.newTree.type,
         desc: this.newTree.desc,
       }
       this.$emit("submit", editedTree)
