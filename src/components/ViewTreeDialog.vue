@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card :loading="!Object.entries(tree).length">
+    <v-card :loading="!Object.entries(tree).length" v-if="step === 'view'">
       <v-card-title>{{ tree.type }} </v-card-title>
       <v-card-text>
         <p>
@@ -8,7 +8,13 @@
         </p>
         <p>{{ tree.description }}</p>
       </v-card-text>
-      <v-img v-if="tree.img" :src="tree.img" height="194" />
+      <!-- We'll remove the image if it couldn't be loaded, to avoid empty vertical space -->
+      <v-img
+        v-if="tree.img"
+        :src="tree.img"
+        @error="tree.img = false"
+        height="194"
+      />
       <v-card-actions>
         <v-btn @click="$emit('close')">Stäng</v-btn>
         <v-spacer></v-spacer>
@@ -17,20 +23,33 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <v-card v-if="step === 'edit'">
+      <v-card-title>Lägg till träd</v-card-title>
+      <v-card-text>
+        <TreeEditor v-model="tree" />
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="$emit('goBack')">Tillbaka</v-btn>
+        <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
+          >Fortsätt</v-btn
+        >
+        <v-btn @click="$emit('close')">Avbryt</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
 <script>
-// import TreeEditor from "./TreeEditor.vue"
+import TreeEditor from "./TreeEditor.vue"
 import dayjs from "dayjs"
 import "dayjs/locale/sv"
 dayjs.locale("sv")
 
 export default {
   name: "ViewTreeDialog",
-  /* components: {
+  components: {
     TreeEditor,
-  },*/
+  },
   props: {
     tree: {
       type: Object,
@@ -38,7 +57,9 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      step: "view",
+    }
   },
   methods: {
     prettyDate: function(date) {
