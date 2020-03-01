@@ -228,8 +228,18 @@ export default {
     },
 
     doEditTree: function(tree) {
-      console.log(tree)
-      this.viewTreeDialog = false
+      console.log("updateing tree", tree)
+
+      fetch(`${APIBASE}/tree/${tree.key}`, {
+        method: "POST",
+        body: JSON.stringify(tree),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
+        this.viewTreeDialog = false
+        delete this.viewTreeCache[tree.key]
+      })
     },
 
     fetchPopupContent: function(marker) {
