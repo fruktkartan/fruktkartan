@@ -39,11 +39,15 @@
 
       <!-- There is a lot of shared logic betw the vie/edit/delete dialog 
            and the add dialog. These could probably be unified. -->
-      <v-dialog v-model="viewTreeDialog" max-width="350" persistent>
+      <v-dialog v-model="viewTreeDialog" max-width="400" persistent>
         <ViewTreeDialog
           :tree="viewTreeData"
-          @close="viewTreeDialog = false"
+          @submit="doEditTree"
           @delete="deleteTree"
+          @close="
+            viewTreeDialog = false
+            viewTreeData = {}
+          "
         />
       </v-dialog>
 
@@ -223,9 +227,13 @@ export default {
       }).then(this.fetchMarkers)
     },
 
+    doEditTree: function(tree) {
+      console.log(tree)
+      this.viewTreeDialog = false
+    },
+
     fetchPopupContent: function(marker) {
       let self = this
-      this.viewTreeData = {}
       this.viewTreeDialog = true
 
       let getData = new Promise(resolve => {
