@@ -199,6 +199,7 @@ export default {
      */
     addTree: function() {
       let map = this.$refs.theMap.mapObject
+      this.$emit("closeDrawer")
       this.addTreeMarker = {
         visible: true,
         latLng: map.getCenter(),
