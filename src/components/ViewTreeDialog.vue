@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card :loading="!Object.entries(tree).length" v-if="step === 'view'">
+    <v-card v-if="step === 'view'" :loading="!Object.entries(tree).length">
       <v-card-title>{{ tree.type }} </v-card-title>
       <v-card-text>
         <p>
@@ -12,8 +12,8 @@
       <v-img
         v-if="tree.img"
         :src="tree.img"
-        @error="tree.img = false"
         height="194"
+        @error="tree.img = false"
       />
       <v-card-actions>
         <v-btn @click="$emit('close')">Stäng</v-btn>
@@ -23,6 +23,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
     <v-card v-if="step === 'edit'">
       <v-card-title>Lägg till träd</v-card-title>
       <v-card-text>
