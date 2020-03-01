@@ -51,7 +51,7 @@ export default {
   methods: {
     submitTree() {
       let newTree = {
-        type: this.tree.type.value,
+        type: this.tree.type.value || this.tree.type.text || this.tree.type,
         desc: this.tree.desc,
       }
       this.$emit("submit", newTree)
