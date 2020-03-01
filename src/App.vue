@@ -96,12 +96,7 @@
 
     <v-content>
       <div id="main">
-        <Map
-          ref="map"
-          :tree-filters="filters"
-          class="map"
-          @closeDrawer="miniVariant = true"
-        />
+        <Map ref="map" :tree-filters="filters" class="map" />
 
         <v-dialog v-model="showFAQ" max-width="500">
           <v-card>
