@@ -97,7 +97,7 @@ export default {
       this.step = "view"
       this.$emit("close")
     },
-    prettyDate: function(date) {
+    prettyDate(date) {
       if (!date) {
         return ""
       }
