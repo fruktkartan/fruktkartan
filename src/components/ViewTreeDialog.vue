@@ -16,7 +16,7 @@
         @error="tree.img = false"
       />
       <v-card-actions>
-        <v-btn @click="$emit('close')">Stäng</v-btn>
+        <v-btn @click="close">Stäng</v-btn>
         <v-spacer></v-spacer>
         <v-btn @click="step = 'edit'">Redigera</v-btn>
         <v-btn color="red lighten-3" @click="$emit('delete', tree)">
@@ -39,7 +39,19 @@
         >
           Fortsätt
         </v-btn>
-        <v-btn @click="$emit('close')">Avbryt</v-btn>
+      </v-card-actions>
+    </v-card>
+
+    <v-card v-if="step === 'preview'">
+      <v-card-subtitle>FÖRHANDSGRANSKNING</v-card-subtitle>
+      <v-card-title>{{
+        newTree.type.value || newTree.type.text || newTree.type
+      }}</v-card-title>
+      <v-card-text>{{ newTree.desc }}</v-card-text>
+      <v-card-actions>
+        <v-btn @click="step = 'edit'">Tillbaka</v-btn>
+        <v-btn color="green" @click="submitTree">Uppdatera trädet</v-btn>
+        <v-btn @click="close">Avbryt</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -65,16 +77,45 @@ export default {
   data() {
     return {
       step: "view",
-      newTree: this.tree,
+      newTree: {},
     }
   },
+  /* The dialog is opened before data has been loaded, so we need to watch for 
+     tree data change, to update the newTree object (used when editing.)
+  */
+  watch: {
+    tree: {
+      deep: true,
+      immediate: true,
+      handler() {
+        this.newTree = Object.assign({}, this.tree)
+      },
+    },
+  },
   methods: {
+    close() {
+      this.step = "view"
+      this.tree = {}
+      this.$emit("close")
+    },
     prettyDate: function(date) {
       if (!date) {
         return ""
       }
       const d = dayjs(date)
       return `${d.format("D MMMM YYYY")} kl ${d.format("H.mm")}`
+    },
+    submitTree() {
+      let editedTree = {
+        type: this.newTree.type.value,
+        desc: this.newTree.desc,
+      }
+      this.$emit("submit", editedTree)
+
+      // Reset everything, to make sure the form is blank if the users wants
+      // to add another tree
+      this.step = "view"
+      this.newTree = {}
     },
   },
 }
