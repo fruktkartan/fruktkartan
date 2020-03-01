@@ -73,6 +73,9 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    isOpen: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -89,6 +92,25 @@ export default {
       immediate: true,
       handler() {
         this.newTree = Object.assign({}, this.tree)
+      },
+    },
+    isOpen: {
+      immediate: true,
+      handler() {
+        // For some reason, Vuetify has no support for closing dialog on ESC
+        // and nothing to help us implement it, so we'll have to do it by hand,
+        // the old-school vanilla JS way
+        let self = this
+        let keyPressHandler = function(event) {
+          if (event.keyCode === 27) {
+            // ESC
+            window.removeEventListener("keyup", keyPressHandler)
+            self.close()
+          }
+        }
+        if (this.isOpen) {
+          window.addEventListener("keyup", keyPressHandler)
+        }
       },
     },
   },

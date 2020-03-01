@@ -37,11 +37,12 @@
         draggable
       />
 
-      <!-- There is a lot of shared logic betw the vie/edit/delete dialog 
+      <!-- There is a lot of shared logic betw the view/edit/delete dialog 
            and the add dialog. These could probably be unified. -->
       <v-dialog v-model="viewTreeDialog" max-width="400" persistent>
         <ViewTreeDialog
           :tree="viewTreeData"
+          :isOpen="viewTreeDialog"
           @submit="doEditTree"
           @delete="deleteTree"
           @close="
