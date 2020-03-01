@@ -5,13 +5,7 @@
       v-model="tree.type"
       required
       :rules="[v => !!v || 'Du måste välja en trädtyp!']"
-      :items="[
-        { text: 'Äppelträd', value: 'Äpple' },
-        { text: 'Päronträd', value: 'Päron' },
-        { text: 'Körsbärsträd', value: 'Körsbär' },
-        { text: 'Plommonträd', value: 'Plommon' },
-        { text: 'Fläderbuske', value: 'Fläder' },
-      ]"
+      :items="insertableTrees"
       label="Trädtyp"
     />
     <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
@@ -36,6 +30,11 @@ export default {
         valid: false,
       }),
     },
+  },
+  data() {
+    return {
+      insertableTrees: require("../assets/insertableTrees.json"),
+    }
   },
 }
 </script>
