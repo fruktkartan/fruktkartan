@@ -95,7 +95,6 @@ export default {
   methods: {
     close() {
       this.step = "view"
-      this.tree = {}
       this.$emit("close")
     },
     prettyDate: function(date) {
@@ -107,6 +106,7 @@ export default {
     },
     submitTree() {
       let editedTree = {
+        key: this.newTree.key,
         type: this.newTree.type.value,
         desc: this.newTree.desc,
       }
