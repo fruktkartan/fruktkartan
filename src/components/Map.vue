@@ -228,8 +228,6 @@ export default {
     },
 
     doEditTree: function(tree) {
-      console.log("updateing tree", tree)
-
       fetch(`${APIBASE}/tree/${tree.key}`, {
         method: "POST",
         body: JSON.stringify(tree),
@@ -239,6 +237,7 @@ export default {
       }).then(() => {
         this.viewTreeDialog = false
         delete this.viewTreeCache[tree.key]
+        this.fetchMarkers() // In case a tree type changed
       })
     },
 
