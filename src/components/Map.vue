@@ -37,28 +37,14 @@
         draggable
       />
 
-      <v-dialog v-model="popupOpen" max-width="350">
-        <v-card :loading="!Object.entries(currPopupData).length">
-          <v-card-title>{{ currPopupData.type }} </v-card-title>
-          <v-card-text>
-            <p>
-              <em>Uppdaterat {{ prettyDate(currPopupData.added) }}</em>
-            </p>
-            <p>{{ currPopupData.description }}</p>
-          </v-card-text>
-          <v-img
-            v-if="currPopupData.img"
-            :src="currPopupData.img"
-            height="194"
-          />
-          <v-card-actions>
-            <v-btn @click="popupOpen = false">Stäng</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="red lighten-3" @click="deleteTree(currPopupData)"
-              >Radera</v-btn
-            >
-          </v-card-actions>
-        </v-card>
+      <!-- There is a lot of shared logic betw the vie/edit/delete dialog 
+           and the add dialog. These could probably be unified. -->
+      <v-dialog v-model="viewTreeDialog" max-width="350" persistent>
+        <ViewTreeDialog
+          :tree="viewTreeData"
+          @close="viewTreeDialog = false"
+          @delete="deleteTree"
+        />
       </v-dialog>
 
       <v-dialog v-model="addTreeDialog" max-width="500" persistent>
@@ -80,9 +66,7 @@ import { latLng, icon as licon } from "leaflet"
 import { LMap, LTileLayer, LMarker /*LControl*/ } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
-import dayjs from "dayjs"
-import "dayjs/locale/sv"
-dayjs.locale("sv")
+import ViewTreeDialog from "./ViewTreeDialog.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 const DEFAULT_MAP_SIZE = 750 // meters across map
@@ -97,6 +81,7 @@ export default {
     // LControl,
     LMarkerCluster: Vue2LeafletMarkercluster,
     AddTreeDialog,
+    ViewTreeDialog,
   },
 
   props: {
@@ -128,9 +113,6 @@ export default {
         disableClusteringAtZoom: 14,
         spiderfyOnMaxZoom: false,
       },
-      popupOpen: false,
-      popupData: {},
-      currPopupData: {},
 
       markers: [],
       //filteredMarkers: [],
@@ -140,8 +122,11 @@ export default {
         latLng: MAP_CENTER,
         visible: false,
       },
-
       addTreeDialog: false,
+
+      viewTreeDialog: false,
+      viewTreeCache: {},
+      viewTreeData: {},
     }
   },
 
@@ -240,12 +225,12 @@ export default {
 
     fetchPopupContent: function(marker) {
       let self = this
-      this.currPopupData = {}
-      this.popupOpen = true
+      this.viewTreeData = {}
+      this.viewTreeDialog = true
 
       let getData = new Promise(resolve => {
-        if (self.popupData[marker.key]) {
-          resolve(self.popupData[marker.key])
+        if (self.viewTreeCache[marker.key]) {
+          resolve(self.viewTreeCache[marker.key])
         } else {
           fetch(`${APIBASE}/tree/${marker.key}`)
             .then(response => response.json())
@@ -254,8 +239,8 @@ export default {
       })
 
       getData.then(data => {
-        self.currPopupData = { ...marker, ...data }
-        self.popupData[marker.key] = self.currPopupData
+        self.viewTreeData = { ...marker, ...data }
+        self.viewTreeCache[marker.key] = self.viewTreeData
       })
     },
 
@@ -264,10 +249,9 @@ export default {
         `Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`
       )
       if (result) {
-        console.log("raderar träd")
         fetch(`${APIBASE}/tree/${marker.key}`, { method: "DELETE" }).then(
           () => {
-            this.popupOpen = false
+            this.viewTreeDialog = false
             this.fetchMarkers()
           }
         )
@@ -292,14 +276,6 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-
-    prettyDate: function(date) {
-      if (!date) {
-        return ""
-      }
-      const d = dayjs(date)
-      return `${d.format("D MMMM YYYY")} kl ${d.format("H.mm")}`
     },
   },
 }
