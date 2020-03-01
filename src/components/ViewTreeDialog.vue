@@ -6,7 +6,7 @@
         <p>
           <em>Uppdaterat {{ prettyDate(tree.added) }}</em>
         </p>
-        <p>{{ tree.description }}</p>
+        <p>{{ tree.desc }}</p>
       </v-card-text>
       <!-- We'll remove the image if it couldn't be loaded, to avoid empty vertical space -->
       <v-img
@@ -18,6 +18,7 @@
       <v-card-actions>
         <v-btn @click="$emit('close')">Stäng</v-btn>
         <v-spacer></v-spacer>
+        <v-btn @click="step = 'edit'">Redigera</v-btn>
         <v-btn color="red lighten-3" @click="$emit('delete', tree)">
           Radera
         </v-btn>
@@ -25,15 +26,19 @@
     </v-card>
 
     <v-card v-if="step === 'edit'">
-      <v-card-title>Lägg till träd</v-card-title>
+      <v-card-title>Redigera träd</v-card-title>
       <v-card-text>
-        <TreeEditor v-model="tree" />
+        <TreeEditor v-model="newTree" />
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="$emit('goBack')">Tillbaka</v-btn>
-        <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
-          >Fortsätt</v-btn
+        <v-btn @click="step = 'view'">Tillbaka</v-btn>
+        <v-btn
+          color="green"
+          :disabled="!newTree.valid"
+          @click="step = 'preview'"
         >
+          Fortsätt
+        </v-btn>
         <v-btn @click="$emit('close')">Avbryt</v-btn>
       </v-card-actions>
     </v-card>
@@ -60,6 +65,7 @@ export default {
   data() {
     return {
       step: "view",
+      newTree: this.tree,
     }
   },
   methods: {
