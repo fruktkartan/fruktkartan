@@ -31,6 +31,6 @@ module.exports = {
     quotes: ["error", "double"],
     semi: ["error", "never"],
     "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
-    "prettier/prettier": 2,
+    "prettier/prettier": "error",
   },
 }
