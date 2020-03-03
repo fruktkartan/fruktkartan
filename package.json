@@ -19,7 +19,8 @@
     "vue": "^2.6.11",
     "vue2-leaflet": "^2.5.2",
     "vue2-leaflet-markercluster": "^3.1.0",
-    "vuetify": "^2.2.15"
+    "vuetify": "^2.2.15",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",

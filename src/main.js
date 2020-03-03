@@ -1,3 +1,6 @@
+// polyfill fetch() for IE (and more?)
+import "whatwg-fetch"
+
 import Vue from "vue"
 import { Icon } from "leaflet"
 import App from "./App.vue"
