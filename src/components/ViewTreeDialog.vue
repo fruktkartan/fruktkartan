@@ -8,13 +8,7 @@
         </p>
         <p>{{ tree.desc }}</p>
       </v-card-text>
-      <!-- We'll remove the image if it couldn't be loaded, to avoid empty vertical space -->
-      <v-img
-        v-if="tree.img"
-        :src="tree.img"
-        height="194"
-        @error="tree.img = false"
-      />
+      <v-img v-if="tree.file" :src="img" :srcset="img_srcset" height="194" />
       <v-card-actions>
         <v-btn @click="close">Stäng</v-btn>
         <v-spacer></v-spacer>
@@ -63,6 +57,8 @@ import dayjs from "dayjs"
 import "dayjs/locale/sv"
 dayjs.locale("sv")
 
+const S3_BASE = "https://fruktkartan-thumbs.s3.eu-north-1.amazonaws.com"
+
 export default {
   name: "ViewTreeDialog",
   components: {
@@ -81,16 +77,25 @@ export default {
     return {
       step: "view",
       newTree: {},
+      img: null,
+      img_srcset: "",
     }
   },
   /* The dialog is opened before data has been loaded, so we need to watch for 
-     tree data change, to update the newTree object (used when editing.)
+     tree data change, to update the newTree object (used when editing)
+     and to construct the image url
   */
   watch: {
     tree: {
       deep: true,
       immediate: true,
       handler() {
+        const width = 400
+        this.img = `${S3_BASE}/${this.tree.file}_${width}.jpg`
+        this.img_srcset = [1, 1.5, 2, 3]
+          .map(x => `${S3_BASE}/${this.tree.file}_${width * x}.jpg ${x}x`)
+          .join(",")
+
         this.newTree = Object.assign({}, this.tree)
       },
     },
@@ -144,11 +149,7 @@ export default {
     },
     /* Check if there are differences we care about betw trees*/
     treesAreEqual(tree1, tree2) {
-      return (
-        tree1.type == tree2.type &&
-        tree1.desc === tree2.desc &&
-        tree1.img === tree2.img
-      )
+      return tree1.type == tree2.type && tree1.desc === tree2.desc
     },
   },
 }
