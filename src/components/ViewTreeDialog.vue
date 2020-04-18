@@ -8,7 +8,7 @@
         </p>
         <p>{{ tree.desc }}</p>
       </v-card-text>
-      <v-img v-if="tree.file" :src="img" :srcset="img_srcset" height="194" />
+      <TreeImage :image="tree.file" alt="Bild av trädet" />
       <v-card-actions>
         <v-btn @click="close">Stäng</v-btn>
         <v-spacer></v-spacer>
@@ -53,16 +53,16 @@
 
 <script>
 import TreeEditor from "./TreeEditor.vue"
+import TreeImage from "./TreeImage.vue"
 import dayjs from "dayjs"
 import "dayjs/locale/sv"
 dayjs.locale("sv")
-
-const S3_BASE = "https://fruktkartan-thumbs.s3.eu-north-1.amazonaws.com"
 
 export default {
   name: "ViewTreeDialog",
   components: {
     TreeEditor,
+    TreeImage,
   },
   props: {
     tree: {
@@ -77,25 +77,16 @@ export default {
     return {
       step: "view",
       newTree: {},
-      img: null,
-      img_srcset: "",
     }
   },
   /* The dialog is opened before data has been loaded, so we need to watch for 
      tree data change, to update the newTree object (used when editing)
-     and to construct the image url
   */
   watch: {
     tree: {
       deep: true,
       immediate: true,
       handler() {
-        const width = 400
-        this.img = `${S3_BASE}/${this.tree.file}_${width}.jpg`
-        this.img_srcset = [1, 1.5, 2, 3]
-          .map(x => `${S3_BASE}/${this.tree.file}_${width * x}.jpg ${x}x`)
-          .join(",")
-
         this.newTree = Object.assign({}, this.tree)
       },
     },
