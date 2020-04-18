@@ -20,7 +20,7 @@
       />
       <!--
       <l-control position="topleft" class="control">
-        <v-icon style="background:white;border-radius:5px" @click="addTree()">mdi-plus</v-icon>
+  <v-icon style="background:white;border-radius:5px" @click="addTree()">mdi-plus</v-icon>
       </l-control>
       -->
       <l-marker-cluster :options="clusterOptions">
@@ -78,6 +78,7 @@ import AddTreeDialog from "./AddTreeDialog.vue"
 import ViewTreeDialog from "./ViewTreeDialog.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
+//const APIBASE = "http://localhost:8080"
 const DEFAULT_MAP_SIZE = 750 // meters across map
 const MAP_CENTER = latLng(62.3908, 17.3069)
 
@@ -143,13 +144,14 @@ export default {
 
   computed: {
     filteredMarkers() {
-      return this.markers
-        .filter(m => (this.treeFilters.hideempty ? m.desc || m.img : true))
-        .filter(m =>
-          this.treeFilters.type === "*"
-            ? true
-            : m.group.startsWith(this.treeFilters.type)
-        )
+      let fm = this.markers
+      if (this.treeFilters.hideempty) {
+        fm = fm.filter(m => (this.treeFilters.hideempty ? m.desc : true))
+      }
+      if (this.treeFilters.type !== "*") {
+        fm = fm.filter(m => m.group.startsWith(this.treeFilters.type))
+      }
+      return fm
     },
   },
 
@@ -218,6 +220,8 @@ export default {
      * Actually add the tree to the DB
      */
     doAddTree: function(tree) {
+      // TODO Merge with doEditTree and move to TreeEditor component
+
       // Call the API
       this.addTreeDialog = false
       this.addTreeMarker.visible = false
@@ -229,10 +233,10 @@ export default {
       fetch(`${APIBASE}/tree`, {
         method: "PUT",
         body: JSON.stringify(treePayload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(this.fetchMarkers)
+        headers: { "Content-Type": "application/json" },
+      }).then(() => {
+        this.fetchMarkers()
+      })
     },
 
     doEditTree: function(tree) {
@@ -289,6 +293,7 @@ export default {
 
       let bounds = this.$refs.theMap.mapObject.getBounds()
       fetch(
+        // eslint-disable-next-line max-len
         `${APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
         .then(response => response.json())

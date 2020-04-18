@@ -53,6 +53,7 @@ export default {
       let newTree = {
         type: this.tree.type.value || this.tree.type.text || this.tree.type,
         desc: this.tree.desc,
+        file: this.tree.file,
       }
       this.$emit("submit", newTree)
 
@@ -61,6 +62,7 @@ export default {
       this.step = "edit"
       this.tree.type = null
       this.tree.desc = null
+      this.tree.file = null
     },
   },
 }
