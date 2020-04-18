@@ -32,5 +32,6 @@ module.exports = {
     semi: ["error", "never"],
     "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
     "prettier/prettier": "error",
+    "max-len": [2, {"code": 90, "tabWidth": 2, "ignoreUrls": true}]
   },
 }
