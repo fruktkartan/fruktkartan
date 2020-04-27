@@ -8,12 +8,19 @@
       :items="insertableTrees"
       label="Trädtyp"
     />
-    <v-file-input
-      v-model="file"
-      accept="image/*"
-      label="Ladda upp en bild"
-      @change="fileChanged"
-    />
+    <v-layout>
+      <v-flex>
+        <v-file-input
+          v-model="file"
+          accept="image/*"
+          label="Ladda upp en bild"
+          @change="fileChanged"
+        />
+      </v-flex>
+      <v-flex>
+        <v-icon v-if="uploadOk" color="green">mdi-check</v-icon>
+      </v-flex>
+    </v-layout>
     <v-progress-linear
       :active="uploading"
       :value="uploadingProgress"
@@ -43,6 +50,7 @@ export default {
       type: Object,
       default: () => ({
         valid: false,
+        file: null,
       }),
     },
   },
@@ -52,6 +60,7 @@ export default {
       file: null,
       uploading: false,
       uploadingProgress: 0,
+      uploadOk: null,
     }
   },
   methods: {
@@ -76,16 +85,19 @@ export default {
           let request = new XMLHttpRequest()
           request.open("PUT", response.signedRequest)
           request.upload.addEventListener("progress", e => {
-            this.uploadingProgress = (e.loaded / e.total * 100)
+            this.uploadingProgress = (e.loaded / e.total) * 100
           })
           request.onreadystatechange = () => {
             if (request.readyState === 4) {
               this.uploading = false
               this.uploadingProgress = 0
               if (request.status === 200) {
+                this.uploadOk = true
                 // pass
               } else {
                 // FIXME error reporting
+                this.uploadOk = false
+                console.log("Error uploading:", request.status)
               }
             }
           }
@@ -97,6 +109,7 @@ export default {
           console.log("Error getting upload signature", err)
           this.uploading = false
           this.uploadingProgress = 0
+          this.uploadOk = false
         })
     },
   },
