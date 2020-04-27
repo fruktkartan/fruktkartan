@@ -14,6 +14,11 @@
       label="Ladda upp en bild"
       @change="fileChanged"
     />
+    <v-progress-linear
+      :active="uploading"
+      :value="uploadingProgress"
+      :striped="true"
+    />
     <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
   </v-form>
 </template>
@@ -45,6 +50,8 @@ export default {
     return {
       insertableTrees: require("../assets/insertableTrees.json"),
       file: null,
+      uploading: false,
+      uploadingProgress: 0,
     }
   },
   methods: {
@@ -53,7 +60,7 @@ export default {
         return
       }
 
-      // TODO: Alert the user the file is still being uploaded in the background!
+      this.uploading = true
       fetch(`${APIBASE}/sign`, {
         method: "POST",
         body: JSON.stringify({ "file-name": this.file.name }),
@@ -68,8 +75,28 @@ export default {
           })
           let request = new XMLHttpRequest()
           request.open("PUT", response.signedRequest)
+          request.upload.addEventListener("progress", e => {
+            this.uploadingProgress = (e.loaded / e.total * 100)
+          })
+          request.onreadystatechange = () => {
+            if (request.readyState === 4) {
+              this.uploading = false
+              this.uploadingProgress = 0
+              if (request.status === 200) {
+                // pass
+              } else {
+                // FIXME error reporting
+              }
+            }
+          }
           request.send(renamedFile)
           this.tree.file = response.filename
+        })
+        .catch(err => {
+          // FIXME error reporting
+          console.log("Error getting upload signature", err)
+          this.uploading = false
+          this.uploadingProgress = 0
         })
     },
   },
