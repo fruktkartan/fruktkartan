@@ -39,6 +39,7 @@
         :lat-lng.sync="addTreeMarker.latLng"
         :icon="addTreeMarker.icon"
         draggable
+        @mouseup="addTreeIconMouseUp"
       />
 
       <!-- There is a lot of shared logic betw the view/edit/delete dialog 
@@ -287,6 +288,13 @@ export default {
             this.fetchMarkers()
           }
         )
+      }
+    },
+
+    /* Clicking (not dragging) the add tree icon will open the add tree dialogue */
+    addTreeIconMouseUp: function(x) {
+      if (x.latlng == this.addTreeMarker.latLng) {
+        this.addTreeDialog = true
       }
     },
 
