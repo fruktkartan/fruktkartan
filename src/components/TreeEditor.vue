@@ -8,19 +8,15 @@
       :items="insertableTrees"
       label="Trädtyp"
     />
-    <v-layout>
-      <v-flex>
-        <v-file-input
-          v-model="file"
-          accept="image/*"
-          label="Ladda upp en bild"
-          @change="fileChanged"
-        />
-      </v-flex>
-      <v-flex>
-        <v-icon v-if="uploadOk" color="green">mdi-check</v-icon>
-      </v-flex>
-    </v-layout>
+
+    <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
+    <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
+    <v-file-input
+      v-model="file"
+      accept="image/*"
+      label="Ladda upp en bild"
+      @change="fileChanged"
+    />
     <v-progress-linear
       :active="uploading"
       :value="uploadingProgress"
@@ -36,12 +32,16 @@
  * Implements v-model
  *
  */
+import TreeImage from "./TreeImage.vue"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 //const APIBASE = "http://localhost:8080"
 
 export default {
   name: "TreeEditor",
+  components: {
+    TreeImage,
+  },
   model: {
     prop: "tree",
   },
@@ -63,9 +63,16 @@ export default {
       uploadOk: null,
     }
   },
+  computed: {
+    previewSource() {
+      return URL.createObjectURL(this.file)
+    },
+  },
   methods: {
     fileChanged() {
       if (!this.file) {
+        // Reset tree.file in case someone deleted a file they just uploaded
+        this.tree.file = null
         return
       }
 
