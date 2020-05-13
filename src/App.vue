@@ -101,7 +101,7 @@
           :tree-filters="filters"
           class="map"
           @openDrawer="drawer = true"
-          @closeDrawer="drawer = false"
+          @closeDrawer="drawer = null"
         />
 
         <v-dialog v-model="showFAQ" max-width="500">
@@ -158,7 +158,7 @@ export default {
       showFAQ: false,
 
       /* v-navigation-drawer */
-      drawer: true,
+      drawer: null, // null means closed on mobile, open on desktop
       miniVariant: false,
       betaDisplay: "none",
 
