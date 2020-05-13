@@ -13,6 +13,16 @@
       style="z-index: 0"
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
+
+      <l-control position="bottomleft" class="hidden-md-and-up">
+        <v-icon
+          style="background:#dedede66;border-radius:5px"
+          @click="$emit('openDrawer')"
+        >
+          mdi-menu
+        </v-icon>
+      </l-control>
+
       <l-tile-layer
         :url="url"
         :options="layerOptions"
@@ -73,7 +83,7 @@
 
 <script>
 import { latLng, icon as licon } from "leaflet"
-import { LMap, LTileLayer, LMarker /*LControl*/ } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
 import ViewTreeDialog from "./ViewTreeDialog.vue"
@@ -89,7 +99,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    // LControl,
+    LControl,
     LMarkerCluster: Vue2LeafletMarkercluster,
     AddTreeDialog,
     ViewTreeDialog,
@@ -212,6 +222,7 @@ export default {
      */
     addTree: function() {
       let map = this.$refs.theMap.mapObject
+      // Close drawer in case we're on mobile
       this.$emit("closeDrawer")
       this.addTreeMarker = {
         visible: true,
