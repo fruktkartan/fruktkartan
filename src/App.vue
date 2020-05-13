@@ -96,7 +96,13 @@
 
     <v-content>
       <div id="main">
-        <Map ref="map" :tree-filters="filters" class="map" />
+        <Map
+          ref="map"
+          :tree-filters="filters"
+          class="map"
+          @openDrawer="drawer = true"
+          @closeDrawer="drawer = false"
+        />
 
         <v-dialog v-model="showFAQ" max-width="500">
           <v-card>
