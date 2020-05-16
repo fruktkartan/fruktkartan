@@ -8,7 +8,7 @@
             icon
           }}</v-icon>
         </template>
-        <span>{{ tooltip }}</span>
+        <span>{{ tooltip || $slots.default[0].text }}</span>
       </v-tooltip>
     </v-list-item-icon>
     <v-list-item-content>
