@@ -23,7 +23,7 @@
           mdi-menu
         </v-icon>
         <span @click="$emit('openDrawer')">
-          Menu
+          Meny
         </span>
       </l-control>
 
