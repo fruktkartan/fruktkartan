@@ -26,14 +26,6 @@
             />
           </v-card-title>
         </h1>
-        <v-card-text class="text-center">
-          <p>
-            <a v-if="!miniVariant" href="#" @click="showFAQ = true"
-              >Om Fruktkartan
-            </a>
-            <a v-else href="#" @click="showFAQ = true">Om</a>
-          </p>
-        </v-card-text>
       </v-card>
 
       <v-list>
@@ -79,6 +71,15 @@
           tooltip="Lägg till träd"
           @onClick="$refs.map.addTree()"
           >Lägg till träd</SidebarItem
+        >
+
+        <v-divider />
+
+        <SidebarItem
+          icon="mdi-information"
+          tooltip="Om Fruktkartan"
+          @onClick="showFAQ = true"
+          >Om Fruktkartan</SidebarItem
         >
       </v-list>
       <template v-slot:append>
