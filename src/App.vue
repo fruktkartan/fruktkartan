@@ -57,30 +57,21 @@
           />
         </SidebarItem>
 
-        <SidebarItem
-          icon="mdi-reload"
-          tooltip="Återställ filter"
-          @onClick="reset()"
-          >Återställ filter</SidebarItem
-        >
+        <SidebarItem icon="mdi-reload" @onClick="reset()">
+          Återställ filter
+        </SidebarItem>
 
         <v-divider />
 
-        <SidebarItem
-          icon="mdi-plus"
-          tooltip="Lägg till träd"
-          @onClick="$refs.map.addTree()"
-          >Lägg till träd</SidebarItem
-        >
+        <SidebarItem icon="mdi-plus" @onClick="$refs.map.addTree()">
+          Lägg till träd
+        </SidebarItem>
 
         <v-divider />
 
-        <SidebarItem
-          icon="mdi-information"
-          tooltip="Om Fruktkartan"
-          @onClick="showFAQ = true"
-          >Om Fruktkartan</SidebarItem
-        >
+        <SidebarItem icon="mdi-information" @onClick="showFAQ = true">
+          Om Fruktkartan
+        </SidebarItem>
       </v-list>
       <template v-slot:append>
         <v-list class="d-none d-lg-block">
