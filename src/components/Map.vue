@@ -14,13 +14,17 @@
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
 
-      <l-control position="bottomleft" class="hidden-md-and-up">
-        <v-icon
-          style="background:#dedede66;border-radius:5px"
-          @click="$emit('openDrawer')"
-        >
+      <l-control
+        position="bottomleft"
+        class="hidden-md-and-up"
+        style="background:#dedede99;border-radius:5px;margin-bottom:1.6em;"
+      >
+        <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           mdi-menu
         </v-icon>
+        <span @click="$emit('openDrawer')">
+          Menu
+        </span>
       </l-control>
 
       <l-tile-layer
