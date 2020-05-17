@@ -149,6 +149,8 @@ export default {
       mdiMenu,
       mdiCrosshairsGps,
 
+      canGeoLocate: true,
+
       addTreeMarker: {
         latLng: MAP_CENTER,
         visible: false,
@@ -174,10 +176,6 @@ export default {
       }
       return fm
     },
-
-    canGeoLocate() {
-      return navigator.geolocation
-    },
   },
 
   created: function () {
@@ -195,6 +193,8 @@ export default {
         o[k] = v
         return o
       }, {})
+
+    this.canGeoLocate = navigator.geolocation
   },
 
   mounted: function () {
@@ -229,7 +229,11 @@ export default {
           // fetchMarkers() will be triggered by the map update,
           // so no need to call it here
         })
-        .catch(() => {
+        .catch(e => {
+          if (e.code == e.PERMISSION_DENIED) {
+            // Interface is available, but has been blocked.
+            this.canGeoLocate = false
+          }
           // keep default bounds
           self.fetchMarkers()
         })
