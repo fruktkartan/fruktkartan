@@ -20,10 +20,10 @@ export default {
   },
 
   computed: {
-    img: function() {
+    img: function () {
       return `${S3_BASE}/${this.image}_${WIDTH}.jpg`
     },
-    img_srcset: function() {
+    img_srcset: function () {
       return [1, 1.5, 2, 3]
         .map(x => `${S3_BASE}/${this.image}_${WIDTH * x}.jpg ${x}x`)
         .join(",")

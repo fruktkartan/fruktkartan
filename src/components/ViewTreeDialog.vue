@@ -97,7 +97,7 @@ export default {
         // and nothing to help us implement it, so we'll have to do it by hand,
         // the old-school vanilla JS way
         let self = this
-        let keyPressHandler = function(event) {
+        let keyPressHandler = function (event) {
           if (event.keyCode === 27) {
             // ESC
             window.removeEventListener("keyup", keyPressHandler)
