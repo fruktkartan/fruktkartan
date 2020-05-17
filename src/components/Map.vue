@@ -19,13 +19,9 @@
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
 
-      <l-control
-        position="bottomleft"
-        class="hidden-md-and-up"
-        style="background: #dedede99; border-radius: 5px; margin-bottom: 1.6em;"
-      >
+      <l-control position="bottomleft" class="hidden-md-and-up control">
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
-          { mdiMenu }
+          {{ mdiMenu }}
         </v-icon>
         <span @click="$emit('openDrawer')">
           Meny
@@ -38,11 +34,9 @@
         :attribution="attribution"
         :z-index="0"
       />
-      <!--
       <l-control position="topleft" class="control">
-  <v-icon style="background:white;border-radius:5px" @click="addTree()">mdi-plus</v-icon>
+        <v-icon @click="retrieveUserPosition">{{ mdiCrosshairsGps }}</v-icon>
       </l-control>
-      -->
       <l-marker-cluster :options="clusterOptions">
         <l-marker
           v-for="marker in filteredMarkers"
@@ -97,7 +91,7 @@ import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
 import ViewTreeDialog from "./ViewTreeDialog.vue"
-import { mdiMenu } from "@mdi/js"
+import { mdiMenu, mdiCrosshairsGps } from "@mdi/js"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 //const APIBASE = "http://localhost:8080"
@@ -153,6 +147,7 @@ export default {
       //filteredMarkers: [],
       icons: {},
       mdiMenu,
+      mdiCrosshairsGps,
 
       addTreeMarker: {
         latLng: MAP_CENTER,
@@ -199,36 +194,43 @@ export default {
   },
 
   mounted: function () {
-    let self = this
-
-    let getUserPosition = new Promise((resolve, reject) => {
-      /* Promise to return user position */
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-      } else {
-        reject()
-      }
-    })
-
-    getUserPosition
-      .then(pos => {
-        let ll = latLng(pos.coords.latitude, pos.coords.longitude)
-        let bounds = ll.toBounds(
-          pos.coords.accuracy
-            ? Math.max(pos.coords.accuracy, DEFAULT_MAP_SIZE)
-            : DEFAULT_MAP_SIZE
-        )
-        self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
-        // fetchMarkers() will be triggered by the map update,
-        // so no need to call it here
-      })
-      .catch(() => {
-        // keep default bounds
-        self.fetchMarkers()
-      })
+    this.retrieveUserPosition()
   },
 
   methods: {
+    /**
+     * Use geolocation interface to re-center map, if possible
+     */
+    retrieveUserPosition: function () {
+      let self = this
+
+      let getUserPosition = new Promise((resolve, reject) => {
+        /* Promise to return user position */
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(resolve, reject)
+        } else {
+          reject()
+        }
+      })
+
+      getUserPosition
+        .then(pos => {
+          let ll = latLng(pos.coords.latitude, pos.coords.longitude)
+          let bounds = ll.toBounds(
+            pos.coords.accuracy
+              ? Math.max(pos.coords.accuracy, DEFAULT_MAP_SIZE)
+              : DEFAULT_MAP_SIZE
+          )
+          self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
+          // fetchMarkers() will be triggered by the map update,
+          // so no need to call it here
+        })
+        .catch(() => {
+          // keep default bounds
+          self.fetchMarkers()
+        })
+    },
+
     /**
      * Let the user add a new tree by moving a marker.
      */
@@ -358,10 +360,9 @@ export default {
   background-color: rgba(230, 180, 43, 0.4) !important;
 }
 
-.control > p {
-  background: #f0f0f0;
+.control {
+  background: #f0f0f099;
   padding: 0.5em 1em;
-  border: 1px solid black;
   border-radius: 0.5em;
 }
 </style>
