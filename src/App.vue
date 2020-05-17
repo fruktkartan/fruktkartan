@@ -96,7 +96,11 @@
           @closeDrawer="drawer = null"
         />
 
-        <v-dialog v-model="showFAQ" max-width="500">
+        <v-dialog
+          v-model="showFAQ"
+          max-width="500"
+          @keydown.esc="showFAQ = false"
+        >
           <v-card>
             <v-card-title>
               Om Fruktkartan
@@ -118,6 +122,11 @@
                 <a href="https://github.com/fruktkartan" target="_blank">
                   https://github.com/fruktkartan</a
                 >
+              </p>
+              <p>
+                Fruktkartan är byggd med Vuetify och Leaflet. Open Streetmap.
+                Frågor? Skicka ett
+                <a href="mailto:mejl@leowallentin.se">mejl</a>!
               </p>
             </v-card-text>
             <v-card-actions>
@@ -177,6 +186,11 @@ export default {
     if (window.location.hostname != "fruktkartan.se") {
       this.betaDisplay = "block"
     }
+    this.$nextTick(() => {
+      // Is it possible to remove the LEaflet prefix here somehow
+      // to clean up the clutter a bit?
+      // this.$refs.map.attribution = ""
+    })
   },
   methods: {
     reset() {
