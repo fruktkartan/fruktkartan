@@ -27,6 +27,7 @@ module.exports = {
         SwitchCase: 1,
       },
     ],
+    "func-call-spacing": ["error", "never"],
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "never"],

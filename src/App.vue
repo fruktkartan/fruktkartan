@@ -182,7 +182,7 @@ export default {
       }
     },
   },
-  created: function() {
+  created: function () {
     if (window.location.hostname != "fruktkartan.se") {
       this.betaDisplay = "block"
     }

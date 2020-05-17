@@ -1,6 +1,10 @@
 <template>
   <v-card :loading="loading">
-    <v-snackbar v-model="addTreeMarker.visible" :timeout="0" style="z-index:4">
+    <v-snackbar
+      v-model="addTreeMarker.visible"
+      :timeout="0"
+      style="z-index: 4;"
+    >
       Dra markören till rätt plats.
       <v-btn text color="green" @click="addTreeDialog = true">Fortsätt</v-btn>
       <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
@@ -10,14 +14,14 @@
       :center="center"
       :zoom="zoom"
       :options="mapOptions"
-      style="z-index: 0"
+      style="z-index: 0;"
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
 
       <l-control
         position="bottomleft"
         class="hidden-md-and-up"
-        style="background:#dedede99;border-radius:5px;margin-bottom:1.6em;"
+        style="background: #dedede99; border-radius: 5px; margin-bottom: 1.6em;"
       >
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           mdi-menu
@@ -112,7 +116,7 @@ export default {
   props: {
     treeFilters: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           hideempty: true,
           type: "*",
@@ -173,7 +177,7 @@ export default {
     },
   },
 
-  created: function() {
+  created: function () {
     function icon(filename) {
       return licon({
         iconSize: [42, 36],
@@ -190,7 +194,7 @@ export default {
       }, {})
   },
 
-  mounted: function() {
+  mounted: function () {
     let self = this
 
     let getUserPosition = new Promise((resolve, reject) => {
@@ -224,7 +228,7 @@ export default {
     /**
      * Let the user add a new tree by moving a marker.
      */
-    addTree: function() {
+    addTree: function () {
       let map = this.$refs.theMap.mapObject
       // Close drawer in case we're on mobile
       this.$emit("closeDrawer")
@@ -238,7 +242,7 @@ export default {
     /**
      * Actually add the tree to the DB
      */
-    doAddTree: function(tree) {
+    doAddTree: function (tree) {
       // TODO Merge with doEditTree and move to TreeEditor component
 
       // Call the API
@@ -258,7 +262,7 @@ export default {
       })
     },
 
-    doEditTree: function(tree) {
+    doEditTree: function (tree) {
       fetch(`${APIBASE}/tree/${tree.key}`, {
         method: "POST",
         body: JSON.stringify(tree),
@@ -272,7 +276,7 @@ export default {
       })
     },
 
-    fetchPopupContent: function(marker) {
+    fetchPopupContent: function (marker) {
       let self = this
       this.viewTreeDialog = true
 
@@ -292,7 +296,7 @@ export default {
       })
     },
 
-    deleteTree: function(marker) {
+    deleteTree: function (marker) {
       let result = window.confirm(
         `Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`
       )
@@ -307,13 +311,13 @@ export default {
     },
 
     /* Clicking (not dragging) the add tree icon will open the add tree dialogue */
-    addTreeIconMouseUp: function(x) {
+    addTreeIconMouseUp: function (x) {
       if (x.latlng == this.addTreeMarker.latLng) {
         this.addTreeDialog = true
       }
     },
 
-    fetchMarkers: function() {
+    fetchMarkers: function () {
       this.loading = true
       let self = this
 
