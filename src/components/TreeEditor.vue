@@ -1,7 +1,7 @@
 <!-- A tree editor shared by addTree dialog and editTree dialog. -->
 <template>
   <v-form v-model="tree.valid">
-    <v-combobox
+    <v-select
       v-model="tree.type"
       required
       :rules="[v => !!v || 'Du måste välja en trädtyp!']"
