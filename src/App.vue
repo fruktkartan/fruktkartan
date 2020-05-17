@@ -30,7 +30,7 @@
 
       <v-list>
         <SidebarItem
-          icon="mdi-filter"
+          :icon="mdiFilter"
           :active="filters.hideempty"
           :tooltip="
             filters.hideempty
@@ -57,19 +57,19 @@
           />
         </SidebarItem>
 
-        <SidebarItem icon="mdi-reload" @onClick="reset()">
+        <SidebarItem :icon="mdiReload" @onClick="reset()">
           Återställ filter
         </SidebarItem>
 
         <v-divider />
 
-        <SidebarItem icon="mdi-plus" @onClick="$refs.map.addTree()">
+        <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addTree()">
           Lägg till träd
         </SidebarItem>
 
         <v-divider />
 
-        <SidebarItem icon="mdi-information" @onClick="showFAQ = true">
+        <SidebarItem :icon="mdiInformation" @onClick="showFAQ = true">
           Om Fruktkartan
         </SidebarItem>
       </v-list>
@@ -77,8 +77,8 @@
         <v-list class="d-none d-lg-block">
           <v-list-item @click="miniVariant = !miniVariant">
             <v-list-item-icon>
-              <v-icon v-if="!miniVariant">mdi-close</v-icon>
-              <v-icon v-if="miniVariant">mdi-menu-open</v-icon>
+              <v-icon v-if="!miniVariant">{{ mdiClose }}</v-icon>
+              <v-icon v-if="miniVariant">{{ mdiMenuOpen }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>Dölj panelen</v-list-item-content>
           </v-list-item>
@@ -142,6 +142,14 @@
 <script>
 import Map from "./components/Map.vue"
 import SidebarItem from "./components/SidebarItem.vue"
+import {
+  mdiClose,
+  mdiMenuOpen,
+  mdiFilter,
+  mdiReload,
+  mdiInformation,
+  mdiPlus,
+} from "@mdi/js"
 
 const DEFAULT_FILTERS = {
   hideempty: true,
@@ -166,6 +174,14 @@ export default {
       /* tree filters */
       selectTreeTypes: require("./assets/selectTrees.json"),
       filters: { ...DEFAULT_FILTERS },
+
+      /* SVG icons */
+      mdiClose,
+      mdiMenuOpen,
+      mdiFilter,
+      mdiReload,
+      mdiInformation,
+      mdiPlus,
     }
   },
   computed: {
