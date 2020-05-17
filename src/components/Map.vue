@@ -34,7 +34,7 @@
         :attribution="attribution"
         :z-index="0"
       />
-      <l-control position="topleft" class="control">
+      <l-control v-if="canGeoLocate" position="topleft" class="control">
         <v-icon @click="retrieveUserPosition">{{ mdiCrosshairsGps }}</v-icon>
       </l-control>
       <l-marker-cluster :options="clusterOptions">
@@ -174,6 +174,10 @@ export default {
       }
       return fm
     },
+
+    canGeoLocate() {
+      return navigator.geolocation
+    },
   },
 
   created: function () {
@@ -206,7 +210,7 @@ export default {
 
       let getUserPosition = new Promise((resolve, reject) => {
         /* Promise to return user position */
-        if (navigator.geolocation) {
+        if (this.canGeoLocate) {
           navigator.geolocation.getCurrentPosition(resolve, reject)
         } else {
           reject()
