@@ -25,7 +25,7 @@
         style="background: #dedede99; border-radius: 5px; margin-bottom: 1.6em;"
       >
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
-          mdi-menu
+          { mdiMenu }
         </v-icon>
         <span @click="$emit('openDrawer')">
           Meny
@@ -97,6 +97,7 @@ import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
 import ViewTreeDialog from "./ViewTreeDialog.vue"
+import { mdiMenu } from "@mdi/js"
 
 const APIBASE = "https://fruktkartan-api.herokuapp.com"
 //const APIBASE = "http://localhost:8080"
@@ -151,6 +152,7 @@ export default {
       markers: [],
       //filteredMarkers: [],
       icons: {},
+      mdiMenu,
 
       addTreeMarker: {
         latLng: MAP_CENTER,

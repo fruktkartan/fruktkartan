@@ -17,6 +17,7 @@
     "node": ">=14"
   },
   "dependencies": {
+    "@mdi/js": "^5.2.45",
     "core-js": "^3.6.5",
     "leaflet": "^1.6.0",
     "vue": "^2.6.11",
