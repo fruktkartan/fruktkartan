@@ -129,8 +129,8 @@ export default {
        *   "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png" */
       url: "https://free.tile.hydda.se/hydda/v2/base/{z}/{x}/{y}.png",
       attribution:
-        "Kartgrafik från <a href='https://openstreetmap.se/' target='_blank'>OpenStreetMap Sverige</a>" +
-        ", Kartdata &copy; <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> bidragsgivare",
+        "Kartgrafik: <a href='https://openstreetmap.se/' target='_blank'>Open Streetmap Sverige</a>" +
+        ". Kartdata: <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Streetmap</a>",
       mapOptions: {
         zoomSnap: 0.5,
       },
