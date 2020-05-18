@@ -21,7 +21,7 @@
 
       <l-control
         position="bottomleft"
-        class="hidden-md-and-up control"
+        class="hidden-lg-and-up control"
         style="z-index: 1;"
       >
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
