@@ -15,7 +15,6 @@
       :zoom="zoom"
       :options="mapOptions"
       style="z-index: 0;"
-      :padding-bottom-right="[20, 20]"
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
 
