@@ -19,7 +19,11 @@
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
 
-      <l-control position="bottomleft" class="hidden-md-and-up control">
+      <l-control
+        position="bottomleft"
+        class="hidden-md-and-up control"
+        style="z-index: 1;"
+      >
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           {{ mdiMenu }}
         </v-icon>
