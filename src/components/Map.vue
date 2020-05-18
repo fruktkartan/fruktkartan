@@ -21,7 +21,7 @@
       <l-control
         position="bottomleft"
         class="hidden-md-and-up control"
-        style="z-index: 1; position: absolute; display: flex; bottom: 2em;"
+        style="z-index: 1; position: absolute; display: flex; bottom: 2.5em;"
       >
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           {{ mdiMenu }}
