@@ -21,13 +21,13 @@
 
       <l-control
         position="bottomleft"
-        class="hidden-lg-and-up control"
-        style="z-index: 1;"
+        class="hidden-md-and-up control"
+        style="z-index: 1; position: absolute; display: flex; bottom: 2em;"
       >
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           {{ mdiMenu }}
         </v-icon>
-        <span @click="$emit('openDrawer')">
+        <span @click="$emit('openDrawer')" style="padding-left: 1em;">
           Meny
         </span>
       </l-control>
