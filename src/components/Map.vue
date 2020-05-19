@@ -26,7 +26,7 @@
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           {{ mdiMenu }}
         </v-icon>
-        <span @click="$emit('openDrawer')" style="padding-left: 1em;">
+        <span style="padding-left: 1em;" @click="$emit('openDrawer')">
           Meny
         </span>
       </l-control>
