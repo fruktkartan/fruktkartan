@@ -124,8 +124,8 @@
                 >
               </p>
               <p>
-                Fruktkartan är byggd med Vue/Vuetify samt Leaflet med
-                Open&nbsp;Street&nbsp;Maps kartor. Frågor? Skicka ett
+                Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open
+                Street Maps kartor. Frågor? Skicka ett
                 <a href="mailto:mejl@leowallentin.se">mejl</a>!
               </p>
             </v-card-text>
