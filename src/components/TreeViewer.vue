@@ -6,7 +6,7 @@
     <v-card-title>{{ tree.type }} </v-card-title>
     <v-card-text>
       <p>
-        <em>Uppdaterat den {{ prettyDate(tree.added) }}</em>
+        <em>Uppdaterat den {{ prettyDate(date) }}</em>
       </p>
       <p>{{ tree.desc }}</p>
     </v-card-text>
@@ -46,8 +46,14 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {}
+  computed: {
+    date() {
+      if (this.preview) {
+        return new Date()
+      } else {
+        return this.tree.added
+      }
+    },
   },
   methods: {
     prettyDate(date) {
