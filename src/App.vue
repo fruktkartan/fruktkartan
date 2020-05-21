@@ -119,13 +119,13 @@
               </p>
               <p>
                 Källkoden för sajten är öppen och fri. Utveckling sker på
-                <a href="https://github.com/fruktkartan" target="_blank">
-                  https://github.com/fruktkartan</a
+                <a href="https://github.com/fruktkartan" target="_blank"
+                  >https://github.com/fruktkartan</a
                 >
               </p>
               <p>
-                Fruktkartan är byggd med Vuetify och Leaflet. Open Streetmap.
-                Frågor? Skicka ett
+                Fruktkartan är byggd med Vue/Vuetify samt Leaflet med
+                Open&nbsp;Street&nbsp;Maps kartor. Frågor? Skicka ett
                 <a href="mailto:mejl@leowallentin.se">mejl</a>!
               </p>
             </v-card-text>
