@@ -15,12 +15,9 @@
       </template>
     </TreeViewer>
 
-    <v-card v-if="step === 'edit'">
-      <v-card-title>Redigera träd</v-card-title>
-      <v-card-text>
-        <TreeEditor v-model="newTree" />
-      </v-card-text>
-      <v-card-actions>
+    <TreeEditor v-if="step === 'edit'" v-model="newTree">
+      <template #title>Redigera träd</template>
+      <template #buttons>
         <v-btn @click="step = 'view'">Tillbaka</v-btn>
         <v-btn
           color="green"
@@ -29,8 +26,8 @@
         >
           Fortsätt
         </v-btn>
-      </v-card-actions>
-    </v-card>
+      </template>
+    </TreeEditor>
 
     <TreeViewer v-if="step === 'preview'" :tree="newTree" :preview="true">
       <template #buttons>

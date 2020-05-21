@@ -1,18 +1,15 @@
 <template>
   <div>
-    <v-card v-if="step === 'edit'">
-      <v-card-title>Lägg till träd</v-card-title>
-      <v-card-text>
-        <TreeEditor v-model="tree" />
-      </v-card-text>
-      <v-card-actions>
+    <TreeEditor v-if="step === 'edit'" v-model="tree">
+      <template #title>Lägg till träd</template>
+      <template #buttons>
         <v-btn @click="$emit('goBack')">Tillbaka</v-btn>
         <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
           >Fortsätt</v-btn
         >
         <v-btn @click="$emit('close')">Avbryt</v-btn>
-      </v-card-actions>
-    </v-card>
+      </template>
+    </TreeEditor>
 
     <TreeViewer v-if="step === 'preview'" :tree="tree" :preview="true">
       <template #buttons>
