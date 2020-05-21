@@ -1,29 +1,35 @@
 <!-- A tree editor shared by addTree dialog and editTree dialog. -->
 <template>
-  <v-form v-model="tree.valid">
-    <v-select
-      v-model="tree.type"
-      required
-      :rules="[v => !!v || 'Du måste välja en trädtyp!']"
-      :items="insertableTrees"
-      label="Trädtyp"
-    />
+  <v-card>
+    <v-card-title><slot name="title"></slot></v-card-title>
+    <v-card-text>
+      <v-form v-model="tree.valid">
+        <v-select
+          v-model="tree.type"
+          required
+          :rules="[v => !!v || 'Du måste välja en trädtyp!']"
+          :items="insertableTrees"
+          label="Trädtyp"
+        />
 
-    <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
-    <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
-    <v-file-input
-      v-model="file"
-      accept="image/*"
-      label="Ladda upp en bild"
-      @change="fileChanged"
-    />
-    <v-progress-linear
-      :active="uploading"
-      :value="uploadingProgress"
-      :striped="true"
-    />
-    <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
-  </v-form>
+        <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
+        <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
+        <v-file-input
+          v-model="file"
+          accept="image/*"
+          label="Ladda upp en bild"
+          @change="fileChanged"
+        />
+        <v-progress-linear
+          :active="uploading"
+          :value="uploadingProgress"
+          :striped="true"
+        />
+        <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
+      </v-form>
+    </v-card-text>
+    <v-card-actions><slot name="buttons"></slot></v-card-actions>
+  </v-card>
 </template>
 
 <script>
