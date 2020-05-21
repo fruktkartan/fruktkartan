@@ -1,7 +1,7 @@
 <!-- Tree view, used in the regular view interface, as well as editing previews -->
 
 <template>
-  <v-card>
+  <v-card :loading="loading">
     <v-card-subtitle v-if="preview">FÖRHANDSGRANSKNING</v-card-subtitle>
     <v-card-title>{{ tree.type }} </v-card-title>
     <v-card-text>
@@ -34,9 +34,12 @@ export default {
     TreeImage,
   },
   model: {
-    prop: ["preview", "tree"],
+    prop: ["loading", "preview", "tree"],
   },
   props: {
+    loading: {
+      type: Boolean,
+    },
     preview: {
       type: Boolean,
       default: false,
