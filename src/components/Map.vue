@@ -201,6 +201,9 @@ export default {
         iconAnchor: [21, 34],
         popupAnchor: [0, -36],
         iconUrl: require(`./icons/${filename}.svg`),
+        // Shadow is included in icon svg, but for some reason Leaflet
+        // insists on loading a specific shadow when adding a tree.
+        shadowUrl: filename === "addnew" ? "./icons/shadow.png" : null,
       })
     }
     this.icons = Object.entries(require("../assets/group-data.json"))
@@ -265,7 +268,7 @@ export default {
       this.addTreeMarker = {
         visible: true,
         latLng: map.getCenter(),
-        icon: this.icons["addnew"],
+        icon: this.icons.addnew,
       }
     },
 
