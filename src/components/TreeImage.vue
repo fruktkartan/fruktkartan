@@ -1,5 +1,19 @@
+<!-- Display an image in a tree view. -->
 <template>
-  <v-img v-if="image" :src="img" :srcset="img_srcset" height="194" :alt="alt" />
+  <div>
+    <v-img
+      v-if="image"
+      :src="img"
+      :srcset="img_srcset"
+      :alt="alt"
+      height="194"
+      @error="image = false;err = true"
+    />
+    <div v-if="err" class="warning">
+      &lt; Bilden kunde inte visas just nu. Det kan bero på att den nyss laddats upp,
+      och inte hunnit bearbetas färdigt än. &gt;
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,7 +32,11 @@ export default {
       default: "",
     },
   },
-
+  data() {
+    return {
+      err: false,
+    }
+  },
   computed: {
     img: function () {
       return `${S3_BASE}/${this.image}_${WIDTH}.jpg`
