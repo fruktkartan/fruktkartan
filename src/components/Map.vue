@@ -55,7 +55,7 @@
         :visible="addTreeMarker.visible"
         :lat-lng.sync="addTreeMarker.latLng"
         :icon="addTreeMarker.icon"
-        :zIndexOffset="999"
+        :z-index-offset="999"
         draggable
         @mouseup="addTreeIconMouseUp"
       />
