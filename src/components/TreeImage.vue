@@ -6,7 +6,7 @@
       :src="img"
       :srcset="img_srcset"
       :alt="alt"
-      height="194"
+      :width="this.WIDTH"
       @error="
         image = false
         err = true
