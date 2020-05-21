@@ -7,11 +7,14 @@
       :srcset="img_srcset"
       :alt="alt"
       height="194"
-      @error="image = false;err = true"
+      @error="
+        image = false
+        err = true
+      "
     />
     <div v-if="err" class="warning">
-      &lt; Bilden kunde inte visas just nu. Det kan bero på att den nyss laddats upp,
-      och inte hunnit bearbetas färdigt än. &gt;
+      &lt; Bilden kunde inte visas just nu. Det kan bero på att den nyss laddats
+      upp, och inte hunnit bearbetas färdigt än. &gt;
     </div>
   </div>
 </template>
