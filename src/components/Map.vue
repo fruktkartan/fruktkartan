@@ -61,7 +61,12 @@
 
       <!-- There is a lot of shared logic betw the view/edit/delete dialog 
            and the add dialog. These could probably be unified. -->
-      <v-dialog v-model="viewTreeDialog" max-width="400" persistent>
+      <v-dialog
+        v-model="viewTreeDialog"
+        max-width="400"
+        persistent
+        @keydown.esc="viewTreeDialog = false"
+      >
         <ViewTreeDialog
           :tree="viewTreeData"
           :is-open="viewTreeDialog"
