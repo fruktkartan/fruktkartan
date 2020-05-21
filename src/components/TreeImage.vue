@@ -6,7 +6,7 @@
       :src="img"
       :srcset="img_srcset"
       :alt="alt"
-      :width="this.WIDTH"
+      :width="width"
       @error="
         image = false
         err = true
@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       err: false,
+      width: WIDTH,
     }
   },
   computed: {
