@@ -26,7 +26,7 @@
         <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
           {{ mdiMenu }}
         </v-icon>
-        <span @click="$emit('openDrawer')" style="padding-left: 1em;">
+        <span style="padding-left: 1em;" @click="$emit('openDrawer')">
           Meny
         </span>
       </l-control>
@@ -134,17 +134,25 @@ export default {
       loading: true,
       center: MAP_CENTER,
       zoom: 5,
-      /* TODO once OSM.se's server is repaired, go back to:
-       *   "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png" */
-      url: "https://free.tile.hydda.se/hydda/v2/base/{z}/{x}/{y}.png",
+      url:
+        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       attribution:
-        "Kartgrafik: <a href='https://openstreetmap.se/' target='_blank'>Open Streetmap Sverige</a>" +
-        ". Kartdata: <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Streetmap</a>",
+        "Kartgrafik: <a href='https://carto.com/attributions' target='_blank'>CARTO</a>" +
+        ". Kartdata: <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
+      layerOptions: {
+        maxZoom: 19,
+        subdomains: "abcd",
+      },
+      // TODO go back to this once OSM.se's server is repaired  https://github.com/karlwettin/carto-style-hydda/issues/3
+      // url: "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
+      // attribution:
+      //   "Kartgrafik: <a href='https://openstreetmap.se/' target='_blank'>Open Street Map Sverige</a>" +
+      //   ". Kartdata: <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
+      // layerOptions: {
+      //   maxZoom: 20,
+      // },
       mapOptions: {
         zoomSnap: 0.5,
-      },
-      layerOptions: {
-        maxZoom: 20, // as supported by Kalles carto-style-hydda
       },
       clusterOptions: {
         disableClusteringAtZoom: 14,
