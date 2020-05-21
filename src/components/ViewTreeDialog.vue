@@ -1,23 +1,19 @@
 <template>
   <div>
-    <v-card v-if="step === 'view'" :loading="!Object.entries(tree).length">
-      <v-card-title>{{ tree.type }} </v-card-title>
-      <v-card-text>
-        <p>
-          <em>Uppdaterat {{ prettyDate(tree.added) }}</em>
-        </p>
-        <p>{{ tree.desc }}</p>
-      </v-card-text>
-      <TreeImage :image="tree.file" alt="Bild av trädet" />
-      <v-card-actions>
+    <TreeViewer
+      v-if="step === 'view'"
+      :loading="!Object.entries(tree).length"
+      :tree="tree"
+    >
+      <template #buttons>
         <v-btn @click="close">Stäng</v-btn>
         <v-spacer></v-spacer>
         <v-btn @click="step = 'edit'">Redigera</v-btn>
         <v-btn color="red lighten-3" @click="$emit('delete', tree)">
           Radera
         </v-btn>
-      </v-card-actions>
-    </v-card>
+      </template>
+    </TreeViewer>
 
     <v-card v-if="step === 'edit'">
       <v-card-title>Redigera träd</v-card-title>
@@ -36,33 +32,25 @@
       </v-card-actions>
     </v-card>
 
-    <v-card v-if="step === 'preview'">
-      <v-card-subtitle>FÖRHANDSGRANSKNING</v-card-subtitle>
-      <v-card-title>{{
-        newTree.type.value || newTree.type.text || newTree.type
-      }}</v-card-title>
-      <v-card-text>{{ newTree.desc }}</v-card-text>
-      <v-card-actions>
+    <TreeViewer v-if="step === 'preview'" :tree="newTree" :preview="true">
+      <template #buttons>
         <v-btn @click="step = 'edit'">Tillbaka</v-btn>
         <v-btn color="green" @click="submitTree">Uppdatera trädet</v-btn>
         <v-btn @click="close">Avbryt</v-btn>
-      </v-card-actions>
-    </v-card>
+      </template>
+    </TreeViewer>
   </div>
 </template>
 
 <script>
+import TreeViewer from "./TreeViewer.vue"
 import TreeEditor from "./TreeEditor.vue"
-import TreeImage from "./TreeImage.vue"
-import dayjs from "dayjs"
-import "dayjs/locale/sv"
-dayjs.locale("sv")
 
 export default {
   name: "ViewTreeDialog",
   components: {
+    TreeViewer,
     TreeEditor,
-    TreeImage,
   },
   props: {
     tree: {
@@ -95,13 +83,6 @@ export default {
     close() {
       this.step = "view"
       this.$emit("close")
-    },
-    prettyDate(date) {
-      if (!date) {
-        return ""
-      }
-      const d = dayjs(date)
-      return `${d.format("D MMMM YYYY")} kl ${d.format("H.mm")}`
     },
     submitTree() {
       let editedTree = {

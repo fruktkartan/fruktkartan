@@ -13,13 +13,9 @@
         <v-btn @click="$emit('close')">Avbryt</v-btn>
       </v-card-actions>
     </v-card>
-    <v-card v-if="step === 'preview'">
-      <v-card-subtitle>FÖRHANDSGRANSKNING</v-card-subtitle>
-      <v-card-title>{{
-        tree.type.value || tree.type.text || tree.type
-      }}</v-card-title>
-      <v-card-text>{{ tree.desc }}</v-card-text>
-      <v-card-actions>
+
+    <TreeViewer v-if="step === 'preview'" :tree="tree" :preview="true">
+      <template #buttons>
         <v-btn @click="step = 'edit'">Tillbaka</v-btn>
         <v-btn color="green" @click="submitTree">Publicera trädet</v-btn>
         <v-btn
@@ -29,18 +25,20 @@
           "
           >Avbryt</v-btn
         >
-      </v-card-actions>
-    </v-card>
+      </template>
+    </TreeViewer>
   </div>
 </template>
 
 <script>
 import TreeEditor from "./TreeEditor.vue"
+import TreeViewer from "./TreeViewer.vue"
 
 export default {
   name: "AddTreeDialog",
   components: {
     TreeEditor,
+    TreeViewer,
   },
   data() {
     return {
