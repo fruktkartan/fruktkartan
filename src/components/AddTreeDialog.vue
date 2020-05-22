@@ -14,7 +14,7 @@
     <TreeViewer v-if="step === 'preview'" :tree="tree" :preview="true">
       <template #buttons>
         <v-btn @click="step = 'edit'">Tillbaka</v-btn>
-        <v-btn color="green" @click="submitTree">Publicera trädet</v-btn>
+        <v-btn color="green" @click="submitTree">Publicera</v-btn>
         <v-btn
           @click="
             step = 'edit'

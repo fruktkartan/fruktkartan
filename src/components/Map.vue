@@ -330,7 +330,7 @@ export default {
 
     deleteTree: function (marker) {
       let result = window.confirm(
-        `Är du säker på att du vill radera det här trädet? Trädtyp: ${marker.type}`
+        `Är du säker på att du vill ta bort det här trädet? Trädets sort: ${marker.type}`
       )
       if (result) {
         fetch(`${APIBASE}/tree/${marker.key}`, { method: "DELETE" }).then(

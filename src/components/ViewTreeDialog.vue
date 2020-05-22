@@ -10,7 +10,7 @@
         <v-spacer></v-spacer>
         <v-btn @click="step = 'edit'">Redigera</v-btn>
         <v-btn color="red lighten-3" @click="$emit('delete', tree)">
-          Radera
+          Ta bort
         </v-btn>
       </template>
     </TreeViewer>

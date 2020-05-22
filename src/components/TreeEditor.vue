@@ -7,9 +7,9 @@
         <v-select
           v-model="tree.type"
           required
-          :rules="[v => !!v || 'Du måste välja en trädtyp!']"
+          :rules="[v => !!v || 'Du måste bestämma trädets sort.']"
           :items="insertableTrees"
-          label="Trädtyp"
+          label="Trädsort"
         />
 
         <p>
