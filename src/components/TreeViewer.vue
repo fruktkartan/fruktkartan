@@ -9,8 +9,8 @@
         <em>Uppdaterat den {{ prettyDate(date) }}</em>
       </p>
       <p>{{ tree.desc }}</p>
+      <TreeImage :image="tree.file" alt="Bild av trädet" />
     </v-card-text>
-    <TreeImage :image="tree.file" alt="Bild av trädet" />
     <v-card-actions>
       <slot name="buttons"></slot>
     </v-card-actions>
