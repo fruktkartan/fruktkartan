@@ -8,6 +8,7 @@
   { "text": "Valnöt", "value": "Valnöt" },
   { "text": "Hasselnöt", "value": "Hasselnöt" },
   { "text": "Äkta kastanj", "value": "Kastanj" },
+  { "text": "Mandel", "value": "Mandel" },
   { "divider": true},
   { "text": "Aronia", "value": "Aronia" },
   { "text": "Berberisbär", "value": "Berberisbär" },
@@ -19,6 +20,7 @@
   { "text": "Havtorn", "value": "Havtorn" },
   { "text": "Kvitten", "value": "Kvitten" },
   { "text": "Mullbär", "value": "Mullbär" },
+  { "text": "Nypon", "value": "Nypon" },
   { "text": "Rosenkvitten", "value": "Rosenkvitten" },
   { "text": "Röda vinbär", "value": "Röda vinbär" },
   { "text": "Svarta vinbär", "value": "Svarta vinbär" }
