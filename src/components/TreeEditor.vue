@@ -27,6 +27,9 @@
           :value="uploadingProgress"
           :striped="true"
         />
+        <p v-if="file">
+          Bildens rotation kan vara fel här, men bör bli rätt i nästa steg.
+        </p>
         <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
       </v-form>
     </v-card-text>
