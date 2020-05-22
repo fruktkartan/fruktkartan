@@ -12,8 +12,10 @@
           label="Trädtyp"
         />
 
-        <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
-        <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
+        <p>
+          <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
+          <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
+        </p>
         <v-file-input
           v-model="file"
           accept="image/*"
