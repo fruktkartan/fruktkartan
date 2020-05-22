@@ -14,7 +14,7 @@
     />
     <div v-if="err" class="warning">
       &lt; Bilden kunde inte visas just nu. Det kan bero på att den nyss laddats
-      upp, och inte hunnit bearbetas färdigt än. &gt;
+      upp, och fortfarande bearbetas. &gt;
     </div>
   </div>
 </template>
