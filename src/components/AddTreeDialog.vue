@@ -7,6 +7,7 @@
         <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
           >Fortsätt</v-btn
         >
+        <v-spacer></v-spacer>
         <v-btn @click="$emit('close')">Avbryt</v-btn>
       </template>
     </TreeEditor>
@@ -15,6 +16,7 @@
       <template #buttons>
         <v-btn @click="step = 'edit'">Tillbaka</v-btn>
         <v-btn color="green" @click="submitTree">Publicera</v-btn>
+        <v-spacer></v-spacer>
         <v-btn
           @click="
             step = 'edit'
