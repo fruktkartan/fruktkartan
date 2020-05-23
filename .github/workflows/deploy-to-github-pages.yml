@@ -29,3 +29,5 @@ jobs:
           external_repository: fruktkartan/fruktkartan.github.io
           publish_branch: master
           publish_dir: ./dist
+          user_name: 'deploy robot'
+          user_email: '<>'
