@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { latLng, icon as licon } from "leaflet"
+import { latLng, latLngBounds, icon as licon } from "leaflet"
 import { LMap, LTileLayer, LMarker, LControl } from "vue2-leaflet"
 import Vue2LeafletMarkercluster from "vue2-leaflet-markercluster"
 import AddTreeDialog from "./AddTreeDialog.vue"
@@ -159,6 +159,8 @@ export default {
       // },
       mapOptions: {
         zoomSnap: 0.5,
+        noWrap: true,
+        maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
       },
       clusterOptions: {
         disableClusteringAtZoom: 14,
