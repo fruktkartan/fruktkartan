@@ -1,0 +1,22 @@
+name: Build and deploy
+
+# TODO production branch
+on:
+  push:
+    branches:
+      - quite
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Build
+        run: |
+          npm install
+          npm run-script build
