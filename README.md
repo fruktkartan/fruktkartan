@@ -1,12 +1,6 @@
 # fruktkartan
 
-Writing a new frontend for https://fruktkartan.se
-
-Branch `production` is deployed automatically at https://fruktkartan.netlify.app
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/11680892-fb54-4e91-aa43-f07ef9c32f4d/deploy-status)](https://app.netlify.com/sites/fruktkartan/deploys)
-
-Also branch `master` at https://master--fruktkartan.netlify.app
+A new frontend. Now deployed live on https://fruktkartan.se (branch `production`).
 
 ## Developing
 
