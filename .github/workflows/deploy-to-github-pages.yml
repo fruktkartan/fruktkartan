@@ -18,5 +18,14 @@ jobs:
 
       - name: Build
         run: |
-          npm install
+          npm ci
           npm run-script build
+          npm run-script test
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.PAGES_DEPLOY_KEY }}
+          external_repository: fruktkartan/fruktkartan.github.io
+          publish_branch: master
+          publish_dir: ./dist
