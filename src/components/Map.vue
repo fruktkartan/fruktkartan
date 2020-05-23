@@ -104,6 +104,13 @@ const APIBASE = "https://fruktkartan-api.herokuapp.com"
 //const APIBASE = "http://localhost:8080"
 const DEFAULT_MAP_SIZE = 750 // meters across map
 const MAP_CENTER = latLng(62.3908, 17.3069)
+/* Middleware for fetch calls */
+const raiseForErrors = response => {
+  if (!response.ok) {
+    throw Error(response.statusText)
+  }
+  return response
+}
 
 export default {
   name: "Map",
@@ -358,12 +365,16 @@ export default {
         // eslint-disable-next-line max-len
         `${APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
+        .then(raiseForErrors)
         .then(response => response.json())
         .then(json => {
           self.markers = json.map(m => ({
             ...m,
             icon: self.icons[m.group] ?? self.icons.tree,
           }))
+        })
+        .catch(e => {
+          console.log("Error fetching trees: ", e)
         })
         .finally(() => {
           this.loading = false
