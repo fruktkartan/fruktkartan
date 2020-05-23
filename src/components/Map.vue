@@ -158,6 +158,7 @@ export default {
       //   maxZoom: 20,
       // },
       mapOptions: {
+        minZoom: 3,
         zoomSnap: 0.5,
         noWrap: true,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
