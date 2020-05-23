@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - production
+  pull_request:
+    branches-ignore:
+      - production
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Build
+        run: |
+          npm ci
+          npm run-script build
+          npm run-script test

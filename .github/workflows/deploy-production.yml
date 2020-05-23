@@ -1,14 +1,12 @@
-name: Build and deploy
+name: Deploy production branch
 
-# TODO production branch
 on:
   push:
     branches:
       - production
 
-
 jobs:
-  build-and-deploy:
+  deploy-production:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
