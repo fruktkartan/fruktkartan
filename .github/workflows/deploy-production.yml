@@ -1,4 +1,4 @@
-name: Deploy production branch
+name: Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - production
 
 jobs:
-  deploy-production:
+  production:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
