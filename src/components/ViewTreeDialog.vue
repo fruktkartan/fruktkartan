@@ -24,8 +24,13 @@
           Fortsätt
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="red lighten-3" @click="$emit('delete', tree)">
-          Radera trädet
+        <v-btn
+          small
+          class="px-2"
+          color="red lighten-3"
+          @click="$emit('delete', tree)"
+        >
+          Ta bort
         </v-btn>
       </template>
     </TreeEditor>
