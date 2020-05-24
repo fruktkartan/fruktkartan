@@ -143,8 +143,8 @@ export default {
       url:
         "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       attribution:
-        "Kartgrafik: <a href='https://carto.com/attributions' target='_blank'>CARTO</a>" +
-        ". Kartdata: <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
+        "kartgrafik <a href='https://carto.com/attributions' target='_blank'>CARTO</a>" +
+        " · kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
       layerOptions: {
         maxZoom: 19,
         subdomains: "abcd",
@@ -152,8 +152,8 @@ export default {
       // TODO go back to this once OSM.se's server is repaired  https://github.com/karlwettin/carto-style-hydda/issues/3
       // url: "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
       // attribution:
-      //   "Kartgrafik: <a href='https://openstreetmap.se/' target='_blank'>Open Street Map Sverige</a>" +
-      //   ". Kartdata: <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
+      //   "kartgrafik <a href='https://openstreetmap.se/' target='_blank'>Open Street Map Sverige</a>" +
+      //   " · kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
       // layerOptions: {
       //   maxZoom: 20,
       // },
@@ -226,6 +226,7 @@ export default {
   },
 
   mounted: function () {
+    this.$refs.theMap.mapObject.attributionControl.setPrefix("")
     this.retrieveUserPosition()
   },
 
