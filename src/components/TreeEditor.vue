@@ -30,7 +30,12 @@
         <p v-if="file">
           Bildens rotation kan vara fel här, men bör bli rätt i nästa steg.
         </p>
-        <v-textarea v-model="tree.desc" label="Beskrivning"></v-textarea>
+        <v-textarea
+          v-model="tree.desc"
+          :rules="[v => !!v || 'Beskriv trädet innan du fortsätter!']"
+          required
+          label="Beskrivning"
+        ></v-textarea>
       </v-form>
     </v-card-text>
     <v-card-actions><slot name="buttons"></slot></v-card-actions>
