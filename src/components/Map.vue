@@ -212,7 +212,7 @@ export default {
         iconUrl: require(`./icons/${filename}.svg`),
         // Shadow is included in icon svg, but for some reason Leaflet
         // insists on loading a specific shadow when adding a tree.
-        shadowUrl: filename === "addnew" ? "./icons/shadow.png" : null,
+        shadowUrl: filename === "addnew" ? require("./icons/shadow.png") : null,
       })
     }
     this.icons = Object.entries(require("../assets/group-data.json"))
