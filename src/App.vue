@@ -234,4 +234,9 @@ html {
   background-color: rgba(112, 206, 155, 0.85);
   border-radius: 50%;
 }
+
+/* Override uppercasing of text buttons (but not the flat) */
+.v-btn--contained {
+  text-transform: none !important;
+}
 </style>
