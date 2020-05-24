@@ -15,15 +15,11 @@
             <v-img
               v-if="!miniVariant"
               alt="Fruktkartan"
-              src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/fruktkartan_a.png"
+              src="fruktkartan_a.png"
             >
               <span class="beta" :style="{ display: betaDisplay }">beta</span>
             </v-img>
-            <v-img
-              v-else
-              alt="Fruktkartan"
-              src="https://sasongsmat-1.s3-eu-west-1.amazonaws.com/fruktkartan/images/f_t.png"
-            />
+            <v-img v-else alt="Fruktkartan" src="f_t.png" />
           </v-card-title>
         </h1>
       </v-card>
