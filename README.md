@@ -1,6 +1,9 @@
-# fruktkartan
 
-A new frontend. Now deployed live on https://fruktkartan.se (branch `production`).
+<img src="https://github.com/fruktkartan/fruktkartan/workflows/Build/badge.svg?branch=master" title="master branch" />
+
+A new frontend for the fruit map. Now continuously deployed from
+[`production`](https://github.com/fruktkartan/fruktkartan/tree/production) branch to https://fruktkartan.se
+
 
 ## Developing
 
