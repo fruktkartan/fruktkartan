@@ -193,7 +193,7 @@ export default {
       let fm = this.markers
       if (this.treeFilters.hideempty) {
         fm = fm.filter(m =>
-          this.treeFilters.hideempty ? m.desc || m.file : true
+          this.treeFilters.hideempty ? m.desc || m.img : true
         )
       }
       if (this.treeFilters.type !== "*") {
