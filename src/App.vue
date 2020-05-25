@@ -58,7 +58,9 @@
           <v-list-item @click="miniVariant = !miniVariant">
             <v-list-item-icon>
               <v-icon v-if="!miniVariant">{{ mdiClose }}</v-icon>
-              <v-icon v-if="miniVariant">{{ mdiMenuOpen }}</v-icon>
+              <v-icon v-if="miniVariant" title="Visa panelen">{{
+                mdiMenuOpen
+              }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>Dölj panelen</v-list-item-content>
           </v-list-item>
