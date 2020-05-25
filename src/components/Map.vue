@@ -129,7 +129,6 @@ export default {
       type: Object,
       default: function () {
         return {
-          hideempty: true,
           type: "*",
         }
       },
@@ -191,11 +190,6 @@ export default {
   computed: {
     filteredMarkers() {
       let fm = this.markers
-      if (this.treeFilters.hideempty) {
-        fm = fm.filter(m =>
-          this.treeFilters.hideempty ? m.desc || m.img : true
-        )
-      }
       if (this.treeFilters.type !== "*") {
         fm = fm.filter(m => m.group.startsWith(this.treeFilters.type))
       }
