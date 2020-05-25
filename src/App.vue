@@ -26,22 +26,6 @@
 
       <v-list>
         <SidebarItem
-          :icon="mdiFilter"
-          :active="filters.hideempty"
-          :tooltip="
-            filters.hideempty
-              ? 'Döljer träd utan beskrivning'
-              : 'Visar även träd utan beskrivning.'
-          "
-          @miniAction="filters.hideempty = !filters.hideempty"
-        >
-          <v-switch
-            v-model="filters.hideempty"
-            label="Dölj träd utan beskrivning?"
-          />
-        </SidebarItem>
-
-        <SidebarItem
           :icon-img="selectedTreeIcon"
           :tooltip="`Visar ${selectedTreeName.toLowerCase()}`"
           @miniAction="miniVariant = false"
@@ -148,7 +132,6 @@ import {
 } from "@mdi/js"
 
 const DEFAULT_FILTERS = {
-  hideempty: true,
   type: "*",
 }
 
