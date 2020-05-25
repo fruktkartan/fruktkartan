@@ -208,11 +208,11 @@ export default {
       return licon({
         iconSize: [42, 36],
         iconAnchor: [21, 34],
-        popupAnchor: [0, -36],
         iconUrl: require(`./icons/${filename}.svg`),
         // Shadow is included in icon svg, but for some reason Leaflet
         // insists on loading a specific shadow when adding a tree.
-        shadowUrl: filename === "addnew" ? require("./icons/shadow.png") : null,
+        shadowUrl: filename === "addnew" ? require("./icons/addnew.svg") : null,
+        shadowSize: [0, 0],
       })
     }
     this.icons = Object.entries(require("../assets/group-data.json"))
