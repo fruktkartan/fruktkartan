@@ -37,17 +37,18 @@
           />
         </SidebarItem>
 
+        <!--
         <SidebarItem :icon="mdiReload" @onClick="reset()">
           Återställ filter
         </SidebarItem>
 
         <v-divider />
-
+      -->
         <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addTree()">
           Lägg till träd
         </SidebarItem>
 
-        <v-divider />
+        <!--<v-divider />-->
 
         <SidebarItem :icon="mdiInformation" @onClick="showFAQ = true">
           Om Fruktkartan
