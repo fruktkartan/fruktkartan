@@ -12,7 +12,11 @@
       <v-card flat>
         <h1>
           <v-card-title class="hidden-lg-and-up">
-            <v-img src="fruktkartan_a.png" :max-width="280" width="80%" />
+            <v-img
+              src="fruktkartan_m.png"
+              srcset="fruktkartan_m.png 1x,fruktkartan_m2.png 2x,fruktkartan_m3.png 3x"
+              :max-width="280"
+            />
           </v-card-title>
           <v-card-title class="hidden-md-and-down">
             <v-img
