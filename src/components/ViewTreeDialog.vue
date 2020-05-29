@@ -24,12 +24,7 @@
           Fortsätt
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          small
-          class="px-2"
-          color="red lighten-3"
-          @click="$emit('delete', tree)"
-        >
+        <v-btn small class="px-2" color="red lighten-3" @click="deleteTree">
           Ta bort
         </v-btn>
       </template>
@@ -86,6 +81,10 @@ export default {
     close() {
       this.step = "view"
       this.$emit("close")
+    },
+    deleteTree() {
+      this.step = "view"
+      this.$emit("delete", this.tree)
     },
     submitTree() {
       let editedTree = {
