@@ -9,9 +9,12 @@
       bottom
       absolute
     >
-      <v-card flat class="d-none d-lg-block">
+      <v-card flat>
         <h1>
-          <v-card-title>
+          <v-card-title class="hidden-lg-and-up">
+            <v-img src="fruktkartan_a.png" :max-width="280" width="80%" />
+          </v-card-title>
+          <v-card-title class="hidden-md-and-down">
             <v-img
               v-if="!miniVariant"
               alt="Fruktkartan"
