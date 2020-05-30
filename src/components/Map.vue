@@ -396,9 +396,9 @@ export default {
   background-color: rgba(230, 180, 43, 0.4) !important;
 }
 
-.leaflet-control-attribution {
+.leaflet-right .leaflet-control-attribution {
   /* Collapsed sidebar is 56px */
-  margin-right: 56px;
+  margin-right: 56px !important;
 }
 .control {
   background: #f0f0f099;
