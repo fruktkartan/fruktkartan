@@ -77,7 +77,7 @@
     </v-navigation-drawer>
 
     <v-content>
-      <div id="main">
+      <div id="main" class="fill-height">
         <Map
           ref="map"
           :tree-filters="filters"
@@ -208,12 +208,24 @@ export default {
 <style>
 @import "../node_modules/leaflet/dist/leaflet.css";
 
+/* Hack around unintended effects of using 100vh in some mobile browser, see
+https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
+*/
+.v-application {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+.v-application--wrap {
+  min-height: 100vh !important;
+  min-height: -webkit-fill-available !important;
+}
+
 html {
   overflow: hidden !important;
 }
 #main {
   display: flex;
-  height: 100%;
 }
 .map {
   flex-grow: 1;
