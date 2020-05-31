@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-dialog v-model="value" max-width="500" persistent>
     <TreeEditor v-if="step === 'edit'" v-model="tree">
       <template #title>Lägg till träd</template>
       <template #buttons>
@@ -26,7 +26,7 @@
         >
       </template>
     </TreeViewer>
-  </div>
+  </v-dialog>
 </template>
 
 <script>
@@ -38,6 +38,11 @@ export default {
   components: {
     TreeEditor,
     TreeViewer,
+  },
+  props: {
+    value: {
+      type: Boolean,
+    },
   },
   data() {
     return {
