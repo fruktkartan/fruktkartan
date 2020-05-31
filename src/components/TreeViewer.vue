@@ -2,7 +2,26 @@
 
 <template>
   <v-card :loading="loading">
-    <v-card-subtitle v-if="preview">FÖRHANDSGRANSKNING</v-card-subtitle>
+    <v-card-subtitle v-if="preview">
+      <p>
+        FÖRHANDSGRANSKNING
+      </p>
+      <p>
+        <em>
+          Ditt bidrag görs tillgängligt med licensen
+          <a
+            href="https://opendatacommons.org/licenses/odbl/summary/"
+            target="_blank"
+            >Open Database License</a
+          >, eventuella bilder med
+          <a
+            href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
+            target="_blank"
+            >CC0</a
+          >.
+        </em>
+      </p>
+    </v-card-subtitle>
     <v-card-title>{{ tree.type }} </v-card-title>
     <v-card-text>
       <p>
