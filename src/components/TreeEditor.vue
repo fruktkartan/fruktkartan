@@ -50,9 +50,6 @@
  */
 import TreeImage from "./TreeImage.vue"
 
-const APIBASE = "https://fruktkartan-api.herokuapp.com"
-//const APIBASE = "http://localhost:8080"
-
 export default {
   name: "TreeEditor",
   components: {
@@ -93,7 +90,7 @@ export default {
       }
 
       this.uploading = true
-      fetch(`${APIBASE}/sign`, {
+      fetch(`${process.env.VUE_APP_APIBASE}/sign`, {
         method: "POST",
         body: JSON.stringify({ "file-name": this.file.name }),
         headers: { "Content-Type": "application/json" },
