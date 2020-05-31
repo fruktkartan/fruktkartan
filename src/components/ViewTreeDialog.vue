@@ -80,7 +80,7 @@ export default {
   methods: {
     close() {
       this.step = "view"
-      this.value = false
+      this.$emit("close")
     },
     deleteTree() {
       this.step = "view"

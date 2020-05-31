@@ -65,7 +65,10 @@
         :tree="viewTreeData"
         @submit="doEditTree"
         @delete="deleteTree"
-        @close="viewTreeData = {}"
+        @close="
+          viewTreeData = {}
+          viewTreeDialog = false
+        "
       />
 
       <v-dialog v-model="addTreeDialog" max-width="500" persistent>
@@ -304,6 +307,7 @@ export default {
     },
 
     fetchPopupContent: function (marker) {
+      // FIXME move to ViewTreeDialog
       let self = this
       this.viewTreeDialog = true
 
