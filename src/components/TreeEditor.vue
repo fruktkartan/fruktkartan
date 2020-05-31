@@ -36,6 +36,15 @@
           required
           label="Beskrivning"
         ></v-textarea>
+        <div>
+          <small>
+            Alla dina bidrag kommer vara tillgängliga under
+            <a
+              href="https://opendatacommons.org/licenses/odbl/summary/index.html"
+              >Open Database License</a
+            >.
+          </small>
+        </div>
       </v-form>
     </v-card-text>
     <v-card-actions><slot name="buttons"></slot></v-card-actions>
