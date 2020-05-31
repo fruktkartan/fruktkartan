@@ -60,23 +60,17 @@
         @mouseup="addTreeIconMouseUp"
       />
 
-      <v-dialog
+      <ViewTreeDialog
         v-model="viewTreeDialog"
-        max-width="440"
-        persistent
-        @keydown.esc="viewTreeDialog = false"
-      >
-        <ViewTreeDialog
-          :tree="viewTreeData"
-          :is-open="viewTreeDialog"
-          @submit="doEditTree"
-          @delete="deleteTree"
-          @close="
-            viewTreeDialog = false
-            viewTreeData = {}
-          "
-        />
-      </v-dialog>
+        :tree="viewTreeData"
+        :is-open="viewTreeDialog"
+        @submit="doEditTree"
+        @delete="deleteTree"
+        @close="
+          viewTreeDialog = false
+          viewTreeData = {}
+        "
+      />
 
       <v-dialog v-model="addTreeDialog" max-width="500" persistent>
         <AddTreeDialog

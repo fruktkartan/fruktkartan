@@ -7,7 +7,7 @@
         <v-select
           v-model="tree.type"
           required
-          :rules="[v => !!v || 'Du måste bestämma trädets sort.']"
+          :rules="[v => !!v || 'Du måste ange en trädetsort']"
           :items="insertableTrees"
           label="Trädsort"
         />
@@ -32,7 +32,7 @@
         </p>
         <v-textarea
           v-model="tree.desc"
-          :rules="[v => !!v || 'Beskriv trädet innan du fortsätter!']"
+          :rules="[v => !!v || 'Beskriv trädet innan du fortsätter']"
           required
           label="Beskrivning"
         ></v-textarea>

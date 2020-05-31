@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-dialog v-model="value" max-width="440" persistent @keydown.esc="close">
     <TreeViewer
       v-if="step === 'view'"
       :loading="!Object.entries(tree).length"
@@ -37,7 +37,7 @@
         <v-btn @click="close">Avbryt</v-btn>
       </template>
     </TreeViewer>
-  </div>
+  </v-dialog>
 </template>
 
 <script>
@@ -51,12 +51,12 @@ export default {
     TreeEditor,
   },
   props: {
+    value: {
+      type: Boolean,
+    },
     tree: {
       type: Object,
       default: () => ({}),
-    },
-    isOpen: {
-      type: Boolean,
     },
   },
   data() {
@@ -80,7 +80,7 @@ export default {
   methods: {
     close() {
       this.step = "view"
-      this.$emit("close")
+      this.value = false
     },
     deleteTree() {
       this.step = "view"
