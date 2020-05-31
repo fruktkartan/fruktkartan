@@ -105,17 +105,30 @@
 
               <p>
                 Andra sajter och appar kan använda information härifrån, via ett
-                öppet API.
-              </p>
-              <p>
-                Källkoden för sajten är öppen och fri. Utveckling sker på
-                <a href="https://github.com/fruktkartan" target="_blank"
-                  >https://github.com/fruktkartan</a
-                >
+                öppet API. Informationen är licenserad med
+                <a
+                  href="https://opendatacommons.org/licenses/odbl/summary/"
+                  target="_blank"
+                  >Open Database License</a
+                >, bilder med
+                <a
+                  href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
+                  target="_blank"
+                  >CC0</a
+                >.
               </p>
               <p>
                 Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open
-                Street Maps kartor. Frågor? Skicka ett
+                Street Maps kartor. Källkoden är fri, <em>copyleft</em> och
+                licenserad med
+                <a
+                  href="https://www.gnu.org/licenses/agpl-3.0.html"
+                  target="_blank"
+                  >AGPLv3</a
+                >.
+              </p>
+              <p>
+                Frågor? Skicka ett
                 <a href="mailto:mejl@leowallentin.se">mejl</a>!
               </p>
             </v-card-text>
