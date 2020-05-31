@@ -93,8 +93,6 @@ import AddTreeDialog from "./AddTreeDialog.vue"
 import ViewTreeDialog from "./ViewTreeDialog.vue"
 import { mdiMenu, mdiCrosshairsGps } from "@mdi/js"
 
-const APIBASE = "https://fruktkartan-api.herokuapp.com"
-//const APIBASE = "http://localhost:8080"
 const DEFAULT_MAP_SIZE = 750 // meters across map
 const MAP_CENTER = latLng(62.3908, 17.3069)
 /* Middleware for fetch calls */
@@ -283,7 +281,7 @@ export default {
         lat: this.addTreeMarker.latLng.lat,
         lon: this.addTreeMarker.latLng.lng,
       }
-      fetch(`${APIBASE}/tree`, {
+      fetch(`${process.env.VUE_APP_APIBASE}/tree`, {
         method: "PUT",
         body: JSON.stringify(treePayload),
         headers: { "Content-Type": "application/json" },
@@ -293,7 +291,7 @@ export default {
     },
 
     doEditTree: function (tree) {
-      fetch(`${APIBASE}/tree/${tree.key}`, {
+      fetch(`${process.env.VUE_APP_APIBASE}/tree/${tree.key}`, {
         method: "POST",
         body: JSON.stringify(tree),
         headers: {
@@ -315,7 +313,7 @@ export default {
         if (self.viewTreeCache[marker.key]) {
           resolve(self.viewTreeCache[marker.key])
         } else {
-          fetch(`${APIBASE}/tree/${marker.key}`)
+          fetch(`${process.env.VUE_APP_APIBASE}/tree/${marker.key}`)
             .then(response => response.json())
             .then(resolve)
         }
@@ -333,12 +331,12 @@ export default {
 (${marker.type}) från Fruktkartan?`
       )
       if (result) {
-        fetch(`${APIBASE}/tree/${marker.key}`, { method: "DELETE" }).then(
-          () => {
-            this.viewTreeDialog = false
-            this.fetchMarkers()
-          }
-        )
+        fetch(`${process.env.VUE_APP_APIBASE}/tree/${marker.key}`, {
+          method: "DELETE",
+        }).then(() => {
+          this.viewTreeDialog = false
+          this.fetchMarkers()
+        })
       }
     },
 
@@ -356,7 +354,7 @@ export default {
       let bounds = this.$refs.theMap.mapObject.getBounds()
       fetch(
         // eslint-disable-next-line max-len
-        `${APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
+        `${process.env.VUE_APP_APIBASE}/trees?bbox=${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng}`
       )
         .then(raiseForErrors)
         .then(response => response.json())
