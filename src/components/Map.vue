@@ -71,16 +71,15 @@
         "
       />
 
-      <v-dialog v-model="addTreeDialog" max-width="500" persistent>
-        <AddTreeDialog
-          @submit="doAddTree"
-          @goBack="addTreeDialog = false"
-          @close="
-            addTreeDialog = false
-            addTreeMarker.visible = false
-          "
-        />
-      </v-dialog>
+      <AddTreeDialog
+        v-model="addTreeDialog"
+        @submit="doAddTree"
+        @goBack="addTreeDialog = false"
+        @close="
+          addTreeDialog = false
+          addTreeMarker.visible = false
+        "
+      />
     </l-map>
   </v-card>
 </template>
