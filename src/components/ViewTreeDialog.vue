@@ -34,6 +34,7 @@
       <template #buttons>
         <v-btn @click="step = 'edit'">Tillbaka</v-btn>
         <v-btn color="green" @click="submitTree">Uppdatera trädet</v-btn>
+        <v-spacer></v-spacer>
         <v-btn @click="close">Avbryt</v-btn>
       </template>
     </TreeViewer>
