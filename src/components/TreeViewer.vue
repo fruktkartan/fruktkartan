@@ -2,8 +2,8 @@
 
 <template>
   <v-card :loading="loading">
-    <v-card-subtitle v-if="preview">
-      <div>
+    <v-card-text v-if="preview">
+      <div class="pt-4">
         FÖRHANDSGRANSKNING
       </div>
       <div>
@@ -23,7 +23,7 @@
           </em>
         </small>
       </div>
-    </v-card-subtitle>
+    </v-card-text>
     <v-card-title>{{ tree.type }} </v-card-title>
     <v-card-text>
       <p>
