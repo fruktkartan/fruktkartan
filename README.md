@@ -16,11 +16,13 @@ npm install
 ```
 npm run serve
 ```
+Loads [`.env`](.env) and [`.env.development`](.env.development).
 
 ### Compiles and minifies for production
 ```
 npm run build
 ```
+Loads [`.env`](.env).
 
 ### Run your tests
 ```
