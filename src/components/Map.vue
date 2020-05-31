@@ -63,13 +63,9 @@
       <ViewTreeDialog
         v-model="viewTreeDialog"
         :tree="viewTreeData"
-        :is-open="viewTreeDialog"
         @submit="doEditTree"
         @delete="deleteTree"
-        @close="
-          viewTreeDialog = false
-          viewTreeData = {}
-        "
+        @close="viewTreeData = {}"
       />
 
       <v-dialog v-model="addTreeDialog" max-width="500" persistent>
