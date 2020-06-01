@@ -1,5 +1,10 @@
 <template>
-  <v-dialog v-model="value" max-width="440" persistent @keydown.esc="close">
+  <v-dialog
+    v-model="displayDialog"
+    max-width="440"
+    persistent
+    @keydown.esc="close"
+  >
     <TreeViewer
       v-if="step === 'view'"
       :loading="!Object.entries(tree).length"
@@ -8,7 +13,13 @@
       <template #buttons>
         <v-btn @click="close">Stäng</v-btn>
         <v-spacer></v-spacer>
-        <v-btn @click="step = 'edit'">Redigera</v-btn>
+        <v-btn
+          @click="
+            step = 'edit'
+            newTree = { ...tree }
+          "
+          >Redigera</v-btn
+        >
       </template>
     </TreeViewer>
 
@@ -53,59 +64,104 @@ export default {
   },
   props: {
     value: {
-      type: Boolean,
-    },
-    tree: {
-      type: Object,
-      default: () => ({}),
+      type: String,
+      default: null,
     },
   },
   data() {
     return {
       step: "view",
+      treeCache: {},
+      tree: {},
       newTree: {},
     }
+  },
+  computed: {
+    displayDialog: function () {
+      return this.value ? true : false
+    },
   },
   /* The dialog is opened before data has been loaded, so we need to watch for 
      tree data change, to update the newTree object (used when editing)
   */
   watch: {
-    tree: {
-      deep: true,
-      immediate: true,
-      handler() {
-        this.newTree = Object.assign({}, this.tree)
-      },
+    value: function (key) {
+      if (!key) {
+        this.tree = {}
+        return
+      }
+
+      let self = this
+      let getData = new Promise(resolve => {
+        if (self.treeCache[key]) {
+          resolve(self.treeCache[key])
+        } else {
+          fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`)
+            .then(response => response.json())
+            .then(resolve)
+        }
+      })
+
+      getData.then(data => {
+        self.tree = data
+        self.treeCache[key] = self.tree
+      })
     },
   },
   methods: {
     close() {
       this.step = "view"
-      this.$emit("close")
+      this.$emit("input", null)
     },
+
     deleteTree() {
-      this.step = "view"
-      this.$emit("delete", this.tree)
+      let key = this.value
+      let result = window.confirm(
+        `Är du säker på att du vill ta bort det här trädet
+(${this.tree.type}) från Fruktkartan?`
+      )
+      if (result) {
+        fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, {
+          method: "DELETE",
+        })
+          .then(() => {
+            delete this.treeCache[key]
+            this.step = "view"
+            this.$emit("input", null)
+            this.$emit("change")
+          })
+          .catch(err => {
+            console.log("Ett fel uppstod när trädet skulle raderas: ", err)
+          })
+      }
     },
     submitTree() {
-      let editedTree = {
-        key: this.newTree.key,
-        type:
-          this.newTree.type.value ||
-          this.newTree.type.text ||
-          this.newTree.type,
-        desc: this.newTree.desc,
-      }
-      this.$emit("submit", editedTree)
-
-      // Reset everything, to make sure the form is blank if the users wants
-      // to add another tree
-      this.step = "view"
-      this.newTree = {}
+      let key = this.value
+      fetch(`${process.env.VUE_APP_APIBASE}/tree/${this.value}`, {
+        method: "POST",
+        body: JSON.stringify(this.newTree),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(() => {
+          delete this.treeCache[key]
+          this.step = "view"
+          this.$emit("input", null)
+          this.$emit("change") // trigger map refresh, in case tree type changed
+        })
+        .catch(err => {
+          console.log("Ett fel uppstod när trädet skulle uppdateras: ", err)
+        })
     },
+
     /* Check if there are differences we care about betw trees*/
     treesAreEqual(tree1, tree2) {
-      return tree1.type == tree2.type && tree1.desc === tree2.desc
+      return (
+        tree1.type === tree2.type &&
+        tree1.desc === tree2.desc &&
+        tree1.file === tree2.file
+      )
     },
   },
 }

@@ -43,10 +43,10 @@
       <l-marker-cluster :options="clusterOptions">
         <l-marker
           v-for="marker in filteredMarkers"
-          :key="marker.id"
+          :key="marker.key"
           :lat-lng="marker"
           :icon="marker.icon"
-          @click="fetchPopupContent(marker)"
+          @click="viewTree = marker.key"
         />
       </l-marker-cluster>
       <!-- add-a-tree marker -->
@@ -60,16 +60,7 @@
         @mouseup="addTreeIconMouseUp"
       />
 
-      <ViewTreeDialog
-        v-model="viewTreeDialog"
-        :tree="viewTreeData"
-        @submit="doEditTree"
-        @delete="deleteTree"
-        @close="
-          viewTreeData = {}
-          viewTreeDialog = false
-        "
-      />
+      <ViewTreeDialog v-model="viewTree" @change="fetchMarkers" />
 
       <AddTreeDialog
         v-model="addTreeDialog"
@@ -171,9 +162,7 @@ export default {
       },
       addTreeDialog: false,
 
-      viewTreeDialog: false,
-      viewTreeCache: {},
-      viewTreeData: {},
+      viewTree: null,
     }
   },
 
@@ -287,56 +276,6 @@ export default {
       }).then(() => {
         this.fetchMarkers()
       })
-    },
-
-    doEditTree: function (tree) {
-      fetch(`${process.env.VUE_APP_APIBASE}/tree/${tree.key}`, {
-        method: "POST",
-        body: JSON.stringify(tree),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
-        this.viewTreeDialog = false
-        delete this.viewTreeCache[tree.key]
-        this.fetchMarkers() // In case a tree type changed
-      })
-    },
-
-    fetchPopupContent: function (marker) {
-      // FIXME move to ViewTreeDialog
-      let self = this
-      this.viewTreeDialog = true
-
-      let getData = new Promise(resolve => {
-        if (self.viewTreeCache[marker.key]) {
-          resolve(self.viewTreeCache[marker.key])
-        } else {
-          fetch(`${process.env.VUE_APP_APIBASE}/tree/${marker.key}`)
-            .then(response => response.json())
-            .then(resolve)
-        }
-      })
-
-      getData.then(data => {
-        self.viewTreeData = { ...marker, ...data }
-        self.viewTreeCache[marker.key] = self.viewTreeData
-      })
-    },
-
-    deleteTree: function (marker) {
-      let result = window.confirm(
-        `Är du säker på att du vill ta bort det här trädet
-(${marker.type}) från Fruktkartan?`
-      )
-      if (result) {
-        fetch(`${process.env.VUE_APP_APIBASE}/tree/${marker.key}`, {
-          method: "DELETE",
-        }).then(() => {
-          this.viewTreeDialog = false
-          this.fetchMarkers()
-        })
-      }
     },
 
     /* Clicking (not dragging) the add tree icon will open the add tree dialogue */
