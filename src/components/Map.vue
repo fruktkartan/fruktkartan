@@ -6,7 +6,7 @@
       style="z-index: 4;"
     >
       Dra markören till rätt plats.
-      <v-btn text color="green" @click="addTreeDialog = true">Fortsätt</v-btn>
+      <v-btn text color="green" @click="addTree = true">Fortsätt</v-btn>
       <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
     </v-snackbar>
     <l-map
@@ -63,12 +63,12 @@
       <ViewTreeDialog v-model="viewTree" @change="fetchMarkers" />
 
       <AddTreeDialog
-        v-model="addTreeDialog"
-        @submit="doAddTree"
-        @goBack="addTreeDialog = false"
-        @close="
-          addTreeDialog = false
+        v-model="addTree"
+        :lat-lng="addTreeMarker.latLng"
+        @abort="addTreeMarker.visible = false"
+        @added="
           addTreeMarker.visible = false
+          fetchMarkers()
         "
       />
     </l-map>
@@ -160,8 +160,7 @@ export default {
         latLng: MAP_CENTER,
         visible: false,
       },
-      addTreeDialog: false,
-
+      addTree: false,
       viewTree: null,
     }
   },
@@ -243,8 +242,10 @@ export default {
 
     /**
      * Let the user add a new tree by moving a marker.
+     *
+     * This method is called by ref from outside the Map component
      */
-    addTree: function () {
+    addNewTree: function () {
       let map = this.$refs.theMap.mapObject
       // Close drawer in case we're on mobile
       this.$emit("closeDrawer")
@@ -255,33 +256,10 @@ export default {
       }
     },
 
-    /**
-     * Actually add the tree to the DB
-     */
-    doAddTree: function (tree) {
-      // TODO Merge with doEditTree and move to TreeEditor component
-
-      // Call the API
-      this.addTreeDialog = false
-      this.addTreeMarker.visible = false
-      let treePayload = {
-        ...tree,
-        lat: this.addTreeMarker.latLng.lat,
-        lon: this.addTreeMarker.latLng.lng,
-      }
-      fetch(`${process.env.VUE_APP_APIBASE}/tree`, {
-        method: "PUT",
-        body: JSON.stringify(treePayload),
-        headers: { "Content-Type": "application/json" },
-      }).then(() => {
-        this.fetchMarkers()
-      })
-    },
-
     /* Clicking (not dragging) the add tree icon will open the add tree dialogue */
     addTreeIconMouseUp: function (x) {
       if (x.latlng == this.addTreeMarker.latLng) {
-        this.addTreeDialog = true
+        this.addTree = true
       }
     },
 

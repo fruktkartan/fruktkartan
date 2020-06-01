@@ -51,7 +51,7 @@
 
         <v-divider />
       -->
-        <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addTree()">
+        <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addNewTree()">
           Lägg till träd
         </SidebarItem>
 

@@ -1,26 +1,33 @@
 <template>
-  <v-dialog v-model="value" max-width="500" persistent>
+  <v-dialog v-model="displayDialog" max-width="500" persistent>
     <TreeEditor v-if="step === 'edit'" v-model="tree">
       <template #title>Lägg till träd</template>
       <template #buttons>
-        <v-btn @click="$emit('goBack')">Tillbaka</v-btn>
+        <v-btn @click="$emit('input', false)">Tillbaka</v-btn>
         <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
           >Fortsätt</v-btn
         >
         <v-spacer></v-spacer>
-        <v-btn @click="$emit('close')">Avbryt</v-btn>
+        <v-btn
+          @click="
+            $emit('input', false)
+            $emit('abort')
+          "
+          >Avbryt</v-btn
+        >
       </template>
     </TreeEditor>
 
     <TreeViewer v-if="step === 'preview'" :tree="tree" :preview="true">
       <template #buttons>
         <v-btn @click="step = 'edit'">Tillbaka</v-btn>
-        <v-btn color="green" @click="submitTree">Publicera</v-btn>
+        <v-btn color="green" @click="addTree">Publicera</v-btn>
         <v-spacer></v-spacer>
         <v-btn
           @click="
             step = 'edit'
-            $emit('close')
+            $emit('input', false)
+            $emit('abort')
           "
           >Avbryt</v-btn
         >
@@ -43,6 +50,13 @@ export default {
     value: {
       type: Boolean,
     },
+    latLng: {
+      type: Object,
+      default: () => ({
+        lat: null,
+        lng: null,
+      }),
+    },
   },
   data() {
     return {
@@ -50,21 +64,28 @@ export default {
       tree: {},
     }
   },
+  computed: {
+    displayDialog: function () {
+      return this.value ? true : false
+    },
+  },
   methods: {
-    submitTree() {
-      let newTree = {
-        type: this.tree.type.value || this.tree.type.text || this.tree.type,
-        desc: this.tree.desc,
-        file: this.tree.file,
+    addTree: function () {
+      let treePayload = {
+        ...this.tree,
+        lat: this.latLng.lat,
+        lon: this.latLng.lng,
       }
-      this.$emit("submit", newTree)
-
-      // Reset everything, to make sure the form is blank if the users wants
-      // to add another tree
-      this.step = "edit"
-      this.tree.type = null
-      this.tree.desc = null
-      this.tree.file = null
+      fetch(`${process.env.VUE_APP_APIBASE}/tree`, {
+        method: "PUT",
+        body: JSON.stringify(treePayload),
+        headers: { "Content-Type": "application/json" },
+      }).then(() => {
+        this.step = "edit"
+        this.tree = {}
+        this.$emit("input", false)
+        this.$emit("added")
+      })
     },
   },
 }
