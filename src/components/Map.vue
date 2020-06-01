@@ -6,7 +6,7 @@
       style="z-index: 4;"
     >
       Dra markören till rätt plats.
-      <v-btn text color="green" @click="addTreeDialog = true">Fortsätt</v-btn>
+      <v-btn text color="green" @click="addTree = true">Fortsätt</v-btn>
       <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
     </v-snackbar>
     <l-map
@@ -43,10 +43,10 @@
       <l-marker-cluster :options="clusterOptions">
         <l-marker
           v-for="marker in filteredMarkers"
-          :key="marker.id"
+          :key="marker.key"
           :lat-lng="marker"
           :icon="marker.icon"
-          @click="fetchPopupContent(marker)"
+          @click="viewTree = marker.key"
         />
       </l-marker-cluster>
       <!-- add-a-tree marker -->
@@ -60,24 +60,15 @@
         @mouseup="addTreeIconMouseUp"
       />
 
-      <ViewTreeDialog
-        v-model="viewTreeDialog"
-        :tree="viewTreeData"
-        @submit="doEditTree"
-        @delete="deleteTree"
-        @close="
-          viewTreeData = {}
-          viewTreeDialog = false
-        "
-      />
+      <ViewTreeDialog v-model="viewTree" @change="fetchMarkers" />
 
       <AddTreeDialog
-        v-model="addTreeDialog"
-        @submit="doAddTree"
-        @goBack="addTreeDialog = false"
-        @close="
-          addTreeDialog = false
+        v-model="addTree"
+        :lat-lng="addTreeMarker.latLng"
+        @abort="addTreeMarker.visible = false"
+        @added="
           addTreeMarker.visible = false
+          fetchMarkers()
         "
       />
     </l-map>
@@ -169,11 +160,8 @@ export default {
         latLng: MAP_CENTER,
         visible: false,
       },
-      addTreeDialog: false,
-
-      viewTreeDialog: false,
-      viewTreeCache: {},
-      viewTreeData: {},
+      addTree: false,
+      viewTree: null,
     }
   },
 
@@ -254,8 +242,10 @@ export default {
 
     /**
      * Let the user add a new tree by moving a marker.
+     *
+     * This method is called by ref from outside the Map component
      */
-    addTree: function () {
+    addNewTree: function () {
       let map = this.$refs.theMap.mapObject
       // Close drawer in case we're on mobile
       this.$emit("closeDrawer")
@@ -266,83 +256,10 @@ export default {
       }
     },
 
-    /**
-     * Actually add the tree to the DB
-     */
-    doAddTree: function (tree) {
-      // TODO Merge with doEditTree and move to TreeEditor component
-
-      // Call the API
-      this.addTreeDialog = false
-      this.addTreeMarker.visible = false
-      let treePayload = {
-        ...tree,
-        lat: this.addTreeMarker.latLng.lat,
-        lon: this.addTreeMarker.latLng.lng,
-      }
-      fetch(`${process.env.VUE_APP_APIBASE}/tree`, {
-        method: "PUT",
-        body: JSON.stringify(treePayload),
-        headers: { "Content-Type": "application/json" },
-      }).then(() => {
-        this.fetchMarkers()
-      })
-    },
-
-    doEditTree: function (tree) {
-      fetch(`${process.env.VUE_APP_APIBASE}/tree/${tree.key}`, {
-        method: "POST",
-        body: JSON.stringify(tree),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
-        this.viewTreeDialog = false
-        delete this.viewTreeCache[tree.key]
-        this.fetchMarkers() // In case a tree type changed
-      })
-    },
-
-    fetchPopupContent: function (marker) {
-      // FIXME move to ViewTreeDialog
-      let self = this
-      this.viewTreeDialog = true
-
-      let getData = new Promise(resolve => {
-        if (self.viewTreeCache[marker.key]) {
-          resolve(self.viewTreeCache[marker.key])
-        } else {
-          fetch(`${process.env.VUE_APP_APIBASE}/tree/${marker.key}`)
-            .then(response => response.json())
-            .then(resolve)
-        }
-      })
-
-      getData.then(data => {
-        self.viewTreeData = { ...marker, ...data }
-        self.viewTreeCache[marker.key] = self.viewTreeData
-      })
-    },
-
-    deleteTree: function (marker) {
-      let result = window.confirm(
-        `Är du säker på att du vill ta bort det här trädet
-(${marker.type}) från Fruktkartan?`
-      )
-      if (result) {
-        fetch(`${process.env.VUE_APP_APIBASE}/tree/${marker.key}`, {
-          method: "DELETE",
-        }).then(() => {
-          this.viewTreeDialog = false
-          this.fetchMarkers()
-        })
-      }
-    },
-
     /* Clicking (not dragging) the add tree icon will open the add tree dialogue */
     addTreeIconMouseUp: function (x) {
       if (x.latlng == this.addTreeMarker.latLng) {
-        this.addTreeDialog = true
+        this.addTree = true
       }
     },
 
