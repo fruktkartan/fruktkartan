@@ -118,7 +118,7 @@ export default {
       let key = this.value
       let result = window.confirm(
         "Är du säker på att du vill ta bort det här trädet" +
-          `(${this.tree.type}) från Fruktkartan?`
+          ` (${this.tree.type}) från Fruktkartan?`
       )
       if (result) {
         fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, {
