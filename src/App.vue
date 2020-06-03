@@ -257,4 +257,9 @@ html {
 .v-btn--contained {
   text-transform: none !important;
 }
+
+/* Less whitespace on mobile */
+.v-navigation-drawer--is-mobile {
+  height: auto !important;
+}
 </style>
