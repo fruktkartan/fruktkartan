@@ -6,7 +6,7 @@
       style="z-index: 4;"
     >
       Dra markören till rätt plats.
-      <v-btn text color="green" @click="addTree = true">Fortsätt</v-btn>
+      <v-btn text color="green" @click.stop="addTree = true">Fortsätt</v-btn>
       <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
     </v-snackbar>
     <l-map
@@ -23,10 +23,10 @@
         class="hidden-md-and-up control"
         style="z-index: 1;"
       >
-        <v-icon alt="Meny" title="Meny" @click="$emit('openDrawer')">
+        <v-icon alt="Meny" title="Meny" @click.stop="$emit('openDrawer')">
           {{ mdiMenu }}
         </v-icon>
-        <span style="padding-left: 1em;" @click="$emit('openDrawer')">
+        <span style="padding-left: 1em;" @click.stop="$emit('openDrawer')">
           Meny
         </span>
       </l-control>
@@ -38,7 +38,9 @@
         :z-index="0"
       />
       <l-control v-if="canGeoLocate" position="topleft" class="control">
-        <v-icon @click="retrieveUserPosition">{{ mdiCrosshairsGps }}</v-icon>
+        <v-icon @click.stop="retrieveUserPosition">
+          {{ mdiCrosshairsGps }}
+        </v-icon>
       </l-control>
       <l-marker-cluster :options="clusterOptions">
         <l-marker
