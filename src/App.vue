@@ -131,6 +131,7 @@
                 Frågor? Skicka ett
                 <a href="mailto:mejl@leowallentin.se">mejl</a>!
               </p>
+              <small>Byggd {{ timestamp }} från {{ gitversion }}.</small>
             </v-card-text>
             <v-card-actions>
               <v-btn @click="showFAQ = false">Stäng</v-btn>
@@ -167,6 +168,14 @@ export default {
   data() {
     return {
       showFAQ: false,
+      timestamp:
+        "VUE_APP_TIMESTAMP" in process.env
+          ? process.env.VUE_APP_TIMESTAMP
+          : "?",
+      gitversion:
+        "VUE_APP_GITVERSION" in process.env
+          ? process.env.VUE_APP_GITVERSION
+          : "?",
 
       /* v-navigation-drawer */
       drawer: null, // null means closed on mobile, open on desktop
