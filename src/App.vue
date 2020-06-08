@@ -138,6 +138,7 @@
                     'https://github.com/fruktkartan/fruktkartan/commit/' +
                     githash
                   "
+                  target="_blank"
                   >{{ githash }}</a
                 >
                 .</small
