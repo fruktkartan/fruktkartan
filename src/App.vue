@@ -131,7 +131,14 @@
                 Frågor? Skicka ett
                 <a href="mailto:mejl@leowallentin.se">mejl</a>!
               </p>
-              <small>Byggd {{ timestamp }} från {{ gitversion }}.</small>
+              <small
+                >Byggd {{ timestamp }} från
+                <a
+                  href="https://github.com/fruktkartan/fruktkartan/commit/{{ gitversion }}"
+                  >{{ gitversion }}</a
+                >
+                .</small
+              >
             </v-card-text>
             <v-card-actions>
               <v-btn @click="showFAQ = false">Stäng</v-btn>
