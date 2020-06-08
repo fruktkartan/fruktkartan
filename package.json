@@ -10,6 +10,7 @@
   "author": "Daniel Lublin <daniel@lublin.se>",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "prebuild": "./build-vars",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
