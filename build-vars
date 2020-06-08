@@ -1,0 +1,6 @@
+#!/bin/sh
+
+f=.env.production.local
+
+printf  >"$f" 'VUE_APP_GITVERSION="%s"\n' "$(git describe --always)"
+printf >>"$f" 'VUE_APP_TIMESTAMP="%s"\n' "$(date +"%F %T %Z")"
