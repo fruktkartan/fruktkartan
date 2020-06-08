@@ -134,7 +134,10 @@
               <small
                 >Byggd {{ timestamp }} från
                 <a
-                  href="https://github.com/fruktkartan/fruktkartan/commit/{{ gitversion }}"
+                  :href="
+                    'https://github.com/fruktkartan/fruktkartan/commit/' +
+                    gitversion
+                  "
                   >{{ gitversion }}</a
                 >
                 .</small
