@@ -136,9 +136,9 @@
                 <a
                   :href="
                     'https://github.com/fruktkartan/fruktkartan/commit/' +
-                    gitversion
+                    githash
                   "
-                  >{{ gitversion }}</a
+                  >{{ githash }}</a
                 >
                 .</small
               >
@@ -178,14 +178,8 @@ export default {
   data() {
     return {
       showFAQ: false,
-      timestamp:
-        "VUE_APP_TIMESTAMP" in process.env
-          ? process.env.VUE_APP_TIMESTAMP
-          : "?",
-      gitversion:
-        "VUE_APP_GITVERSION" in process.env
-          ? process.env.VUE_APP_GITVERSION
-          : "?",
+      timestamp: process.env.VUE_APP_TIMESTAMP ?? "?",
+      githash: process.env.VUE_APP_GITHASH ?? "?",
 
       /* v-navigation-drawer */
       drawer: null, // null means closed on mobile, open on desktop
