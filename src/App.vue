@@ -204,11 +204,6 @@ export default {
     if (window.location.hostname != "fruktkartan.se") {
       this.betaDisplay = "block"
     }
-    this.$nextTick(() => {
-      // Is it possible to remove the LEaflet prefix here somehow
-      // to clean up the clutter a bit?
-      // this.$refs.map.attribution = ""
-    })
   },
   methods: {
     reset() {
