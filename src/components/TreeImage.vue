@@ -20,7 +20,7 @@
 </template>
 
 <script>
-const S3_BASE = "https://fruktkartan-thumbs.s3.eu-north-1.amazonaws.com"
+const S3_BASE = process.env.S3_BASE
 const WIDTH = 400
 
 export default {
