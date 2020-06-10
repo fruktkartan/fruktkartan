@@ -20,7 +20,7 @@
 </template>
 
 <script>
-const S3_BASE = process.env.S3_BASE
+const S3_BASE = process.env.VUE_APP_S3_BASE
 const WIDTH = 400
 
 export default {
