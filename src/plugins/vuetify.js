@@ -7,4 +7,9 @@ export default new Vuetify({
   icons: {
     iconfont: "mdiSvg",
   },
+  theme: {
+    options: {
+      variations: false,
+    },
+  },
 })
