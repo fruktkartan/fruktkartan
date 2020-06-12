@@ -77,79 +77,76 @@
     </v-navigation-drawer>
 
     <v-main>
-      <div id="main" class="fill-height">
-        <Map
-          ref="map"
-          :tree-filters="filters"
-          class="map"
-          @openDrawer="drawer = true"
-          @closeDrawer="drawer = null"
-        />
+      <Map
+        ref="map"
+        class="map fill-height"
+        :tree-filters="filters"
+        @openDrawer="drawer = true"
+        @closeDrawer="drawer = null"
+      />
 
-        <v-dialog
-          v-model="showFAQ"
-          max-width="500"
-          @keydown.esc="showFAQ = false"
-        >
-          <v-card>
-            <v-card-title>
-              Om Fruktkartan
-            </v-card-title>
-            <v-card-text>
-              <p>
-                Fruktkartan är en öppen databas med fruktträd på allmänningar
-                och i parker. Vem som helst kan lägga till nya träd, och
-                redigera eller ta bort sådana som inte passar här. Sajten är
-                byggd av Leo Wallentin, Matti Ryhänen och Daniel Lublin.
-              </p>
+      <v-dialog
+        v-model="showFAQ"
+        max-width="500"
+        @keydown.esc="showFAQ = false"
+      >
+        <v-card>
+          <v-card-title>
+            Om Fruktkartan
+          </v-card-title>
+          <v-card-text>
+            <p>
+              Fruktkartan är en öppen databas med fruktträd på allmänningar och
+              i parker. Vem som helst kan lägga till nya träd, och redigera
+              eller ta bort sådana som inte passar här. Sajten är byggd av Leo
+              Wallentin, Matti Ryhänen och Daniel Lublin.
+            </p>
 
-              <p>
-                Andra sajter och appar kan använda information härifrån, via ett
-                öppet API. Informationen är licenserad med
-                <a
-                  href="https://opendatacommons.org/licenses/odbl/summary/"
-                  target="_blank"
-                  >Open Database License</a
-                >, bilder med
-                <a
-                  href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
-                  target="_blank"
-                  >CC0</a
-                >.
-              </p>
-              <p>
-                Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open
-                Street Maps kartor. Källkoden är fri, <em>copyleft</em> och
-                licenserad med
-                <a
-                  href="https://www.gnu.org/licenses/agpl-3.0.html"
-                  target="_blank"
-                  >AGPLv3</a
-                >.
-              </p>
-              <p>
-                Frågor? Skicka ett
-                <a href="mailto:mejl@leowallentin.se">mejl</a>!
-              </p>
-              <small
-                >Byggd {{ timestamp }} från
-                <a
-                  :href="
-                    'https://github.com/fruktkartan/fruktkartan/commit/' +
-                    githash
-                  "
-                  target="_blank"
-                  >{{ githash }}</a
-                >
-                .</small
+            <p>
+              Andra sajter och appar kan använda information härifrån, via ett
+              öppet API. Informationen är licenserad med
+              <a
+                href="https://opendatacommons.org/licenses/odbl/summary/"
+                target="_blank"
+                >Open Database License</a
+              >, bilder med
+              <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
+                target="_blank"
+                >CC0</a
+              >.
+            </p>
+            <p>
+              Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open Street
+              Maps kartor. Källkoden är fri, <em>copyleft</em> och licenserad
+              med
+              <a
+                href="https://www.gnu.org/licenses/agpl-3.0.html"
+                target="_blank"
+                >AGPLv3</a
+              >.
+            </p>
+            <p>
+              Frågor? Skicka ett
+              <a href="mailto:mejl@leowallentin.se">mejl</a>!
+            </p>
+            <small
+              >Byggd {{ timestamp }} från
+              <a
+                :href="
+                  'https://github.com/fruktkartan/fruktkartan/commit/' + githash
+                "
+                target="_blank"
+                >{{ githash }}</a
               >
-            </v-card-text>
-            <v-card-actions>
-              <v-btn @click="showFAQ = false">Stäng</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </div>
+              .</small
+            >
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="showFAQ = false">Stäng</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-main>
   </v-app>
 </template>
@@ -237,7 +234,6 @@ https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-b
   height: 100vh;
   height: -webkit-fill-available;
 }
-
 .v-application--wrap {
   min-height: 100vh !important;
   min-height: -webkit-fill-available !important;
@@ -245,12 +241,6 @@ https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-b
 
 html {
   overflow: hidden !important;
-}
-#main {
-  display: flex;
-}
-.map {
-  flex-grow: 1;
 }
 
 .beta {
