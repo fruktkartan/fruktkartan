@@ -2,7 +2,7 @@
   <v-app id="app">
     <v-navigation-drawer
       v-model="drawer"
-      :mobile-break-point="960"
+      :mobile-breakpoint="960"
       :width="340"
       :mini-variant="miniVariant"
       right
@@ -76,7 +76,7 @@
       </template>
     </v-navigation-drawer>
 
-    <v-content>
+    <v-main>
       <div id="main" class="fill-height">
         <Map
           ref="map"
@@ -150,7 +150,7 @@
           </v-card>
         </v-dialog>
       </div>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

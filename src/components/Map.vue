@@ -2,7 +2,7 @@
   <v-card :loading="loading">
     <v-snackbar
       v-model="addTreeMarker.visible"
-      :timeout="0"
+      :timeout="-1"
       style="z-index: 4;"
     >
       Dra markören till rätt plats.
