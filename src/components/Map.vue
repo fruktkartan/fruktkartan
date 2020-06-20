@@ -235,7 +235,7 @@ export default {
           let oldWidth = mapBounds.getEast() - mapBounds.getWest()
           let newWidth = bounds.getEast() - bounds.getWest()
           if (newWidth < oldWidth) {
-            map.panTo(ll).fitBounds(bounds)
+            map.fitBounds(bounds)
           } else {
             map.panTo(ll)
           }
