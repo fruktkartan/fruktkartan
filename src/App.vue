@@ -79,7 +79,7 @@
     <v-main>
       <Map
         ref="map"
-        class="map fill-height"
+        class="fill-height"
         :tree-filters="filters"
         @openDrawer="drawer = true"
         @closeDrawer="drawer = null"
