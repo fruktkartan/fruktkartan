@@ -209,7 +209,8 @@ export default {
      * Use geolocation interface to re-center map, if possible
      */
     retrieveUserPosition: function () {
-      let self = this
+      const self = this
+      const map = self.$refs.theMap.mapObject
 
       let getUserPosition = new Promise((resolve, reject) => {
         /* Promise to return user position */
@@ -228,7 +229,16 @@ export default {
               ? Math.max(pos.coords.accuracy, DEFAULT_MAP_SIZE)
               : DEFAULT_MAP_SIZE
           )
-          self.$refs.theMap.mapObject.panTo(ll).fitBounds(bounds)
+          // Only adjust bounds if it would mean zooming in.
+          // Zooming out on geolocating is disruptive
+          let mapBounds = map.getBounds()
+          let oldWidth = mapBounds.getEast() - mapBounds.getWest()
+          let newWidth = bounds.getEast() - bounds.getWest()
+          if (newWidth < oldWidth) {
+            map.panTo(ll).fitBounds(bounds)
+          } else {
+            map.panTo(ll)
+          }
           // fetchMarkers() will be triggered by the map update,
           // so no need to call it here
         })
