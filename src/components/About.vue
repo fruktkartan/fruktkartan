@@ -18,19 +18,24 @@
           <a
             href="https://opendatacommons.org/licenses/odbl/summary/"
             target="_blank"
+            rel="noopener"
             >Open Database License</a
           >, bilder med
           <a
             href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
             target="_blank"
+            rel="noopener"
             >CC0</a
           >.
         </p>
         <p>
           Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open Street Maps
           kartor. Källkoden är fri, <em>copyleft</em> och licenserad med
-          <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank">
-            AGPLv3</a
+          <a
+            href="https://www.gnu.org/licenses/agpl-3.0.html"
+            target="_blank"
+            rel="noopener"
+            >AGPLv3</a
           >.
         </p>
         <p>
@@ -44,6 +49,7 @@
               'https://github.com/fruktkartan/fruktkartan/commit/' + githash
             "
             target="_blank"
+            rel="noopener"
             >{{ githash }}</a
           >
           .</small
