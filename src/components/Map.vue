@@ -209,8 +209,7 @@ export default {
      * Use geolocation interface to re-center map, if possible
      */
     retrieveUserPosition: function () {
-      const self = this
-      const map = self.$refs.theMap.mapObject
+      const map = this.$refs.theMap.mapObject
 
       let getUserPosition = new Promise((resolve, reject) => {
         /* Promise to return user position */
@@ -248,7 +247,7 @@ export default {
             this.canGeoLocate = false
           }
           // keep default bounds
-          self.fetchMarkers()
+          this.fetchMarkers()
         })
     },
 
