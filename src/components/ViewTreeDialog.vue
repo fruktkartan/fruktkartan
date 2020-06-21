@@ -36,7 +36,7 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn small class="px-2" color="red lighten-3" @click="deleteTree">
-          Ta bort
+          Ta bort trädet
         </v-btn>
       </template>
     </TreeEditor>
