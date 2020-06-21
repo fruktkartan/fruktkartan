@@ -51,16 +51,6 @@ export default {
       timerTicks: 0,
     }
   },
-  watch: {
-    image: function () {
-      // Because the same component is reused, we need to reset
-      // some data when showing a new image
-      this.err = false
-      this.stopPolling()
-      this.timerTicks = 0
-      this.timer = null
-    },
-  },
   computed: {
     img: function () {
       // Adding the url fragment serves two purposes:
@@ -72,6 +62,16 @@ export default {
       return [1, 1.5, 2, 3]
         .map(x => `${S3_BASE}/${this.image}_${WIDTH * x}.jpg ${x}x`)
         .join(",")
+    },
+  },
+  watch: {
+    image: function () {
+      // Because the same component is reused, we need to reset
+      // some data when showing a new image
+      this.err = false
+      this.stopPolling()
+      this.timerTicks = 0
+      this.timer = null
     },
   },
   beforeDestroy() {
