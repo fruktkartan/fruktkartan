@@ -126,9 +126,8 @@ export default {
         })
           .then(() => {
             delete this.treeCache[key]
-            this.step = "view"
-            this.$emit("input", null)
             this.$emit("change")
+            this.close()
           })
           .catch(err => {
             console.log("Ett fel uppstod när trädet skulle raderas: ", err)
@@ -146,9 +145,8 @@ export default {
       })
         .then(() => {
           delete this.treeCache[key]
-          this.step = "view"
-          this.$emit("input", null)
           this.$emit("change") // trigger map refresh, in case tree type changed
+          this.close()
         })
         .catch(err => {
           console.log("Ett fel uppstod när trädet skulle uppdateras: ", err)
