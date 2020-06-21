@@ -39,6 +39,13 @@
           >.
         </p>
         <p>
+          Har du hittat en bugg? Rapportera det
+          <a
+            href="https://github.com/fruktkartan/fruktkartan/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
+            target="_blank"
+            rel="noopener"
+            >på Github!</a
+          ><br />
           Frågor? Skicka ett
           <a href="mailto:mejl@leowallentin.se">mejl</a>!
         </p>
