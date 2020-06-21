@@ -49,18 +49,11 @@
           Frågor? Skicka ett
           <a href="mailto:mejl@leowallentin.se">mejl</a>!
         </p>
-        <small
-          >Byggd {{ timestamp }} från
-          <a
-            :href="
-              'https://github.com/fruktkartan/fruktkartan/commit/' + githash
-            "
-            target="_blank"
-            rel="noopener"
-            >{{ githash }}</a
-          >
-          .</small
-        >
+        <small>
+          Byggd {{ timestamp }} från
+          <a :href="gitcommit" target="_blank" rel="noopener">{{ githash }}</a
+          >.
+        </small>
       </v-card-text>
       <v-card-actions>
         <v-btn @click.stop="close">Stäng</v-btn>
@@ -85,6 +78,9 @@ export default {
     }
   },
   computed: {
+    gitcommit: function () {
+      return "https://github.com/fruktkartan/fruktkartan/commit/" + this.githash
+    },
     displayDialog: {
       get: function () {
         return this.value ? true : false
