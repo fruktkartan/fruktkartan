@@ -12,10 +12,21 @@
           label="Trädsort"
         />
 
-        <p>
+        <div>
           <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
           <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
-        </p>
+        </div>
+        <div v-if="tree.file && !file">
+          <v-btn
+            small
+            class="px-2 mt-1"
+            color="red lighten-3"
+            @click="deleteImage"
+          >
+            <v-icon>{{ mdiDeleteOutline }}</v-icon
+            >Radera bilden
+          </v-btn>
+        </div>
         <v-file-input
           v-model="file"
           accept="image/*"
@@ -49,6 +60,7 @@
  *
  */
 import TreeImage from "./TreeImage.vue"
+import { mdiDeleteOutline } from "@mdi/js"
 
 export default {
   name: "TreeEditor",
@@ -74,6 +86,8 @@ export default {
       uploading: false,
       uploadingProgress: 0,
       uploadOk: null,
+
+      mdiDeleteOutline,
     }
   },
   computed: {
@@ -82,11 +96,15 @@ export default {
     },
   },
   methods: {
+    deleteImage() {
+      if (window.confirm("Är du säker på att du vill ta bort bilden?")) {
+        this.tree.file = null
+      }
+    },
     fileChanged() {
       if (!this.file) {
         // Reset tree.file in case someone deleted a file they just uploaded
         this.tree.file = null
-        return
       }
 
       this.uploading = true
