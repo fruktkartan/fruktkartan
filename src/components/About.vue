@@ -75,12 +75,11 @@ export default {
     return {
       timestamp: process.env.VUE_APP_TIMESTAMP ?? "?",
       githash: process.env.VUE_APP_GITHASH ?? "?",
+      gitcommit:
+        "https://github.com/fruktkartan/fruktkartan/commit/" + this.githash,
     }
   },
   computed: {
-    gitcommit: function () {
-      return "https://github.com/fruktkartan/fruktkartan/commit/" + this.githash
-    },
     displayDialog: {
       get: function () {
         return this.value ? true : false
