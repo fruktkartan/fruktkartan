@@ -43,21 +43,10 @@
             label="Välj träd att visa"
           />
         </SidebarItem>
-
-        <!--
-        <SidebarItem :icon="mdiReload" @onClick="reset()">
-          Återställ filter
-        </SidebarItem>
-
-        <v-divider />
-      -->
         <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addNewTree()">
           Lägg till träd
         </SidebarItem>
-
-        <!--<v-divider />-->
-
-        <SidebarItem :icon="mdiInformation" @onClick="showFAQ = true">
+        <SidebarItem :icon="mdiInformation" to="om">
           Om Fruktkartan
         </SidebarItem>
       </v-list>
@@ -149,9 +138,25 @@ export default {
       }
     },
   },
+  watch: {
+    $route: function (r) {
+      this.showFAQ = r.path === "/om"
+    },
+    showFAQ: function (state) {
+      // HACK
+      // Checking if the dialog was closed, but the route didn't change
+      // This is most likely not the way to do it...
+      if (!state && this.$route.path === "/om") {
+        this.$router.push("/")
+      }
+    },
+  },
   created: function () {
     if (window.location.hostname != "fruktkartan.se") {
       this.betaDisplay = "block"
+    }
+    if (this.$route.path === "/om") {
+      this.showFAQ = true
     }
   },
   methods: {
