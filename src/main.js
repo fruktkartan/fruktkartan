@@ -8,12 +8,17 @@ import VueRouter from "vue-router"
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
-const router = new VueRouter([
-  {
-    path: "om",
-    name: "om",
-  },
-])
+const router = new VueRouter({
+  routes: [
+    {
+      path: "/om",
+    },
+    {
+      path: "/t/:tree",
+      props: true,
+    },
+  ],
+})
 
 new Vue({
   vuetify,
