@@ -48,7 +48,7 @@
           :key="marker.key"
           :lat-lng="marker"
           :icon="marker.icon"
-          @click="viewTree = marker.key"
+          @click="$router.push(`/t/${marker.key}`)"
         />
       </l-marker-cluster>
       <!-- add-a-tree marker -->
@@ -167,6 +167,24 @@ export default {
     }
   },
 
+  watch: {
+    $route: function (r) {
+      if ("tree" in r.params) {
+        this.viewTree = r.params.tree
+      } else {
+        this.viewTree = null
+      }
+    },
+    viewTree: function (state) {
+      // HACK
+      // Checking if the dialog was closed, but the route didn't change
+      // This is most likely not the way to do it...
+      if (!state && "tree" in this.$route.params) {
+        this.$router.push("/")
+      }
+    },
+  },
+
   computed: {
     filteredMarkers() {
       let fm = this.markers
@@ -197,6 +215,10 @@ export default {
       }, {})
 
     this.canGeoLocate = navigator.geolocation
+
+    if ("tree" in this.$route.params) {
+      this.viewTree = this.$route.params.tree
+    }
   },
 
   mounted: function () {

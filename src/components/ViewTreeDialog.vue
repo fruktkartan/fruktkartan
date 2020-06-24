@@ -56,6 +56,16 @@
 import TreeViewer from "./TreeViewer.vue"
 import TreeEditor from "./TreeEditor.vue"
 
+function raiseOnHttpError(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  } else {
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
+  }
+}
+
 export default {
   name: "ViewTreeDialog",
   components: {
@@ -81,6 +91,16 @@ export default {
       return this.value ? true : false
     },
   },
+  created: function () {
+    // If routed here, we'll have a tree from start
+    if (this.value) {
+      this.fetchTree()
+    }
+    // if ("tree" in this.$route.params) {
+    //    console.log(this.$route.params.tree)
+    //    this.viewTree = this.$route.params.tree
+    //  }
+  },
   /* The dialog is opened before data has been loaded, so we need to watch for 
      tree data change, to update the newTree object (used when editing)
   */
@@ -90,28 +110,44 @@ export default {
         this.tree = {}
         return
       }
-
-      let self = this
-      let getData = new Promise(resolve => {
-        if (self.treeCache[key]) {
-          resolve(self.treeCache[key])
-        } else {
-          fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`)
-            .then(response => response.json())
-            .then(resolve)
-        }
-      })
-
-      getData.then(data => {
-        self.tree = data
-        self.treeCache[key] = self.tree
-      })
+      this.fetchTree()
     },
   },
   methods: {
     close() {
       this.step = "view"
       this.$emit("input", null)
+    },
+
+    fetchTree() {
+      console.log("fetching tree", this.value)
+      const key = this.value
+      const getData = new Promise(resolve => {
+        if (this.treeCache[key]) {
+          resolve(this.treeCache[key])
+        } else {
+          fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`)
+            .then(raiseOnHttpError)
+            .then(response => response.json())
+            .then(resolve)
+            .catch(err => {
+              // FIXME error handling
+              console.log("Error fetching tree", err)
+              this.close()
+            })
+        }
+      })
+
+      getData
+        .then(data => {
+          this.tree = data
+          this.treeCache[key] = this.tree
+        })
+        .catch(err => {
+          // FIXME error handling
+          console.log("Error fetching tree", err)
+          this.close()
+        })
     },
 
     deleteTree() {

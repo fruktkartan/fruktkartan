@@ -46,7 +46,7 @@
         <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addNewTree()">
           Lägg till träd
         </SidebarItem>
-        <SidebarItem :icon="mdiInformation" to="om">
+        <SidebarItem :icon="mdiInformation" to="/om">
           Om Fruktkartan
         </SidebarItem>
       </v-list>
