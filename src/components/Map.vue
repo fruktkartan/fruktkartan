@@ -62,7 +62,11 @@
         @mouseup="addTreeIconMouseUp"
       />
 
-      <ViewTreeDialog v-model="viewTree" @change="fetchMarkers" />
+      <ViewTreeDialog
+        v-model="viewTree"
+        @change="fetchMarkers"
+        @treeLoaded="adjustMapToTree"
+      />
 
       <AddTreeDialog
         v-model="addTree"
@@ -272,6 +276,24 @@ export default {
           // keep default bounds
           this.fetchMarkers()
         })
+    },
+
+    /**
+     * After opening a tree dialog, we want to make sure the tree is within
+     * the map bounds. If routed to a specific tree it will probably not be.
+     */
+    adjustMapToTree: function (tree) {
+      const map = this.$refs.theMap.mapObject
+      const bounds = this.$refs.theMap.mapObject.getBounds()
+      if (
+        tree.lat < bounds._southWest.lat ||
+        tree.lat > bounds._northEast.lat ||
+        tree.lon < bounds._southWest.lng ||
+        tree.lon > bounds._northEast.lng
+      ) {
+        const ll = latLng(tree.lat, tree.lon)
+        map.panTo(ll)
+      }
     },
 
     /**
