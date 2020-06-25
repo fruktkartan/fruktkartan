@@ -222,9 +222,12 @@ export default {
   },
 
   mounted: function () {
-    this.$refs.theMap.mapObject.attributionControl.setPrefix("")
+    const map = this.$refs.theMap.mapObject
+    map.attributionControl.setPrefix("")
 
     if ("tree" in this.$route.params) {
+      // Routed to a tree. Zoom in and open tree
+      map.setZoom(16)
       this.viewTree = this.$route.params.tree
     } else {
       this.retrieveUserPosition()
