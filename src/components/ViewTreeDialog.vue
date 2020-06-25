@@ -91,16 +91,6 @@ export default {
       return this.value ? true : false
     },
   },
-  created: function () {
-    // If routed here, we'll have a tree from start
-    if (this.value) {
-      this.fetchTree()
-    }
-    // if ("tree" in this.$route.params) {
-    //    console.log(this.$route.params.tree)
-    //    this.viewTree = this.$route.params.tree
-    //  }
-  },
   /* The dialog is opened before data has been loaded, so we need to watch for 
      tree data change, to update the newTree object (used when editing)
   */
@@ -112,6 +102,16 @@ export default {
       }
       this.fetchTree()
     },
+  },
+  created: function () {
+    // If routed here, we'll have a tree from start
+    if (this.value) {
+      this.fetchTree()
+    }
+    // if ("tree" in this.$route.params) {
+    //    console.log(this.$route.params.tree)
+    //    this.viewTree = this.$route.params.tree
+    //  }
   },
   methods: {
     close() {
