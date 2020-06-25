@@ -218,7 +218,7 @@ export default {
         return o
       }, {})
 
-    this.canGeoLocate = navigator.geolocation
+    this.canGeoLocate = navigator.geolocation ? true : false
   },
 
   mounted: function () {
@@ -276,7 +276,13 @@ export default {
             // Interface is available, but has been blocked.
             this.canGeoLocate = false
           }
+          if (e.code == e.POSITION_UNAVAILABLE) {
+            // Interface is available, but position is not.
+            this.canGeoLocate = false
+          }
           // keep default bounds
+          //FIXME error handling
+          console.log("error getting position", e)
           this.fetchMarkers()
         })
     },
