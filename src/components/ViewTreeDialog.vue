@@ -120,7 +120,6 @@ export default {
     },
 
     fetchTree() {
-      console.log("fetching tree", this.value)
       const key = this.value
       const getData = new Promise(resolve => {
         if (this.treeCache[key]) {
