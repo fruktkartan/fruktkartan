@@ -252,17 +252,17 @@ export default {
 
       getUserPosition
         .then(pos => {
-          let ll = latLng(pos.coords.latitude, pos.coords.longitude)
-          let bounds = ll.toBounds(
+          const ll = latLng(pos.coords.latitude, pos.coords.longitude)
+          const bounds = ll.toBounds(
             pos.coords.accuracy
               ? Math.max(pos.coords.accuracy, DEFAULT_MAP_SIZE)
               : DEFAULT_MAP_SIZE
           )
           // Only adjust bounds if it would mean zooming in.
           // Zooming out on geolocating is disruptive
-          let mapBounds = map.getBounds()
-          let oldWidth = mapBounds.getEast() - mapBounds.getWest()
-          let newWidth = bounds.getEast() - bounds.getWest()
+          const mapBounds = map.getBounds()
+          const oldWidth = mapBounds.getEast() - mapBounds.getWest()
+          const newWidth = bounds.getEast() - bounds.getWest()
           if (newWidth < oldWidth) {
             map.fitBounds(bounds)
           } else {
