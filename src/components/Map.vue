@@ -167,6 +167,16 @@ export default {
     }
   },
 
+  computed: {
+    filteredMarkers() {
+      let fm = this.markers
+      if (this.treeFilters.type !== "*") {
+        fm = fm.filter(m => m.group.startsWith(this.treeFilters.type))
+      }
+      return fm
+    },
+  },
+
   watch: {
     $route: function (r) {
       if ("tree" in r.params) {
@@ -182,16 +192,6 @@ export default {
       if (!state && "tree" in this.$route.params) {
         this.$router.push("/")
       }
-    },
-  },
-
-  computed: {
-    filteredMarkers() {
-      let fm = this.markers
-      if (this.treeFilters.type !== "*") {
-        fm = fm.filter(m => m.group.startsWith(this.treeFilters.type))
-      }
-      return fm
     },
   },
 
