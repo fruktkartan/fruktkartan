@@ -22,6 +22,7 @@
     "core-js": "^3.6.5",
     "leaflet": "^1.6.0",
     "vue": "^2.6.11",
+    "vue-router": "^3.3.4",
     "vue2-leaflet": "^2.5.2",
     "vue2-leaflet-markercluster": "^3.1.0",
     "vuetify": "^2.3.1",

@@ -1,5 +1,5 @@
 <template>
-  <v-list-item @click="$emit('onClick')">
+  <v-list-item :to="to" @click="$emit('onClick')">
     <v-list-item-icon @click="$emit('miniAction')">
       <v-tooltip left>
         <template v-slot:activator="{ on }">
@@ -22,6 +22,10 @@ export default {
   name: "SidebarItem",
   props: {
     text: {
+      type: String,
+      default: "",
+    },
+    to: {
       type: String,
       default: "",
     },
