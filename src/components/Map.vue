@@ -215,15 +215,16 @@ export default {
       }, {})
 
     this.canGeoLocate = navigator.geolocation
-
-    if ("tree" in this.$route.params) {
-      this.viewTree = this.$route.params.tree
-    }
   },
 
   mounted: function () {
     this.$refs.theMap.mapObject.attributionControl.setPrefix("")
-    this.retrieveUserPosition()
+
+    if ("tree" in this.$route.params) {
+      this.viewTree = this.$route.params.tree
+    } else {
+      this.retrieveUserPosition()
+    }
   },
 
   methods: {
@@ -233,7 +234,7 @@ export default {
     retrieveUserPosition: function () {
       const map = this.$refs.theMap.mapObject
 
-      let getUserPosition = new Promise((resolve, reject) => {
+      const getUserPosition = new Promise((resolve, reject) => {
         /* Promise to return user position */
         if (this.canGeoLocate) {
           navigator.geolocation.getCurrentPosition(resolve, reject)
