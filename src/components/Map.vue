@@ -272,9 +272,13 @@ export default {
     },
 
     /**
-     * Use geolocation interface to re-center map, if possible
+     * Use geolocation interface to re-center map, if possible.
+     *
+     * This method will also cause trees to be fetched and updated.
+     *
+     * @param {bool} manually Did the user manually ask for the position?
      */
-    retrieveUserPosition: function () {
+    retrieveUserPosition: function (manually) {
       const map = this.$refs.theMap.mapObject
 
       const getUserPosition = new Promise((resolve, reject) => {
@@ -308,18 +312,28 @@ export default {
           // so no need to call it here
         })
         .catch(e => {
-          if (e.code == e.PERMISSION_DENIED) {
+          let msg
+          if (typeof e === "undefined") {
+            // Interface not available.
+            msg = "Din webbläsare har inte stöd för att hämta position"
+          } else if (e.code == e.PERMISSION_DENIED) {
             // Interface is available, but has been blocked.
+            msg =
+              "Dina webbläsarinställningar låter oss inte hämta din position."
             this.canGeoLocate = false
-          }
-          if (e.code == e.POSITION_UNAVAILABLE) {
+          } else if (e.code == e.POSITION_UNAVAILABLE) {
             // Interface is available, but position is not.
             this.canGeoLocate = false
+            msg = "Vi kunde inte hämta din position just nu."
+          } else {
+            msg = `Vi kunde inte hämta din position: ${e.message}`
+          }
+
+          if (manually) {
+            // Only show error message if user actively tried to geolocate
+            this.showErrorMessage(msg)
           }
           // keep default bounds
-          this.showErrorMessage(
-            `Vi kunde inte hämta din position just nu: ${e.message}`
-          )
           this.fetchMarkers()
         })
     },
