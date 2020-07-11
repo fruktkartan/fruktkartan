@@ -6,8 +6,14 @@
       style="z-index: 4;"
     >
       Dra markören till rätt plats.
-      <v-btn text color="green" @click.stop="addTree = true">Fortsätt</v-btn>
-      <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" color="green" @click.stop="addTree = true">
+          Fortsätt
+        </v-btn>
+        <v-btn text v-bind="attrs" @click="addTreeMarker.visible = false">
+          Avbryt
+        </v-btn>
+      </template>
     </v-snackbar>
     <v-snackbar
       v-model="errorMessage.visible"
