@@ -403,7 +403,9 @@ export default {
           }))
         })
         .catch(e => {
-          console.log("Error fetching trees: ", e)
+          this.showErrorMessage(
+            `Vi lyckades inte hämta några träd just nu: ${e}`
+          )
         })
         .finally(() => {
           this.loading = false
