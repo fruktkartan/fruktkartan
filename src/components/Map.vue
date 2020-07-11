@@ -263,6 +263,8 @@ export default {
   methods: {
     /**
      * Display an error message
+     *
+     * @param {string} msg Message to display
      */
     showErrorMessage: function (msg) {
       // Close any existing error message first
@@ -276,7 +278,7 @@ export default {
      *
      * This method will also cause trees to be fetched and updated.
      *
-     * @param {bool} manually Did the user manually ask for the position?
+     * @param {Boolean} manually Did the user manually ask for the position?
      */
     retrieveUserPosition: function (manually) {
       const map = this.$refs.theMap.mapObject
