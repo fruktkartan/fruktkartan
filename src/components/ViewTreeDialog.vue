@@ -26,27 +26,45 @@
     <TreeEditor v-if="step === 'edit'" v-model="newTree">
       <template #title>Redigera träd</template>
       <template #buttons>
-        <v-btn @click="step = 'view'">Tillbaka</v-btn>
-        <v-btn
-          color="green"
-          :disabled="!newTree.valid || treesAreEqual(newTree, tree)"
-          @click="step = 'preview'"
-        >
-          Fortsätt
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn small class="px-2" color="red lighten-3" @click="deleteTree">
-          Ta bort trädet
-        </v-btn>
+        <v-row>
+          <v-col>
+            <v-btn @click="step = 'view'">Tillbaka</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn
+              color="green"
+              :disabled="!newTree.valid || treesAreEqual(newTree, tree)"
+              @click="step = 'preview'"
+            >
+              Fortsätt
+            </v-btn>
+          </v-col>
+          <v-col><v-spacer></v-spacer></v-col>
+          <v-col>
+            <v-btn small class="px-2" color="red lighten-3" @click="deleteTree">
+              Ta bort trädet
+            </v-btn>
+          </v-col>
+        </v-row>
       </template>
     </TreeEditor>
 
     <TreeViewer v-if="step === 'preview'" :tree="newTree" :preview="true">
       <template #buttons>
-        <v-btn @click="step = 'edit'">Tillbaka</v-btn>
-        <v-btn color="green" @click="submitTree">Uppdatera trädet</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn @click="close">Avbryt</v-btn>
+        <v-row>
+          <v-col>
+            <v-btn @click="step = 'edit'">Tillbaka</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn color="green" @click="submitTree">Spara ändringar</v-btn>
+          </v-col>
+          <v-col>
+            <v-spacer></v-spacer>
+          </v-col>
+          <v-col>
+            <v-btn @click="close">Avbryt</v-btn>
+          </v-col>
+        </v-row>
       </template>
     </TreeViewer>
   </v-dialog>
