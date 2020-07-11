@@ -130,8 +130,15 @@ export default {
             .then(response => response.json())
             .then(resolve)
             .catch(err => {
-              // FIXME error handling
-              console.log("Error fetching tree", err)
+              let msg
+              if (err.response.status === 404) {
+                msg =
+                  "Du har följt en länk till ett träd som inte finns. " +
+                  "Kanske har det raderats?"
+              } else {
+                msg = "Något gick snett när vi försökte hämta det här trädet."
+              }
+              this.$emit("error", msg)
               this.close()
             })
         }
