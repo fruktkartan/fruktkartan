@@ -317,8 +317,9 @@ export default {
             this.canGeoLocate = false
           }
           // keep default bounds
-          //FIXME error handling
-          console.log("error getting position", e)
+          this.showErrorMessage(
+            `Vi kunde inte hämta din position just nu: ${e.message}`
+          )
           this.fetchMarkers()
         })
     },
