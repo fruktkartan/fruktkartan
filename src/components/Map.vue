@@ -9,6 +9,19 @@
       <v-btn text color="green" @click.stop="addTree = true">Fortsätt</v-btn>
       <v-btn text @click="addTreeMarker.visible = false">Avbryt</v-btn>
     </v-snackbar>
+    <v-snackbar
+      v-model="errorMessage.visible"
+      color="error"
+      :timeout="errorMessage.timeout"
+      :top="true"
+    >
+      {{ errorMessage.msg }}
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="errorMessage.visible = false"
+          >Stäng</v-btn
+        >
+      </template>
+    </v-snackbar>
     <l-map
       ref="theMap"
       :center="center"
@@ -66,6 +79,7 @@
         v-model="viewTree"
         @change="fetchMarkers"
         @treeLoaded="adjustMapToTree"
+        @error="showErrorMessage"
       />
 
       <AddTreeDialog
@@ -168,6 +182,12 @@ export default {
       },
       addTree: false,
       viewTree: null,
+
+      errorMessage: {
+        msg: "",
+        visible: false,
+        timeout: 6000,
+      },
     }
   },
 
@@ -235,6 +255,16 @@ export default {
   },
 
   methods: {
+    /**
+     * Display an error message
+     */
+    showErrorMessage: function (msg) {
+      // Close any existing error message first
+      this.errorMessage.visible = false
+      this.errorMessage.msg = msg
+      this.errorMessage.visible = true
+    },
+
     /**
      * Use geolocation interface to re-center map, if possible
      */
