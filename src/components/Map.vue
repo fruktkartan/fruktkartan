@@ -341,8 +341,12 @@ export default {
     },
 
     /**
+     * Make sure a specific tree is visible on the map.
+     *
      * After opening a tree dialog, we want to make sure the tree is within
      * the map bounds. If routed to a specific tree it will probably not be.
+     *
+     * @param {Object} tree A tree object
      */
     adjustMapToTree: function (tree) {
       const map = this.$refs.theMap.mapObject
