@@ -10,7 +10,7 @@
         <v-btn text v-bind="attrs" color="green" @click.stop="addTree = true">
           Fortsätt
         </v-btn>
-        <v-btn text v-bind="attrs" @click="addTreeMarker.visible = false">
+        <v-btn text v-bind="attrs" @click="removeAddTreeMarker">
           Avbryt
         </v-btn>
       </template>
@@ -91,9 +91,9 @@
       <AddTreeDialog
         v-model="addTree"
         :lat-lng="addTreeMarker.latLng"
-        @abort="addTreeMarker.visible = false"
+        @abort="removeAddTreeMarker"
         @added="
-          addTreeMarker.visible = false
+          removeAddTreeMarker()
           fetchMarkers()
         "
       />
@@ -363,14 +363,29 @@ export default {
     },
 
     /**
+     * Set the opacity of all markers.
+     *
+     * @param {number} opacity
+     */
+    setMarkerOpacity: function (opacity) {
+      const map = this.$refs.theMap.mapObject
+      map.eachLayer(l => {
+        if (l.options?.pane === "markerPane") {
+          l.setOpacity(opacity)
+        }
+      })
+    },
+
+    /**
      * Let the user add a new tree by moving a marker.
      *
      * This method is called by ref from outside the Map component
      */
     addNewTree: function () {
-      let map = this.$refs.theMap.mapObject
+      const map = this.$refs.theMap.mapObject
       // Close drawer in case we're on mobile
       this.$emit("closeDrawer")
+      this.setMarkerOpacity(0.4)
       this.addTreeMarker = {
         visible: true,
         latLng: map.getCenter(),
@@ -383,6 +398,11 @@ export default {
       if (x.latlng == this.addTreeMarker.latLng) {
         this.addTree = true
       }
+    },
+
+    removeAddTreeMarker: function () {
+      this.addTreeMarker.visible = false
+      this.setMarkerOpacity(1)
     },
 
     fetchMarkers: function () {
