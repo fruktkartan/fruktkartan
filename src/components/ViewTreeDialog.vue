@@ -26,7 +26,7 @@
     <TreeEditor v-if="step === 'edit'" v-model="newTree">
       <template #title>Redigera träd</template>
       <template #buttons>
-        <v-row no-gutters>
+        <v-row dense>
           <v-col>
             <v-btn @click="step = 'view'">Tillbaka</v-btn>
           </v-col>
@@ -41,7 +41,7 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col>
-            <v-btn small class="px-2" color="red lighten-3" @click="deleteTree">
+            <v-btn small color="red lighten-3" @click="deleteTree">
               Ta bort trädet
             </v-btn>
           </v-col>
@@ -51,7 +51,7 @@
 
     <TreeViewer v-if="step === 'preview'" :tree="newTree" :preview="true">
       <template #buttons>
-        <v-row no-gutters>
+        <v-row dense>
           <v-col>
             <v-btn @click="step = 'edit'">Tillbaka</v-btn>
           </v-col>
