@@ -174,12 +174,14 @@ export default {
 https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
 */
 .v-application {
-  height: 100vh;
-  height: -webkit-fill-available;
+  height: calc(100vh - calc(100vh - 100%));
+  /*height: 100vh;
+  height: -webkit-fill-available;*/
 }
 .v-application--wrap {
-  min-height: 100vh !important;
-  min-height: -webkit-fill-available !important;
+  height: calc(100vh - calc(100vh - 100%));
+  /*min-height: 100vh !important;
+  min-height: -webkit-fill-available !important;*/
 }
 
 html {
