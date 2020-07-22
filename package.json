@@ -34,7 +34,7 @@
     "@vue/cli-plugin-eslint": "^4.4.6",
     "@vue/cli-service": "^4.4.6",
     "babel-eslint": "^10.1.0",
-    "dayjs": "^1.8.29",
+    "dayjs": "^1.8.30",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",
