@@ -179,8 +179,8 @@ https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-b
   height: -webkit-fill-available;
 }
 .v-application--wrap {
-  /*min-height: 100vh !important;
-  min-height: -webkit-fill-available !important;*/
+  height: 100vh;
+  height: -webkit-fill-available;
 }
 
 html {
