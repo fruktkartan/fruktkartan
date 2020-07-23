@@ -22,7 +22,7 @@
             <v-img
               v-if="!miniVariant"
               alt="Fruktkartan"
-              src="../public/fruktkartan_a.png"
+              src="./assets/img/fruktkartan_a.png"
             >
               <span class="beta" :style="{ display: betaDisplay }">beta</span>
             </v-img>
