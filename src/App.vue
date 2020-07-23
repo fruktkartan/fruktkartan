@@ -175,16 +175,23 @@ https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-b
 */
 .v-application {
   /* height: calc(100vh - calc(100vh - 100%)); */
+  /*
   height: 100vh;
-  height: -webkit-fill-available;
+  height: -webkit-fill-available;*/
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 .v-application--wrap {
+  /*
   height: 100vh;
   height: -webkit-fill-available;
+  */
 }
 
 html {
   overflow: hidden !important;
+  height: 100%;
 }
 
 .beta {
