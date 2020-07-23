@@ -158,6 +158,16 @@ export default {
     if (this.$route.path === "/om") {
       this.showFAQ = true
     }
+
+    /* Hack around unintended effects of using 100vh in some mobile browser, see
+    https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
+    */
+    function appHeight() {
+      const doc = document.documentElement
+      doc.style.setProperty("--vh", window.innerHeight * 0.01 + "px")
+    }
+    window.addEventListener("resize", appHeight)
+    appHeight()
   },
   methods: {
     reset() {
@@ -174,27 +184,26 @@ export default {
 https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
 */
 .v-application {
-  /* height: calc(100vh - calc(100vh - 100%)); */
-  /*
-  height: 100vh;
-  height: -webkit-fill-available;*/
-  height: 100%;
-  /*min-height: 100%;*/
-  box-sizing: border-box;
-}
-.v-application--wrap {
-  height: 100%;
-  /*min-height: 100%;*/
-  box-sizing: border-box;
-  /*
   height: 100vh;
   height: -webkit-fill-available;
-  */
+  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
+  max-height: calc(var(--vh, 1vh) * 100);
+}
+.v-application--wrap {
+  height: inherit !important;
+  max-height: inherit !important;
+  min-height: inherit !important;
+}
+
+html,
+body {
+  height: 100vh;
+  height: -webkit-fill-available;
 }
 
 html {
   overflow: hidden !important;
-  height: 100%;
 }
 
 .beta {
