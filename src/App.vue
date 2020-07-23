@@ -13,8 +13,8 @@
         <h1>
           <v-card-title class="hidden-lg-and-up">
             <v-img
-              src="fruktkartan_m.png"
-              srcset="fruktkartan_m.png 1x,fruktkartan_m2.png 2x,fruktkartan_m3.png 3x"
+              :src="mLogo[1]"
+              :srcset="`${mLogo[1]} 1x,${mLogo[2]} 2x,${mLogo[3]} 3x`"
               :max-width="280"
             />
           </v-card-title>
@@ -26,7 +26,7 @@
             >
               <span class="beta" :style="{ display: betaDisplay }">beta</span>
             </v-img>
-            <v-img v-else alt="Fruktkartan" src="f_t.png" />
+            <v-img v-else alt="Fruktkartan" src="./assets/img/f_t.png" />
           </v-card-title>
         </h1>
       </v-card>
@@ -95,6 +95,14 @@ const DEFAULT_FILTERS = {
   type: "*",
 }
 
+const mobileLogotype = {
+  // Vue does not support relative imports in srcset
+  // See https://github.com/vuejs-templates/webpack/issues/396
+  1: require("./assets/img/fruktkartan_m.png"),
+  2: require("./assets/img/fruktkartan_m2.png"),
+  3: require("./assets/img/fruktkartan_m3.png"),
+}
+
 export default {
   name: "App",
   components: {
@@ -136,6 +144,9 @@ export default {
       } else {
         return this.selectTreeTypes.filter(x => x.value === treeKey)[0].text
       }
+    },
+    mLogo() {
+      return mobileLogotype
     },
   },
   watch: {
