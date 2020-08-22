@@ -81,7 +81,7 @@ export default {
   },
   data() {
     return {
-      insertableTrees: require("../assets/insertableTrees.json"),
+      predefinedTrees: require("../assets/insertableTrees.json"),
       file: null,
       uploading: false,
       uploadingProgress: 0,
@@ -91,6 +91,13 @@ export default {
     }
   },
   computed: {
+    insertableTrees() {
+      let treeList = Array.from(this.predefinedTrees)
+      if (this.tree.type && !(this.tree.type in treeList)) {
+        treeList.push(this.tree.type)
+      }
+      return treeList
+    },
     previewSource() {
       return URL.createObjectURL(this.file)
     },
