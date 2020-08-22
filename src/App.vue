@@ -133,6 +133,7 @@ export default {
     }
   },
   computed: {
+    console: () => console, // For debugging
     selectedTreeIcon() {
       let tree = this.filters.type === "*" ? "tree" : this.filters.type
       return require(`./components/icons/${tree}.svg`)
