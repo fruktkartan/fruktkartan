@@ -1,9 +1,9 @@
 
 <img src="https://github.com/fruktkartan/fruktkartan/workflows/Build/badge.svg?branch=master" title="master branch" />
 
-A new frontend for the fruit map. Now continuously deployed from
+A new frontend for the fruit map. The
 [`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
-branch to https://fruktkartan.se
+branch is deployed automatically to https://fruktkartan.se
 
 
 ## Developing
