@@ -109,6 +109,7 @@ import { mdiMenu, mdiCrosshairsGps } from "@mdi/js"
 
 const DEFAULT_MAP_SIZE = 750 // meters across map
 const MAP_CENTER = latLng(62.3908, 17.3069)
+const MINIMUM_TREE_VIEW_ZOOM = 16 // zoom here when viewing a tree
 /* Middleware for fetch calls */
 const raiseForErrors = response => {
   if (!response.ok) {
@@ -250,8 +251,7 @@ export default {
     map.attributionControl.setPrefix("")
 
     if ("tree" in this.$route.params) {
-      // Routed to a tree. Zoom in and open tree
-      map.setZoom(16)
+      // Routed to a tree
       this.viewTree = this.$route.params.tree
     } else {
       this.retrieveUserPosition()
@@ -341,23 +341,15 @@ export default {
     /**
      * Make sure a specific tree is visible on the map.
      *
-     * After opening a tree dialog, we want to make sure the tree is within
-     * the map bounds. If routed to a specific tree it will probably not be.
+     * After opening a tree dialog, we want to make sure the tree is visible.
      *
      * @param {Object} tree A tree object
      */
     adjustMapToTree: function (tree) {
       const map = this.$refs.theMap.mapObject
-      const bounds = this.$refs.theMap.mapObject.getBounds()
-      if (
-        tree.lat < bounds._southWest.lat ||
-        tree.lat > bounds._northEast.lat ||
-        tree.lon < bounds._southWest.lng ||
-        tree.lon > bounds._northEast.lng
-      ) {
-        const ll = latLng(tree.lat, tree.lon)
-        map.panTo(ll)
-      }
+      const ll = latLng(tree.lat, tree.lon)
+      const zoom = Math.max(map.getZoom(), MINIMUM_TREE_VIEW_ZOOM)
+      map.setView(ll, zoom)
     },
 
     /**
