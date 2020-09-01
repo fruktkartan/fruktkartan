@@ -29,7 +29,7 @@
       <p>
         <em>Uppdaterat den {{ prettyDate(date) }}</em>
       </p>
-      <p>{{ tree.desc }}</p>
+      <p class="description">{{ tree.desc }}</p>
       <TreeImage :image="tree.file" alt="Bild av trädet" />
     </v-card-text>
     <v-card-actions>
@@ -90,3 +90,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.description {
+  white-space: pre-wrap;
+}
+</style>
