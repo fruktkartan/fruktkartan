@@ -3,9 +3,7 @@
 <template>
   <v-card :loading="loading">
     <v-card-text v-if="preview">
-      <div class="pt-4">
-        FÖRHANDSGRANSKNING
-      </div>
+      <div class="pt-4">FÖRHANDSGRANSKNING</div>
       <div>
         <small>
           <em>

@@ -1,9 +1,7 @@
 <template>
   <v-dialog v-model="displayDialog" max-width="500" @keydown.esc="close">
     <v-card>
-      <v-card-title>
-        Om Fruktkartan
-      </v-card-title>
+      <v-card-title>Om Fruktkartan</v-card-title>
       <v-card-text>
         <p>
           Fruktkartan är en öppen databas med fruktträd på allmänningar och i
