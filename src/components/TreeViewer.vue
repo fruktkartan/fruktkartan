@@ -27,7 +27,7 @@
       <p>
         <em>Uppdaterat den {{ prettyDate(date) }}</em>
       </p>
-      <p class="description">{{ tree.desc.trim() }}</p>
+      <p class="description">{{ tree.desc ? tree.desc.trim() : "" }}</p>
       <TreeImage :image="tree.file" alt="Bild av trädet" />
     </v-card-text>
     <v-card-actions>
