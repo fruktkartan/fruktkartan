@@ -3,16 +3,14 @@
     <v-snackbar
       v-model="addTreeMarker.visible"
       :timeout="-1"
-      style="z-index: 4;"
+      style="z-index: 4"
     >
       Dra markören till rätt plats.
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" color="green" @click.stop="addTree = true">
           Fortsätt
         </v-btn>
-        <v-btn text v-bind="attrs" @click="removeAddTreeMarker">
-          Avbryt
-        </v-btn>
+        <v-btn text v-bind="attrs" @click="removeAddTreeMarker">Avbryt</v-btn>
       </template>
     </v-snackbar>
     <v-snackbar
@@ -33,19 +31,19 @@
       :center="center"
       :zoom="zoom"
       :options="mapOptions"
-      style="z-index: 0;"
+      style="z-index: 0"
       @update:bounds="fetchMarkers"
       ><!-- z-index to avoid shadowing Vuetify elements -->
 
       <l-control
         position="bottomleft"
         class="hidden-md-and-up control"
-        style="z-index: 1;"
+        style="z-index: 1"
       >
         <v-icon alt="Meny" title="Meny" @click.stop="$emit('openDrawer')">
           {{ mdiMenu }}
         </v-icon>
-        <span style="padding-left: 1em;" @click.stop="$emit('openDrawer')">
+        <span style="padding-left: 1em" @click.stop="$emit('openDrawer')">
           Meny
         </span>
       </l-control>
