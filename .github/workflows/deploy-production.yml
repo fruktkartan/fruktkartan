@@ -27,7 +27,7 @@ jobs:
           cname: fruktkartan.se
           deploy_key: ${{ secrets.PAGES_DEPLOY_KEY }}
           external_repository: fruktkartan/fruktkartan.github.io
-          publish_branch: master
+          publish_branch: production
           publish_dir: ./dist
           keep_files: true
           allow_empty_commit: true
