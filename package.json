@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/cli.git"
+    "url": "https://github.com/fruktkartan/fruktkartan.git"
   },
   "author": "Daniel Lublin <daniel@lublin.se>",
   "scripts": {
