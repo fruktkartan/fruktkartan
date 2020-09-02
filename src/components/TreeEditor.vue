@@ -43,7 +43,14 @@
         </p>
         <v-textarea
           v-model="tree.desc"
-          :rules="[v => !!v || 'Beskriv trädet innan du fortsätter']"
+          :rules="[
+            v => {
+              if (v && v.trim()) {
+                return true
+              }
+              return 'Beskriv trädet innan du fortsätter'
+            },
+          ]"
           required
           label="Beskrivning"
         ></v-textarea>
