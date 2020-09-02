@@ -316,14 +316,13 @@ export default {
           if (typeof e === "undefined") {
             // Interface not available.
             msg = "Din webbläsare har inte stöd för att hämta position"
+            this.canGeoLocate = false
           } else if (e.code == e.PERMISSION_DENIED) {
             // Interface is available, but has been blocked.
             msg =
               "Dina webbläsarinställningar låter oss inte hämta din position."
-            this.canGeoLocate = false
           } else if (e.code == e.POSITION_UNAVAILABLE) {
             // Interface is available, but position is not.
-            this.canGeoLocate = false
             msg = "Vi kunde inte hämta din position just nu."
           } else {
             msg = `Vi kunde inte hämta din position: ${e.message}`
