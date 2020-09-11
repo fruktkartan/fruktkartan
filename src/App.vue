@@ -154,12 +154,14 @@ export default {
     $route: function (r) {
       // Check for special routes
       this.showFAQ = r.path === "/om"
-      // send a page view to goatcounter
-      // window.goatcounter.allow_local = true
-      window.goatcounter.count({
-        path: () => r.path,
-        event: true,
-      })
+      if ("goatcounter" in window) {
+        // send a page view to goatcounter
+        // window.goatcounter.allow_local = true
+        window.goatcounter.count({
+          path: () => r.path,
+          event: true,
+        })
+      }
     },
     showFAQ: function (state) {
       // HACK
