@@ -55,8 +55,14 @@
       <strong>Tyvärr, din webbläsare måste stödja och tillåta Javascript för
       att Fruktkartan ska fungera.</strong>
     </noscript>
+
     <div id="app"></div>
 
-    <script data-goatcounter="https://frukt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script>
+     if (window.location.hostname == "fruktkartan.se") {
+       window.goatcounter = { endpoint: "https://frukt.goatcounter.com/count" }
+     }
+    </script>
+    <script async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>

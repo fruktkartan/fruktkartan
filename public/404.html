@@ -10,9 +10,13 @@
     <h2>Hoppsan!</h2>
     <img src="https://static.thenounproject.com/png/1043325-200.png" style="float:right;">
     <p>Den här sidan finns inte.
-
     <p><a href="https://fruktkartan.se">&larr; fruktkartan.se</a>
-
-    <script data-goatcounter="https://frukt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </div>
+
+  <script>
+   if (window.location.hostname == "fruktkartan.se") {
+     window.goatcounter = { endpoint: "https://frukt.goatcounter.com/count" }
+   }
+  </script>
+  <script async src="//gc.zgo.at/count.js"></script>
 </body>
