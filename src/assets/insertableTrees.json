@@ -1,10 +1,10 @@
 [
+  { "text": "Äppelträd", "value": "Äpple" },
   { "text": "Körsbärsträd", "value": "Körsbär" },
   { "text": "Plommonträd", "value": "Plommon" },
   { "text": "Päronträd", "value": "Päron" },
-  { "text": "Äppelträd", "value": "Äpple" },
-  { "text": "Slånbär", "value": "Slånbär" },
   { "text": "Körsbärskornell", "value": "Körsbärskornell" },
+  { "text": "Slånbär", "value": "Slånbär" },
   { "divider": true},
   { "text": "Valnöt", "value": "Valnöt" },
   { "text": "Hasselnöt", "value": "Hasselnöt" },
