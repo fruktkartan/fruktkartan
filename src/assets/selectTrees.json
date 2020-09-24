@@ -14,12 +14,6 @@
   { "text": "Valnötsträd", "value": "nut-walnut" },
   { "text": "Äkta kastanjeträd", "value": "nut-sweetchestnut" },
   { "divider": true },
-  { "header": "Örter" },
-  { "text": "Alla örter", "value": "herb" },
-  { "text": "Kamomill", "value": "herb-chamomille" },
-  { "text": "Körvel", "value": "herb-chervil" },
-  { "text": "Ramslök", "value": "herb-wildgarlic" },
-  { "divider": true },
   { "header": "Bär" },
   { "text": "Alla bärställen", "value": "berry" },
   { "text": "Aronia", "value": "berry-chokeberry" },
@@ -30,5 +24,11 @@
   { "text": "Havtorn", "value": "berry-seabuckthorn" },
   { "text": "Mullbär", "value": "berry-mullberry" },
   { "text": "Smultron", "value": "berry-wildstrawberry" },
-  { "text": "Röda vinbär", "value": "berry-currant" }
-]
+  { "text": "Röda vinbär", "value": "berry-currant" },
+  { "divider": true },
+  { "header": "Örter" },
+  { "text": "Alla örter", "value": "herb" },
+  { "text": "Kamomill", "value": "herb-chamomille" },
+  { "text": "Körvel", "value": "herb-chervil" },
+  { "text": "Ramslök", "value": "herb-wildgarlic" }
+ ]
