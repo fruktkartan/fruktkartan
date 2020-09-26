@@ -16,6 +16,7 @@ module.exports = {
     ecmaVersion: 2019,
   },
   plugins: ["prettier", "vue"],
+  ignorePatterns: ["dist/**"],
   rules: {
     indent: [
       "error",
