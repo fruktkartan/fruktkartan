@@ -195,9 +195,12 @@ export default {
     },
     submitTree() {
       let key = this.value
+      let treePayload = this.newTree
+      treePayload.type = treePayload.type.trim()
+      treePayload.desc = treePayload.desc.trim()
       fetch(`${process.env.VUE_APP_APIBASE}/tree/${this.value}`, {
         method: "POST",
-        body: JSON.stringify(this.newTree),
+        body: JSON.stringify(treePayload),
         headers: {
           "Content-Type": "application/json",
         },

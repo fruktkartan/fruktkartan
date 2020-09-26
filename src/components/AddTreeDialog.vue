@@ -76,6 +76,8 @@ export default {
         lat: this.latLng.lat,
         lon: this.latLng.lng,
       }
+      treePayload.type = treePayload.type.trim()
+      treePayload.desc = treePayload.desc.trim()
       fetch(`${process.env.VUE_APP_APIBASE}/tree`, {
         method: "PUT",
         body: JSON.stringify(treePayload),
