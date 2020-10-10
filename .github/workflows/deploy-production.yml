@@ -30,7 +30,7 @@ jobs:
           # branch in external_repository to publish on
           publish_branch: master
           publish_dir: ./dist
-          keep_files: true
+          keep_files: false
           allow_empty_commit: true
           user_name: 'fruktrobot'
           user_email: '<>'
