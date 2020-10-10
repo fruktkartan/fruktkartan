@@ -26,6 +26,7 @@
   { "text": "Nypon", "value": "berry-rosehip" },
   { "text": "Smultron", "value": "berry-wildstrawberry" },
   { "text": "Röda vinbär", "value": "berry-currant" },
+  { "text": "Svarta vinbär", "value": "berry-blackcurrant" },
   { "divider": true },
   { "header": "Örter" },
   { "text": "Alla örter", "value": "herb" },

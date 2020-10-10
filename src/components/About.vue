@@ -7,7 +7,7 @@
           Fruktkartan är en öppen databas med fruktträd på allmänningar och i
           parker. Vem som helst kan lägga till nya träd, och redigera eller ta
           bort sådana som inte passar här. Sajten är byggd av Leo Wallentin,
-          Matti Ryhänen och Daniel Lublin.
+          Matti Ryhänen och Daniel Lublin. Fruktikoner av Pedro Loureiro.
         </p>
 
         <p>
