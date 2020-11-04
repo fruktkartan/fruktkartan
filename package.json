@@ -25,7 +25,7 @@
     "vue-router": "^3.4.3",
     "vue2-leaflet": "^2.5.2",
     "vue2-leaflet-markercluster": "^3.1.0",
-    "vuetify": "^2.3.10",
+    "vuetify": "^2.3.16",
     "whatwg-fetch": "^3.4.0"
   },
   "devDependencies": {
