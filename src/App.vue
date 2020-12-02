@@ -71,7 +71,7 @@
         class="fill-height"
         :tree-filters="filters"
         @open-drawer="drawer = true"
-        @closeDrawer="drawer = null"
+        @close-drawer="drawer = null"
       />
       <About v-model="showFAQ" />
     </v-main>
