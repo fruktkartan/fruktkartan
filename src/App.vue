@@ -50,7 +50,7 @@
           Om Fruktkartan
         </SidebarItem>
       </v-list>
-      <template v-slot:append>
+      <template #append>
         <v-list class="d-none d-lg-block">
           <v-list-item @click="miniVariant = !miniVariant">
             <v-list-item-icon>
@@ -70,7 +70,7 @@
         ref="map"
         class="fill-height"
         :tree-filters="filters"
-        @openDrawer="drawer = true"
+        @open-drawer="drawer = true"
         @closeDrawer="drawer = null"
       />
       <About v-model="showFAQ" />
