@@ -2,25 +2,18 @@
   "name": "fruktkartan",
   "version": "0.2.0",
   "description": "A new frontend in Vue/Vuetify for the (new) Fruktkartan API",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fruktkartan/fruktkartan.git"
-  },
   "author": "Daniel Lublin <daniel@lublin.se>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "prebuild": "./build-vars",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "engines": {
-    "node": ">=14"
+    "lint": "vue-cli-service lint",
+    "prebuild": "./build-vars"
   },
   "dependencies": {
     "@mdi/js": "^5.8.55",
     "core-js": "^3.8.0",
     "leaflet": "^1.7.1",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.12",
     "vue-router": "^3.4.9",
     "vue2-leaflet": "^2.6.0",
@@ -32,6 +25,7 @@
     "@mdi/font": "^5.8.55",
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/cli-plugin-eslint": "^4.5.9",
+    "@vue/cli-plugin-pwa": "^4.5.9",
     "@vue/cli-service": "^4.5.9",
     "babel-eslint": "^10.1.0",
     "dayjs": "^1.9.6",
@@ -56,7 +50,15 @@
     "> 1%",
     "last 2 versions"
   ],
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT",
   "optionalDependencies": {
     "fsevents": "^2.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fruktkartan/fruktkartan.git"
   }
 }
