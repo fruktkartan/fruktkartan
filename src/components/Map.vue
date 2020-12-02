@@ -82,7 +82,7 @@
       <ViewTreeDialog
         v-model="viewTree"
         @change="fetchMarkers"
-        @treeLoaded="adjustMapToTree"
+        @tree-loaded="adjustMapToTree"
         @error="showErrorMessage"
       />
 
