@@ -2,7 +2,7 @@
   <v-list-item :to="to" @click="$emit('onClick')">
     <v-list-item-icon @click="$emit('miniAction')">
       <v-tooltip left>
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-img v-if="iconImg" :src="iconImg" max-width="32" v-on="on" />
           <v-icon v-else :color="active ? 'blue' : 'gray'" v-on="on">{{
             icon
