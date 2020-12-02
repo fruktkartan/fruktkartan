@@ -373,7 +373,7 @@ export default {
     addNewTree: function () {
       const map = this.$refs.theMap.mapObject
       // Close drawer in case we're on mobile
-      this.$emit("closeDrawer")
+      this.$emit("close-drawer")
       this.setMarkerOpacity(0.4)
       this.addTreeMarker = {
         visible: true,
