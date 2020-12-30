@@ -35,7 +35,7 @@
         <SidebarItem
           :icon-img="selectedTreeIcon"
           :tooltip="`Visar ${selectedTreeName.toLowerCase()}`"
-          @miniAction="miniVariant = false"
+          @mini-action="miniVariant = false"
         >
           <v-select
             v-model="filters.type"
@@ -43,7 +43,7 @@
             label="Välj träd att visa"
           />
         </SidebarItem>
-        <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addNewTree()">
+        <SidebarItem :icon="mdiPlus" @on-click="$refs.map.addNewTree()">
           Lägg till träd
         </SidebarItem>
         <SidebarItem :icon="mdiInformation" to="/om">
