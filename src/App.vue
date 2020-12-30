@@ -43,10 +43,16 @@
             label="Välj träd att visa"
           />
         </SidebarItem>
-        <SidebarItem :icon="mdiPlus" @on-click="$refs.map.addNewTree()">
+        <SidebarItem
+          :icon="mdiPlus"
+          :active="
+            $refs.map && ($refs.map.addTree || $refs.map.addTreeMarker.visible)
+          "
+          @on-click="$refs.map.addNewTree()"
+        >
           Lägg till träd
         </SidebarItem>
-        <SidebarItem :icon="mdiInformation" to="/om">
+        <SidebarItem :icon="mdiInformation" :active="showFAQ" to="/om">
           Om Fruktkartan
         </SidebarItem>
       </v-list>
