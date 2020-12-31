@@ -35,7 +35,7 @@
         <SidebarItem
           :icon-img="selectedTreeIcon"
           :tooltip="`Visar ${selectedTreeName.toLowerCase()}`"
-          @miniAction="miniVariant = false"
+          @mini-action="miniVariant = false"
         >
           <v-select
             v-model="filters.type"
@@ -43,14 +43,21 @@
             label="Välj träd att visa"
           />
         </SidebarItem>
-        <SidebarItem :icon="mdiPlus" @onClick="$refs.map.addNewTree()">
+        <SidebarItem
+          :icon="mdiPlus"
+          :active="
+            $refs.map && ($refs.map.addTree || $refs.map.addTreeMarker.visible)
+          "
+          :disabled="offline"
+          @on-click="$refs.map.addNewTree()"
+        >
           Lägg till träd
         </SidebarItem>
-        <SidebarItem :icon="mdiInformation" to="/om">
+        <SidebarItem :icon="mdiInformation" :active="showFAQ" to="/om">
           Om Fruktkartan
         </SidebarItem>
       </v-list>
-      <template v-slot:append>
+      <template #append>
         <v-list class="d-none d-lg-block">
           <v-list-item @click="miniVariant = !miniVariant">
             <v-list-item-icon>
@@ -70,10 +77,19 @@
         ref="map"
         class="fill-height"
         :tree-filters="filters"
-        @openDrawer="drawer = true"
-        @closeDrawer="drawer = null"
+        @open-drawer="drawer = true"
+        @close-drawer="drawer = null"
       />
       <About v-model="showFAQ" />
+      <v-snackbar v-model="offlineWarning" :timeout="-1" color="warning">
+        Vi kunde inte hitta någon internetuppkoppling just nu. Du kommer inte
+        kunna lägga till eller redigera träd förrän du har uppkoppling.
+        <template #action="{ attrs }">
+          <v-btn text v-bind="attrs" @click="offlineWarning = false"
+            >Stäng</v-btn
+          >
+        </template>
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
@@ -112,6 +128,9 @@ export default {
   },
   data() {
     return {
+      offline: navigator && !navigator.onLine,
+      offlineWarning: navigator && !navigator.onLine,
+
       showFAQ: false,
 
       /* v-navigation-drawer */
@@ -172,6 +191,11 @@ export default {
       }
     },
   },
+  mounted() {
+    // There might be a vue plugin for this, but on the other hand quite straightforward
+    window.addEventListener("online", this.updateOnlineStatus)
+    window.addEventListener("offline", this.updateOnlineStatus)
+  },
   created: function () {
     if (window.location.hostname != "fruktkartan.se") {
       this.betaDisplay = "block"
@@ -190,7 +214,20 @@ export default {
     window.addEventListener("resize", appHeight)
     appHeight()
   },
+  beforeDestroy() {
+    window.removeEventListener("online", this.updateOnlineStatus)
+    window.removeEventListener("offline", this.updateOnlineStatus)
+  },
   methods: {
+    updateOnlineStatus({ type }) {
+      if (type === "offline") {
+        this.offline = true
+        this.offlineWarning = true
+      } else {
+        this.offline = false
+        this.offlineWarning = false
+      }
+    },
     reset() {
       this.filters = { ...DEFAULT_FILTERS }
     },

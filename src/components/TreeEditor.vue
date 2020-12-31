@@ -3,9 +3,9 @@
   <v-card>
     <v-card-title><slot name="title"></slot></v-card-title>
     <v-card-text>
-      <v-form v-model="tree.valid">
+      <v-form v-model="tree_.valid" @input="$emit('input', tree_)">
         <v-select
-          v-model="tree.type"
+          v-model="tree_.type"
           required
           :rules="[v => !!v || 'Du måste ange en trädsort']"
           :items="insertableTrees"
@@ -16,7 +16,7 @@
           <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
           <TreeImage v-else :image="tree.file" alt="Nuvarande bild" />
         </div>
-        <div v-if="tree.file && !file">
+        <div v-if="tree_.file && !file">
           <v-btn
             small
             class="px-2 mt-1"
@@ -42,7 +42,7 @@
           Bildens rotation kan vara fel här, men bör bli rätt i nästa steg.
         </p>
         <v-textarea
-          v-model="tree.desc"
+          v-model="tree_.desc"
           :rules="[
             v => {
               if (v && v.trim()) {
@@ -88,6 +88,8 @@ export default {
   },
   data() {
     return {
+      tree_: this.tree,
+
       predefinedTrees: require("../assets/insertableTrees.json"),
       file: null,
       uploading: false,
@@ -100,8 +102,8 @@ export default {
   computed: {
     insertableTrees() {
       let treeList = Array.from(this.predefinedTrees)
-      if (this.tree.type && !(this.tree.type in treeList)) {
-        treeList.push(this.tree.type)
+      if (this.tree_.type && !(this.tree_.type in treeList)) {
+        treeList.push(this.tree_.type)
       }
       return treeList
     },
@@ -109,16 +111,21 @@ export default {
       return URL.createObjectURL(this.file)
     },
   },
+  watch: {
+    tree: function (val1, val2) {
+      this.tree_ = val2
+    },
+  },
   methods: {
     deleteImage() {
       if (window.confirm("Är du säker på att du vill ta bort bilden?")) {
-        this.tree.file = null
+        this.tree_.file = null
       }
     },
     fileChanged() {
       if (!this.file) {
         // Reset tree.file in case someone deleted a file they just uploaded
-        this.tree.file = null
+        this.tree_.file = null
       }
 
       this.uploading = true
@@ -154,7 +161,7 @@ export default {
             }
           }
           request.send(renamedFile)
-          this.tree.file = response.filename
+          this.tree_.file = response.filename
         })
         .catch(err => {
           // FIXME error reporting

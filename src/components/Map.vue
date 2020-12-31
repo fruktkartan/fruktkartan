@@ -6,7 +6,7 @@
       style="z-index: 4"
     >
       Dra markören till rätt plats.
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn text v-bind="attrs" color="green" @click.stop="addTree = true">
           Fortsätt
         </v-btn>
@@ -20,7 +20,7 @@
       :top="true"
     >
       {{ errorMessage.msg }}
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn text v-bind="attrs" @click="errorMessage.visible = false"
           >Stäng</v-btn
         >
@@ -40,10 +40,10 @@
         class="hidden-md-and-up control"
         style="z-index: 1"
       >
-        <v-icon alt="Meny" title="Meny" @click.stop="$emit('openDrawer')">
+        <v-icon alt="Meny" title="Meny" @click.stop="$emit('open-drawer')">
           {{ mdiMenu }}
         </v-icon>
-        <span style="padding-left: 1em" @click.stop="$emit('openDrawer')">
+        <span style="padding-left: 1em" @click.stop="$emit('open-drawer')">
           Meny
         </span>
       </l-control>
@@ -82,7 +82,7 @@
       <ViewTreeDialog
         v-model="viewTree"
         @change="fetchMarkers"
-        @treeLoaded="adjustMapToTree"
+        @tree-loaded="adjustMapToTree"
         @error="showErrorMessage"
       />
 
@@ -373,7 +373,7 @@ export default {
     addNewTree: function () {
       const map = this.$refs.theMap.mapObject
       // Close drawer in case we're on mobile
-      this.$emit("closeDrawer")
+      this.$emit("close-drawer")
       this.setMarkerOpacity(0.4)
       this.addTreeMarker = {
         visible: true,
