@@ -1,12 +1,16 @@
 <template>
-  <v-list-item :to="to" @click="$emit('onClick')">
-    <v-list-item-icon @click="$emit('miniAction')">
+  <v-list-item
+    :to="to"
+    :active="active"
+    :disabled="disabled"
+    :inactive="disabled"
+    @click="disabled || $emit('on-click')"
+  >
+    <v-list-item-icon @click="disabled || $emit('mini-action')">
       <v-tooltip left>
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-img v-if="iconImg" :src="iconImg" max-width="32" v-on="on" />
-          <v-icon v-else :color="active ? 'blue' : 'gray'" v-on="on">{{
-            icon
-          }}</v-icon>
+          <v-icon v-else :color="iconColor" v-on="on">{{ icon }}</v-icon>
         </template>
         <span>{{ tooltip || $slots.default[0].text }}</span>
       </v-tooltip>
@@ -44,6 +48,21 @@ export default {
     active: {
       type: Boolean,
       default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    iconColor: function () {
+      if (this.active) {
+        return "blue"
+      } else if (this.disabled) {
+        return "grey lighten-1"
+      } else {
+        return "grey darken-1"
+      }
     },
   },
 }

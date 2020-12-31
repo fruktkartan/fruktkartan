@@ -162,7 +162,7 @@ export default {
 
       getData
         .then(data => {
-          this.$emit("treeLoaded", data)
+          this.$emit("tree-loaded", data)
           this.tree = data
           this.treeCache[key] = this.tree
         })
