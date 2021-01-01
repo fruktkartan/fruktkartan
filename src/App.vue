@@ -48,7 +48,10 @@
           :active="
             $refs.map && ($refs.map.addTree || $refs.map.addTreeMarker.visible)
           "
-          :disabled="$store.state.offline"
+          :disabled="
+            $store.state.offline ||
+            ($refs.map && $refs.map.addTreeMarker.visible)
+          "
           @on-click="$refs.map.addNewTree()"
         >
           Lägg till träd
