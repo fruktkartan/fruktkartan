@@ -14,6 +14,7 @@
         <v-btn @click="close">Stäng</v-btn>
         <v-spacer></v-spacer>
         <v-btn
+          :disabled="$store.state.offline"
           @click="
             step = 'edit'
             newTree = { ...tree }
@@ -41,7 +42,12 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col>
-            <v-btn small color="red lighten-3" @click="deleteTree">
+            <v-btn
+              small
+              color="red lighten-3"
+              :disabled="$store.state.offline"
+              @click="deleteTree"
+            >
               Ta bort trädet
             </v-btn>
           </v-col>
@@ -56,7 +62,12 @@
             <v-btn @click="step = 'edit'">Tillbaka</v-btn>
           </v-col>
           <v-col>
-            <v-btn color="green" @click="submitTree">Spara ändringar</v-btn>
+            <v-btn
+              color="green"
+              :disabled="$store.state.offline"
+              @click="submitTree"
+              >Spara ändringar
+            </v-btn>
           </v-col>
           <v-spacer></v-spacer>
           <v-col>
