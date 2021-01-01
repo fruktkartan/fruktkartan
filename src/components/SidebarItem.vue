@@ -57,11 +57,11 @@ export default {
   computed: {
     iconColor: function () {
       if (this.active) {
-        return "blue"
+        return "active"
       } else if (this.disabled) {
-        return "grey lighten-1"
+        return "disabled"
       } else {
-        return "grey darken-1"
+        return "default"
       }
     },
   },
