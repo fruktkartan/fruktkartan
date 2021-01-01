@@ -48,7 +48,7 @@
           :active="
             $refs.map && ($refs.map.addTree || $refs.map.addTreeMarker.visible)
           "
-          :disabled="offline"
+          :disabled="$store.state.offline"
           @on-click="$refs.map.addNewTree()"
         >
           Lägg till träd
@@ -128,8 +128,7 @@ export default {
   },
   data() {
     return {
-      offline: navigator && !navigator.onLine,
-      offlineWarning: navigator && !navigator.onLine,
+      offlineWarning: this.$store.state.offline,
 
       showFAQ: false,
 
@@ -221,10 +220,10 @@ export default {
   methods: {
     updateOnlineStatus({ type }) {
       if (type === "offline") {
-        this.offline = true
+        this.$store.commit("offline", true)
         this.offlineWarning = true
       } else {
-        this.offline = false
+        this.$store.commit("offline", false)
         this.offlineWarning = false
       }
     },
