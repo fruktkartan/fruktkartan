@@ -157,6 +157,7 @@ export default {
             .then(response => response.json())
             .then(resolve)
             .catch(err => {
+              console.log(err)
               let msg
               if (err.response.status === 404) {
                 msg =
@@ -178,8 +179,8 @@ export default {
           this.treeCache[key] = this.tree
         })
         .catch(err => {
-          // FIXME error handling
-          console.log("Error fetching tree", err)
+          const msg = "Vi lyckades inte hämta det här trädet just nu. " + err
+          this.$emit("error", msg)
           this.close()
         })
     },
@@ -200,7 +201,10 @@ export default {
             this.close()
           })
           .catch(err => {
-            console.log("Ett fel uppstod när trädet skulle raderas: ", err)
+            // Display error msg, but do not close.
+            // User might want to try again
+            const msg = "Ett fel uppstod när trädet skulle raderas: " + err
+            this.$emit("error", msg)
           })
       }
     },
@@ -222,7 +226,10 @@ export default {
           this.close()
         })
         .catch(err => {
-          console.log("Ett fel uppstod när trädet skulle uppdateras: ", err)
+          // Display error msg, but do not close.
+          // User might want to try again
+          const msg = "Ett fel uppstod när trädet skulle uppdateras: " + err
+          this.$emit("error", msg)
         })
     },
 
