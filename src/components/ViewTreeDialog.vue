@@ -157,14 +157,15 @@ export default {
             .then(response => response.json())
             .then(resolve)
             .catch(err => {
-              console.log(err)
               let msg
-              if (err.response.status === 404) {
+              if (err.response && err.response.status === 404) {
                 msg =
                   "Du har följt en länk till ett träd som inte finns. " +
                   "Kanske har det raderats?"
               } else {
-                msg = "Något gick snett när vi försökte hämta det här trädet."
+                msg =
+                  "Något gick snett när vi försökte hämta det här trädet. " +
+                  err
               }
               this.$emit("error", msg)
               this.close()
