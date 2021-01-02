@@ -6,7 +6,21 @@ const config = {
     msTileColor: "#ffffff",
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "default",
-
+    manifestOptions: {
+      background_color: "#ffffff",
+      description:
+        "Fruktkartan är en öppen databas över fruktträd " +
+        "på allmänningar och i parker.",
+      lang: "sv",
+      categories: ["food", "navigation"],
+      shortcuts: [
+        {
+          name: "Om",
+          url: "/#/om",
+          description: "Om Fruktkartan",
+        },
+      ],
+    },
     // configure the workbox plugin
     workboxPluginMode: "GenerateSW", // "InjectManifest",
     workboxOptions: {
