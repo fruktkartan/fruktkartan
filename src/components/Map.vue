@@ -94,6 +94,7 @@
           removeAddTreeMarker()
           fetchMarkers()
         "
+        @error="showErrorMessage"
       />
     </l-map>
   </v-card>

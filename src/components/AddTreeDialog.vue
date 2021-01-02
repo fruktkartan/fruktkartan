@@ -82,12 +82,20 @@ export default {
         method: "PUT",
         body: JSON.stringify(treePayload),
         headers: { "Content-Type": "application/json" },
-      }).then(() => {
-        this.step = "edit"
-        this.tree = {}
-        this.$emit("input", false)
-        this.$emit("added")
       })
+        .then(() => {
+          this.step = "edit"
+          this.tree = {}
+          this.$emit("input", false)
+          this.$emit("added")
+        })
+        .catch(err => {
+          const msg =
+            "Vi lyckades inte spara trädet just nu: " +
+            err +
+            "\nFörsök gärna igen om en stund!"
+          this.$emit("error", msg)
+        })
     },
   },
 }
