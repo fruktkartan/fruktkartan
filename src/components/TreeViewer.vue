@@ -25,7 +25,14 @@
     <v-card-title>{{ tree.type }} </v-card-title>
     <v-card-text>
       <p>
-        <em>Uppdaterat den {{ prettyDate(date) }}</em>
+        <small>
+          <em>Uppdaterat den {{ prettyDate(date) }}</em>
+          <br />
+          <v-icon alt="Koordinater" x-small class="mr-1">
+            {{ mdiMapMarker }}
+          </v-icon>
+          <var>{{ tree.lat }}, {{ tree.lon }}</var>
+        </small>
       </p>
       <p class="description">{{ tree.desc ? tree.desc.trim() : "" }}</p>
       <TreeImage :image="tree.file" alt="Bild av trädet" />
@@ -45,6 +52,7 @@
 import TreeImage from "./TreeImage.vue"
 import dayjs from "dayjs"
 import "dayjs/locale/sv"
+import { mdiMapMarker } from "@mdi/js"
 dayjs.locale("sv")
 
 export default {
@@ -67,6 +75,11 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  data: function () {
+    return {
+      mdiMapMarker,
+    }
   },
   computed: {
     date() {
