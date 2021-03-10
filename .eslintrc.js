@@ -15,7 +15,7 @@ module.exports = {
     parser: "babel-eslint",
     ecmaVersion: 2019,
   },
-  plugins: ["prettier", "vue"],
+  plugins: ["prettier"],
   ignorePatterns: ["dist/**"],
   rules: {
     indent: [
