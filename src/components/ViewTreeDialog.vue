@@ -41,7 +41,7 @@
             <v-btn
               color="green"
               :disabled="!newTree.valid || treesAreEqual(newTree, tree)"
-              @click="step = 'preview'"
+              @click="towardsPreview"
             >
               Fortsätt
             </v-btn>
@@ -82,12 +82,15 @@
         </v-row>
       </template>
     </TreeViewer>
+
+    <ConfirmDialog ref="confirm"></ConfirmDialog>
   </v-dialog>
 </template>
 
 <script>
 import TreeViewer from "./TreeViewer.vue"
 import TreeEditor from "./TreeEditor.vue"
+import ConfirmDialog from "./ConfirmDialog.vue"
 
 function raiseOnHttpError(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -104,6 +107,7 @@ export default {
   components: {
     TreeViewer,
     TreeEditor,
+    ConfirmDialog,
   },
   props: {
     value: {
@@ -192,28 +196,49 @@ export default {
         })
     },
 
-    deleteTree() {
-      let key = this.value
-      let result = window.confirm(
-        "Är du säker på att du vill ta bort det här trädet" +
-          ` (${this.tree.type}) från Fruktkartan?`
-      )
-      if (result) {
-        fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, {
-          method: "DELETE",
-        })
-          .then(() => {
-            delete this.treeCache[key]
-            this.$emit("change")
-            this.close()
-          })
-          .catch(err => {
-            // Display error msg, but do not close.
-            // User might want to try again
-            const msg = "Ett fel uppstod när trädet skulle raderas: " + err
-            this.$emit("error", msg)
-          })
+    towardsPreview() {
+      // tree is edited, we require confirmation if changing tree type
+      if (this.tree.type === this.newTree.type) {
+        this.step = "preview"
+        return
       }
+      this.$refs.confirm
+        .open(
+          `Vill du ändra trädets typ från ${this.tree.type} till ${this.newTree.type}?`,
+          { positiveText: "Fortsätt", positiveColor: "green" }
+        )
+        .then(confirm => {
+          if (confirm) {
+            this.step = "preview"
+          }
+        })
+    },
+
+    deleteTree() {
+      this.$refs.confirm
+        .open(
+          "Är du säker på att du vill ta bort det här trädet" +
+            ` (${this.tree.type}) från Fruktkartan?`
+        )
+        .then(confirm => {
+          if (confirm) {
+            let key = this.value
+            fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, {
+              method: "DELETE",
+            })
+              .then(() => {
+                delete this.treeCache[key]
+                this.$emit("change")
+                this.close()
+              })
+              .catch(err => {
+                // Display error msg, but do not close.
+                // User might want to try again
+                const msg = "Ett fel uppstod när trädet skulle raderas: " + err
+                this.$emit("error", msg)
+              })
+          }
+        })
     },
     submitTree() {
       let key = this.value

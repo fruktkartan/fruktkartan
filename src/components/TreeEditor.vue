@@ -57,6 +57,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions><slot name="buttons"></slot></v-card-actions>
+    <ConfirmDialog ref="confirm"></ConfirmDialog>
   </v-card>
 </template>
 
@@ -68,11 +69,13 @@
  */
 import TreeImage from "./TreeImage.vue"
 import { mdiDeleteOutline } from "@mdi/js"
+import ConfirmDialog from "./ConfirmDialog.vue"
 
 export default {
   name: "TreeEditor",
   components: {
     TreeImage,
+    ConfirmDialog,
   },
   model: {
     prop: "tree",
@@ -118,9 +121,13 @@ export default {
   },
   methods: {
     deleteImage() {
-      if (window.confirm("Är du säker på att du vill ta bort bilden?")) {
-        this.tree_.file = null
-      }
+      this.$refs.confirm
+        .open("Är du säker på att du vill ta bort bilden?")
+        .then(confirm => {
+          if (confirm) {
+            this.tree_.file = null
+          }
+        })
     },
     fileChanged() {
       if (!this.file) {
