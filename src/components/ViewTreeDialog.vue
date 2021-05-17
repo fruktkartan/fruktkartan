@@ -171,7 +171,7 @@ export default {
               if (err.response && err.response.status === 404) {
                 msg =
                   "Du har följt en länk till ett träd som inte finns. " +
-                  "Kanske har det raderats?"
+                  "Kanske har det tagits bort?"
               } else {
                 msg =
                   "Något gick snett när vi försökte hämta det här trädet. " +
@@ -234,7 +234,7 @@ export default {
               .catch(err => {
                 // Display error msg, but do not close.
                 // User might want to try again
-                const msg = "Ett fel uppstod när trädet skulle raderas: " + err
+                const msg = "Ett fel uppstod när trädet skulle tas bort: " + err
                 this.$emit("error", msg)
               })
           }
