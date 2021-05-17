@@ -24,7 +24,7 @@
             @click="deleteImage"
           >
             <v-icon>{{ mdiDeleteOutline }}</v-icon
-            >Radera bilden
+            >Ta bort bilden
           </v-btn>
         </div>
         <v-file-input
