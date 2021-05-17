@@ -3,34 +3,53 @@
     <TreeEditor v-if="step === 'edit'" v-model="tree">
       <template #title>Lägg till träd</template>
       <template #buttons>
-        <v-btn @click="$emit('input', false)">Tillbaka</v-btn>
-        <v-btn color="green" :disabled="!tree.valid" @click="step = 'preview'"
-          >Fortsätt</v-btn
-        >
-        <v-spacer></v-spacer>
-        <v-btn
-          @click="
-            $emit('input', false)
-            $emit('abort')
-          "
-          >Avbryt</v-btn
-        >
+        <v-row dense>
+          <v-col>
+            <v-btn @click="$emit('input', false)">Tillbaka</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn
+              color="green"
+              :disabled="!tree.valid"
+              @click="step = 'preview'"
+              >Fortsätt</v-btn
+            >
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col>
+            <v-btn
+              @click="
+                $emit('input', false)
+                $emit('abort')
+              "
+              >Avbryt</v-btn
+            >
+          </v-col>
+        </v-row>
       </template>
     </TreeEditor>
 
     <TreeViewer v-if="step === 'preview'" :tree="tree" :preview="true">
       <template #buttons>
-        <v-btn @click="step = 'edit'">Tillbaka</v-btn>
-        <v-btn color="green" @click="addTree">Publicera</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          @click="
-            step = 'edit'
-            $emit('input', false)
-            $emit('abort')
-          "
-          >Avbryt</v-btn
-        >
+        <v-row dense>
+          <v-col>
+            <v-btn @click="step = 'edit'">Tillbaka</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn color="green" @click="addTree">Publicera</v-btn>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col>
+            <v-btn
+              @click="
+                step = 'edit'
+                $emit('input', false)
+                $emit('abort')
+              "
+              >Avbryt</v-btn
+            >
+          </v-col>
+        </v-row>
       </template>
     </TreeViewer>
   </v-dialog>
