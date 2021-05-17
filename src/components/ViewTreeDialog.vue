@@ -11,16 +11,22 @@
       :tree="tree"
     >
       <template #buttons>
-        <v-btn @click="close">Stäng</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          :disabled="$store.state.offline"
-          @click="
-            step = 'edit'
-            newTree = { ...tree }
-          "
-          >Redigera</v-btn
-        >
+        <v-row dense>
+          <v-col>
+            <v-btn @click="close">Stäng</v-btn>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col>
+            <v-btn
+              :disabled="$store.state.offline"
+              @click="
+                step = 'edit'
+                newTree = { ...tree }
+              "
+              >Redigera</v-btn
+            >
+          </v-col>
+        </v-row>
       </template>
     </TreeViewer>
 
