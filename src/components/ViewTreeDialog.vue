@@ -267,11 +267,11 @@ export default {
 
     /* Check if there are differences we care about betw trees*/
     treesAreEqual(tree1, tree2) {
-      return (
-        tree1.type === tree2.type &&
-        tree1.desc === tree2.desc &&
-        tree1.file === tree2.file
-      )
+      const type1 = tree1.type ? tree1.type.trim() : ""
+      const type2 = tree2.type ? tree2.type.trim() : ""
+      const desc1 = tree1.desc ? tree1.desc.trim() : ""
+      const desc2 = tree2.desc ? tree2.desc.trim() : ""
+      return type1 === type2 && desc1 === desc2 && tree1.file === tree2.file
     },
   },
 }
