@@ -31,7 +31,16 @@
           <v-icon alt="Koordinater" x-small class="mr-1">
             {{ mdiMapMarker }}
           </v-icon>
-          <var>{{ tree.lat }}, {{ tree.lon }}</var>
+          <var>
+            <a
+              :href="geoURI"
+              title="Visa i separat karta"
+              target="_blank"
+              rel="noopener"
+            >
+              {{ geoPos }}
+            </a>
+          </var>
         </small>
       </p>
       <p class="description">{{ tree.desc ? tree.desc.trim() : "" }}</p>
@@ -88,6 +97,18 @@ export default {
       } else {
         return this.tree.added
       }
+    },
+    geoPos() {
+      if (!this.tree || !this.tree.lat || !this.tree.lon) {
+        return ""
+      }
+      return `${this.tree.lat.toFixed(6)},${this.tree.lon.toFixed(6)}`
+    },
+    geoURI() {
+      if (!this.tree) {
+        return ""
+      }
+      return `geo:${this.geoPos}`
     },
   },
   methods: {
