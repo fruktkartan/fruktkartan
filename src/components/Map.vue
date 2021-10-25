@@ -54,6 +54,10 @@
         :attribution="attribution"
         :z-index="0"
       />
+      <l-tile-layer
+        url="https://tiles.musa.kodapan.se/tiles/hydda/v2/places_roads_and_labels/sv/{z}/{x}/{y}.png"
+        :options="{ maxZoom: 20 }"
+      />
       <l-control v-if="canGeoLocate" position="topleft" class="control">
         <v-icon @click.stop="retrieveUserPosition">
           {{ mdiCrosshairsGps }}
@@ -146,23 +150,12 @@ export default {
       loading: true,
       center: MAP_CENTER,
       zoom: 5,
-      url:
-        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+      url: "https://tiles.musa.kodapan.se/tiles/hydda/v2/base/{z}/{x}/{y}.png",
       attribution:
-        "kartgrafik <a href='https://carto.com/attributions' target='_blank'>CARTO</a>" +
-        " · kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
+        "© <a href='https://openstreetmap.org' target='_blank'>OpenStreetMap</a>",
       layerOptions: {
-        maxZoom: 19,
-        subdomains: "abcd",
+        maxZoom: 20,
       },
-      // TODO go back to this once OSM.se's server is repaired  https://github.com/karlwettin/carto-style-hydda/issues/3
-      // url: "https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png",
-      // attribution:
-      //   "kartgrafik <a href='https://openstreetmap.se/' target='_blank'>Open Street Map Sverige</a>" +
-      //   " · kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>Open Street Map</a>",
-      // layerOptions: {
-      //   maxZoom: 20,
-      // },
       mapOptions: {
         minZoom: 3,
         zoomSnap: 0.5,
