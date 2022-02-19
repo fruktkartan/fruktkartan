@@ -10,7 +10,7 @@
     "prebuild": "./build-vars"
   },
   "dependencies": {
-    "@mdi/js": "^5.9.55",
+    "@mdi/js": "^6.5.95",
     "core-js": "^3.21.1",
     "leaflet": "^1.7.1",
     "register-service-worker": "^1.7.2",
