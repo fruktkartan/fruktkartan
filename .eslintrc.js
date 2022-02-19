@@ -8,13 +8,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:vue/recommended",
-    "prettier/babel",
-    "prettier/vue",
   ],
-  parserOptions: {
-    parser: "babel-eslint",
-    ecmaVersion: 2019,
-  },
+  parser: "vue-eslint-parser",
   plugins: ["prettier"],
   ignorePatterns: ["dist/**"],
   rules: {

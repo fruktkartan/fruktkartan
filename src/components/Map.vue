@@ -120,7 +120,7 @@ const raiseForErrors = response => {
 }
 
 export default {
-  name: "Map",
+  name: "TheMap",
   components: {
     LMap,
     LTileLayer,

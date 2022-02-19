@@ -76,14 +76,14 @@
     </v-navigation-drawer>
 
     <v-main>
-      <Map
+      <TheMap
         ref="map"
         class="fill-height"
         :tree-filters="filters"
         @open-drawer="drawer = true"
         @close-drawer="drawer = null"
       />
-      <About v-model="showFAQ" />
+      <AboutUs v-model="showFAQ" />
       <v-snackbar v-model="offlineWarning" :timeout="-1" color="warning">
         Vi kunde inte hitta någon internetuppkoppling just nu. Du kommer inte
         kunna lägga till eller redigera träd förrän du har uppkoppling.
@@ -98,8 +98,8 @@
 </template>
 
 <script>
-import Map from "./components/Map.vue"
-import About from "./components/About.vue"
+import TheMap from "./components/Map.vue"
+import AboutUs from "./components/About.vue"
 import SidebarItem from "./components/SidebarItem.vue"
 import {
   mdiClose,
@@ -125,8 +125,8 @@ const mobileLogotype = {
 export default {
   name: "App",
   components: {
-    Map,
-    About,
+    TheMap,
+    AboutUs,
     SidebarItem,
   },
   data() {

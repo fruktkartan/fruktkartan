@@ -62,7 +62,7 @@
 
 <script>
 export default {
-  name: "About",
+  name: "AboutUs",
   props: {
     value: {
       type: Boolean,

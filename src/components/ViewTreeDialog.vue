@@ -23,8 +23,9 @@
                 step = 'edit'
                 newTree = { ...tree }
               "
-              >Redigera</v-btn
             >
+              Redigera
+            </v-btn>
           </v-col>
         </v-row>
       </template>
@@ -46,7 +47,7 @@
               Fortsätt
             </v-btn>
           </v-col>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-col>
             <v-btn
               small
@@ -75,7 +76,7 @@
               >Spara ändringar
             </v-btn>
           </v-col>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-col>
             <v-btn @click="close">Avbryt</v-btn>
           </v-col>
@@ -83,7 +84,7 @@
       </template>
     </TreeViewer>
 
-    <ConfirmDialog ref="confirm"></ConfirmDialog>
+    <ConfirmDialog ref="confirm" />
   </v-dialog>
 </template>
 
