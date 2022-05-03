@@ -19,7 +19,6 @@ jobs:
         run: |
           npm ci
           npm run-script build
-          npm run-script test
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

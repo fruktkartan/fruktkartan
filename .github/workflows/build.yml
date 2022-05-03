@@ -21,4 +21,3 @@ jobs:
         run: |
           npm ci
           npm run-script build
-          npm run-script test
