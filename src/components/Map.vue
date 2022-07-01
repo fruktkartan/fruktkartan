@@ -10,7 +10,7 @@
         <v-btn text v-bind="attrs" color="green" @click.stop="addTree = true">
           Fortsätt
         </v-btn>
-        <v-btn text v-bind="attrs" @click="removeAddTreeMarker">Avbryt</v-btn>
+        <v-btn text v-bind="attrs" @click="removeAddTreeMarker"> Avbryt </v-btn>
       </template>
     </v-snackbar>
     <v-snackbar
@@ -21,9 +21,9 @@
     >
       {{ errorMessage.msg }}
       <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="errorMessage.visible = false"
-          >Stäng</v-btn
-        >
+        <v-btn text v-bind="attrs" @click="errorMessage.visible = false">
+          Stäng
+        </v-btn>
       </template>
     </v-snackbar>
     <l-map
@@ -33,7 +33,8 @@
       :options="mapOptions"
       style="z-index: 0"
       @update:bounds="fetchMarkers"
-      ><!-- z-index to avoid shadowing Vuetify elements -->
+    >
+      <!-- z-index to avoid shadowing Vuetify elements -->
 
       <l-control
         position="bottomleft"
