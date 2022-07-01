@@ -55,10 +55,6 @@
         :attribution="attribution"
         :z-index="0"
       />
-      <l-tile-layer
-        url="https://tiles.musa.kodapan.se/tiles/hydda/v2/places_roads_and_labels/sv/{z}/{x}/{y}.png"
-        :options="{ maxZoom: 20 }"
-      />
       <l-control v-if="canGeoLocate" position="topleft" class="control">
         <v-icon @click.stop="retrieveUserPosition">
           {{ mdiCrosshairsGps }}
@@ -151,11 +147,13 @@ export default {
       loading: true,
       center: MAP_CENTER,
       zoom: 5,
-      url: "https://tiles.musa.kodapan.se/tiles/hydda/v2/base/{z}/{x}/{y}.png",
+      url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       attribution:
-        "© <a href='https://openstreetmap.org' target='_blank'>OpenStreetMap</a>",
+        "kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a>" +
+        " grafik <a href='https://carto.com/attributions' target='_blank'>CARTO</a>",
       layerOptions: {
-        maxZoom: 20,
+        maxZoom: 19,
+        subdomains: "abcd",
       },
       mapOptions: {
         minZoom: 3,
