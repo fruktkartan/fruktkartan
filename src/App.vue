@@ -64,10 +64,12 @@
         <v-list class="d-none d-lg-block">
           <v-list-item @click="miniVariant = !miniVariant">
             <v-list-item-icon>
-              <v-icon v-if="!miniVariant">{{ mdiClose }}</v-icon>
-              <v-icon v-if="miniVariant" title="Visa panelen">{{
-                mdiMenuOpen
-              }}</v-icon>
+              <v-icon v-if="!miniVariant">
+                {{ mdiClose }}
+              </v-icon>
+              <v-icon v-if="miniVariant" title="Visa panelen">
+                {{ mdiMenuOpen }}
+              </v-icon>
             </v-list-item-icon>
             <v-list-item-content>Dölj panelen</v-list-item-content>
           </v-list-item>
@@ -88,9 +90,9 @@
         Vi kunde inte hitta någon internetuppkoppling just nu. Du kommer inte
         kunna lägga till eller redigera träd förrän du har uppkoppling.
         <template #action="{ attrs }">
-          <v-btn text v-bind="attrs" @click="offlineWarning = false"
-            >Stäng</v-btn
-          >
+          <v-btn text v-bind="attrs" @click="offlineWarning = false">
+            Stäng
+          </v-btn>
         </template>
       </v-snackbar>
     </v-main>

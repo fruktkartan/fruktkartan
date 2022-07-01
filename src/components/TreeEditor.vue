@@ -1,7 +1,7 @@
 <!-- A tree editor shared by addTree dialog and editTree dialog. -->
 <template>
   <v-card>
-    <v-card-title><slot name="title"></slot></v-card-title>
+    <v-card-title><slot name="title" /></v-card-title>
     <v-card-text>
       <v-form v-model="tree_.valid" @input="$emit('input', tree_)">
         <v-select
@@ -53,11 +53,11 @@
           ]"
           required
           label="Beskrivning"
-        ></v-textarea>
+        />
       </v-form>
     </v-card-text>
-    <v-card-actions><slot name="buttons"></slot></v-card-actions>
-    <ConfirmDialog ref="confirm"></ConfirmDialog>
+    <v-card-actions><slot name="buttons" /></v-card-actions>
+    <ConfirmDialog ref="confirm" />
   </v-card>
 </template>
 

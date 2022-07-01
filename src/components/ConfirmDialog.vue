@@ -14,18 +14,19 @@
           <code>{{ options.positiveText }}</code
           >.
         </p>
-        <v-text-field v-model="confirm" label="skriv här"></v-text-field>
+        <v-text-field v-model="confirm" label="skriv här" />
       </v-card-text>
       <v-card-actions class="pt-0">
-        <v-btn small @click.native="negative">Nej</v-btn>
-        <v-spacer></v-spacer>
+        <v-btn small @click.native="negative"> Nej </v-btn>
+        <v-spacer />
         <v-btn
           small
           :color="options.positiveColor"
           :disabled="!confirmed"
           @click.native="positive"
-          >{{ options.positiveText }}</v-btn
         >
+          {{ options.positiveText }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

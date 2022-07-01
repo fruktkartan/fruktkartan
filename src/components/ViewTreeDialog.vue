@@ -13,9 +13,9 @@
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="close">Stäng</v-btn>
+            <v-btn @click="close"> Stäng </v-btn>
           </v-col>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-col>
             <v-btn
               :disabled="$store.state.offline"
@@ -32,11 +32,11 @@
     </TreeViewer>
 
     <TreeEditor v-if="step === 'edit'" v-model="newTree">
-      <template #title>Redigera träd</template>
+      <template #title> Redigera träd </template>
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="step = 'view'">Tillbaka</v-btn>
+            <v-btn @click="step = 'view'"> Tillbaka </v-btn>
           </v-col>
           <v-col>
             <v-btn
@@ -66,19 +66,20 @@
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="step = 'edit'">Tillbaka</v-btn>
+            <v-btn @click="step = 'edit'"> Tillbaka </v-btn>
           </v-col>
           <v-col>
             <v-btn
               color="green"
               :disabled="$store.state.offline"
               @click="submitTree"
-              >Spara ändringar
+            >
+              Spara ändringar
             </v-btn>
           </v-col>
           <v-spacer />
           <v-col>
-            <v-btn @click="close">Avbryt</v-btn>
+            <v-btn @click="close"> Avbryt </v-btn>
           </v-col>
         </v-row>
       </template>
