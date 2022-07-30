@@ -32,7 +32,7 @@
       :zoom="zoom"
       :options="mapOptions"
       style="z-index: 0"
-      @update:bounds="fetchMarkers"
+      @update:bounds="mapUpdated"
     >
       <!-- z-index to avoid shadowing Vuetify elements -->
 
@@ -110,7 +110,7 @@ import ViewTreeDialog from "./ViewTreeDialog.vue"
 import { mdiMenu, mdiCrosshairsGps } from "@mdi/js"
 
 const DEFAULT_MAP_SIZE = 750 // meters across map
-const MAP_CENTER = latLng(62.3908, 17.3069)
+const MAP_CENTER = [62.3908, 17.3069] // fallback
 const MINIMUM_TREE_VIEW_ZOOM = 16 // zoom here when viewing a tree
 /* Middleware for fetch calls */
 const raiseForErrors = response => {
@@ -145,7 +145,6 @@ export default {
   data() {
     return {
       loading: true,
-      center: MAP_CENTER,
       zoom: 7,
       url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       attribution:
@@ -175,7 +174,7 @@ export default {
       canGeoLocate: true,
 
       addTreeMarker: {
-        latLng: MAP_CENTER,
+        latLng: latLng(MAP_CENTER[0], MAP_CENTER[1]),
         visible: false,
       },
       addTree: false,
@@ -190,6 +189,18 @@ export default {
   },
 
   computed: {
+    /**
+     * Map center, befor geolocation
+     */
+    center() {
+      if (localStorage && localStorage.mapCenter) {
+        const center = localStorage.mapCenter.split(",")
+        return latLng(center[0], center[1])
+      } else {
+        return latLng(MAP_CENTER[0], MAP_CENTER[1])
+      }
+    },
+
     filteredMarkers() {
       let fm = this.markers
       if (this.treeFilters.type !== "*") {
@@ -387,10 +398,17 @@ export default {
       this.setMarkerOpacity(1)
     },
 
+    mapUpdated: function () {
+      this.fetchMarkers()
+      if (localStorage) {
+        const center = this.$refs.theMap.mapObject.getCenter()
+        localStorage.mapCenter = [center.lat, center.lng]
+      }
+    },
+
     fetchMarkers: function () {
       this.loading = true
       let self = this
-
       let bounds = this.$refs.theMap.mapObject.getBounds()
       fetch(
         // eslint-disable-next-line max-len
