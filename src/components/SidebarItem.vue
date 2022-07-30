@@ -10,13 +10,15 @@
       <v-tooltip left>
         <template #activator="{ on }">
           <v-img v-if="iconImg" :src="iconImg" max-width="32" v-on="on" />
-          <v-icon v-else :color="iconColor" v-on="on">{{ icon }}</v-icon>
+          <v-icon v-else :color="iconColor" v-on="on">
+            {{ icon }}
+          </v-icon>
         </template>
         <span>{{ tooltip || $slots.default[0].text }}</span>
       </v-tooltip>
     </v-list-item-icon>
     <v-list-item-content>
-      <slot></slot>
+      <slot />
     </v-list-item-content>
   </v-list-item>
 </template>

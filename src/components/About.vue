@@ -54,7 +54,7 @@
         </small>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click.stop="close">Stäng</v-btn>
+        <v-btn @click.stop="close"> Stäng </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
