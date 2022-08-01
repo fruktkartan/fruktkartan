@@ -145,7 +145,7 @@ export default {
   data() {
     return {
       loading: true,
-      zoom: 7,
+      zoom: 8,
       url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       attribution:
         "kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a>" +
