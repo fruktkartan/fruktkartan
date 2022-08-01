@@ -2,14 +2,18 @@
 
 <img src="https://github.com/fruktkartan/fruktkartan/workflows/Build/badge.svg?branch=master" title="master branch" />
 
-A new frontend for the fruit map. The
-[`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
+The [`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
 branch is deployed automatically to https://fruktkartan.se
+
+Branch `master` is currently deployed automatically to https://master--fruktkartan.netlify.app
 
 ## What is Fruktkartan?
 
-Fruktkartan ('the fruit map' in Swedish) is a map where we collabarotively build a database of edible fruits and berries in the wild, on common lands and in public parks. 
-Anyone can edit the map and the information is freely licensed, the information under the [Open Database License](https://opendatacommons.org/licenses/odbl/summary/) and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.sv).
+Fruktkartan ('the fruit map' in Swedish) is a map where we collaboratively
+build a database of edible fruits and berries in the wild, on common lands and
+in public parks. Anyone can edit the map and the information is freely
+licensed, the information under the [Open Database License](https://opendatacommons.org/licenses/odbl/summary/)
+and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.sv).
 
 ![The logo of Fruktkartan](/public/og-f.png)
 
