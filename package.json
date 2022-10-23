@@ -12,15 +12,14 @@
   },
   "dependencies": {
     "@mdi/js": "^7.0.96",
-    "core-js": "^3.25.2",
+    "core-js": "^3.25.5",
     "leaflet": "^1.8.0",
     "register-service-worker": "^1.7.2",
     "vue": "2.7.10",
     "vue-router": "^3.5.4",
-    "vue-template-compiler": "2.7.10",
     "vue2-leaflet": "^2.7.1",
     "vue2-leaflet-markercluster": "^3.1.0",
-    "vuetify": "^2.6.10",
+    "vuetify": "^2.6.12",
     "vuex": "^3.6.2",
     "whatwg-fetch": "^3.6.2"
   },
@@ -30,7 +29,7 @@
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-pwa": "^4.5.14",
     "@vue/cli-service": "^4.5.14",
-    "dayjs": "^1.11.5",
+    "dayjs": "^1.11.6",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-loader": "^4.0.2",
@@ -41,7 +40,7 @@
     "sass-loader": "^10.3.0",
     "vue-cli-plugin-vuetify": "^2.5.8",
     "vue-eslint-parser": "^8.3.0",
-    "vue-template-compiler": "^2.7.10",
+    "vue-template-compiler": "^2.7.13",
     "vuetify-loader": "^1.9.2"
   },
   "postcss": {
