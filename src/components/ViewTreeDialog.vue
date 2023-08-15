@@ -38,6 +38,7 @@
           <v-col>
             <v-btn @click="step = 'view'"> Tillbaka </v-btn>
           </v-col>
+          <v-spacer />
           <v-col>
             <v-btn
               color="green"
@@ -45,17 +46,6 @@
               @click="towardsPreview"
             >
               Fortsätt
-            </v-btn>
-          </v-col>
-          <v-spacer />
-          <v-col>
-            <v-btn
-              small
-              color="red lighten-3"
-              :disabled="$store.state.offline"
-              @click="deleteTree"
-            >
-              Ta bort trädet
             </v-btn>
           </v-col>
         </v-row>
@@ -130,7 +120,7 @@ export default {
       return this.value ? true : false
     },
   },
-  /* The dialog is opened before data has been loaded, so we need to watch for 
+  /* The dialog is opened before data has been loaded, so we need to watch for
      tree data change, to update the newTree object (used when editing)
   */
   watch: {
@@ -216,32 +206,6 @@ export default {
         })
     },
 
-    deleteTree() {
-      this.$refs.confirm
-        .open(
-          "Är du säker på att du vill ta bort det här trädet" +
-            ` (${this.tree.type}) från Fruktkartan?`
-        )
-        .then(confirm => {
-          if (confirm) {
-            let key = this.value
-            fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, {
-              method: "DELETE",
-            })
-              .then(() => {
-                delete this.treeCache[key]
-                this.$emit("change")
-                this.close()
-              })
-              .catch(err => {
-                // Display error msg, but do not close.
-                // User might want to try again
-                const msg = "Ett fel uppstod när trädet skulle tas bort: " + err
-                this.$emit("error", msg)
-              })
-          }
-        })
-    },
     submitTree() {
       let key = this.value
       let treePayload = this.newTree
