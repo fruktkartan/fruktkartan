@@ -12,7 +12,7 @@
 
         <p>
           Andra sajter och appar kan använda information härifrån, via ett öppet
-          API. Informationen är licenserad med
+          API. Informationen är licensierad med
           <a
             href="https://opendatacommons.org/licenses/odbl/summary/"
             target="_blank"
@@ -28,7 +28,7 @@
         </p>
         <p>
           Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open Street Maps
-          kartor. Källkoden är fri, <em>copyleft</em> och licenserad med
+          kartor. Källkoden är fri, <em>copyleft</em> och licensierad med
           <a
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
