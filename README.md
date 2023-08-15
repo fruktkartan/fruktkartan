@@ -30,6 +30,11 @@ Set up your project by running:
 npm install
 ```
 
+Due to bit rot (old dependencies), this currently needs to be set:
+```
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
