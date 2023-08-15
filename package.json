@@ -53,7 +53,7 @@
     "last 2 versions"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "license": "MIT",
   "optionalDependencies": {
