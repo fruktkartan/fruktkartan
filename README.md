@@ -12,7 +12,7 @@ to https://master--fruktkartan.netlify.app
 
 ## What is Fruktkartan?
 
-Fruktkartan ('the fruit map' in Swedish) is a map where we collaboratively
+*Fruktkartan* (Swedish for "the fruit map") is a map where we collaboratively
 build a database of edible fruits and berries in the wild, on common lands and
 in public parks. Anyone can edit the map and the information is freely
 licensed, the information under the [Open Database License](https://opendatacommons.org/licenses/odbl/summary/)
@@ -22,7 +22,7 @@ and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1
 
 ## Technical framework
 
-Fruktkartan is built using Vue/Vuetify and Leaflet on OpenStreetMap as background. 
+*Fruktkartan* is built using Vue/Vuetify, and Leaflet with OpenStreetMap.
 
 ## Contributing
 

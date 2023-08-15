@@ -149,7 +149,7 @@ export default {
       url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       attribution:
         "kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a>" +
-        " grafik <a href='https://carto.com/attributions' target='_blank'>CARTO</a>",
+        " grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>",
       layerOptions: {
         maxZoom: 19,
         subdomains: "abcd",
