@@ -2,10 +2,13 @@
 
 <img src="https://github.com/fruktkartan/fruktkartan/workflows/Build/badge.svg?branch=master" title="master branch" />
 
-The [`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
-branch is deployed automatically to https://fruktkartan.se
+Branch [`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
+is deployed [automatically](https://github.com/fruktkartan/fruktkartan/actions/workflows/deploy-production.yml)
+to the [fruktkartan.github.io repo](https://github.com/fruktkartan/fruktkartan.github.io)
+which is published at https://fruktkartan.se
 
-Branch `master` is currently deployed automatically to https://master--fruktkartan.netlify.app
+Branch `master` is deployed [automatically](https://app.netlify.com/sites/fruktkartan/deploys)
+to https://master--fruktkartan.netlify.app
 
 ## What is Fruktkartan?
 
