@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "@mdi/font": "7.2.96",
-    "@vue/cli-plugin-babel": "4.5.14",
+    "@vue/cli-plugin-babel": "5.0.8",
     "@vue/cli-plugin-eslint": "5.0.8",
-    "@vue/cli-plugin-pwa": "4.5.14",
-    "@vue/cli-service": "4.5.14",
+    "@vue/cli-plugin-pwa": "5.0.8",
+    "@vue/cli-service": "5.0.8",
     "cache-loader": "4.1.0",
     "dayjs": "1.11.9",
     "eslint-config-prettier": "8.5.0",
