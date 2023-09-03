@@ -31,7 +31,11 @@
       </template>
     </TreeEditor>
 
-    <TreeViewer v-if="step === 'preview'" :tree="tree" :preview="true">
+    <TreeViewer
+      v-if="step === 'preview'"
+      :tree="{ ...tree, lat: latLng.lat, lon: latLng.lng }"
+      :preview="true"
+    >
       <template #buttons>
         <v-row dense>
           <v-col>
