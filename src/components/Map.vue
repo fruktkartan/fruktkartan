@@ -15,7 +15,7 @@
     </v-snackbar>
     <v-snackbar
       v-model="errorMessage.visible"
-      color="error"
+      :color="errorMessage.type || 'error'"
       :timeout="errorMessage.timeout"
       :top="true"
     >
@@ -85,6 +85,7 @@
         @change="fetchMarkers"
         @tree-loaded="adjustMapToTree"
         @error="showErrorMessage"
+        @info="showInfoMessage"
       />
 
       <AddTreeDialog
@@ -184,6 +185,7 @@ export default {
         msg: "",
         visible: false,
         timeout: 6000,
+        type: "error",
       },
     }
   },
@@ -272,6 +274,15 @@ export default {
       // Close any existing error message first
       this.errorMessage.visible = false
       this.errorMessage.msg = msg
+      this.errorMessage.type = "error"
+      this.errorMessage.visible = true
+    },
+
+    showInfoMessage: function (msg) {
+      // Close any existing error message first
+      this.errorMessage.visible = false
+      this.errorMessage.msg = msg
+      this.errorMessage.type = "info"
       this.errorMessage.visible = true
     },
 
