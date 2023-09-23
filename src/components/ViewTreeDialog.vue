@@ -203,7 +203,9 @@ export default {
     flagForDeletion() {
       this.working = true
       const key = this.value
-      fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, { method: "DELETE" })
+      fetch(`${process.env.VUE_APP_APIBASE}/flag/${key}/delete`, {
+        method: "POST",
+      })
         .then(raiseOnHttpError)
         .then(() => {
           const msg =
