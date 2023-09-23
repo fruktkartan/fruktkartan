@@ -17,6 +17,11 @@
           </v-col>
           <v-spacer />
           <v-col>
+            <v-btn :disabled="$store.state.offline" @click="step = 'delete'">
+              Radera
+            </v-btn>
+          </v-col>
+          <v-col>
             <v-btn
               :disabled="$store.state.offline"
               @click="
@@ -75,6 +80,51 @@
       </template>
     </TreeViewer>
 
+    <v-card v-if="step === 'delete'" :loading="working">
+      <v-card-title>Anmäl träd för radering</v-card-title>
+      <v-card-text>
+        <p>
+          Tala om varför det här trädet ska raderas, så tar en av oss hand om
+          det så snart som bara möjligt.
+        </p>
+        <v-textarea
+          v-model="deleteReason"
+          :disabled="working"
+          :rules="[
+            v => {
+              if (v && v.trim()) {
+                return true
+              }
+              return 'Du behöver tala om varför trädet ska raderas'
+            },
+          ]"
+          required
+          label="Motivering"
+        />
+      </v-card-text>
+      <v-card-actions>
+        <v-row dense>
+          <v-col>
+            <v-btn @click="step = 'view'"> Tillbaka </v-btn>
+          </v-col>
+          <v-spacer />
+          <v-col>
+            <v-btn
+              color="red"
+              :disabled="
+                working ||
+                $store.state.offline ||
+                !deleteReason ||
+                !deleteReason.trim()
+              "
+              @click="flagForDeletion"
+            >
+              Anmäl för radering
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </v-card>
     <ConfirmDialog ref="confirm" />
   </v-dialog>
 </template>
@@ -83,6 +133,7 @@
 import TreeViewer from "./TreeViewer.vue"
 import TreeEditor from "./TreeEditor.vue"
 import ConfirmDialog from "./ConfirmDialog.vue"
+//import { mdiConsoleNetwork } from "@mdi/js"
 
 function raiseOnHttpError(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -113,6 +164,8 @@ export default {
       treeCache: {},
       tree: {},
       newTree: {},
+      deleteReason: null,
+      working: false,
     }
   },
   computed: {
@@ -147,7 +200,34 @@ export default {
       this.step = "view"
       this.$emit("input", null)
     },
-
+    flagForDeletion() {
+      this.working = true
+      const key = this.value
+      fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`, { method: "DELETE" })
+        .then(raiseOnHttpError)
+        .then(() => {
+          const msg =
+            "Trädet är markerat för radering. Vi tittar på det så snart vi kan."
+          this.$emit("info", msg)
+        })
+        .catch(err => {
+          let msg
+          if (err.response && err.response.status === 404) {
+            msg =
+              "Du har försökt ta bort ett träd som inte finns. " +
+              "Kanske har det redan hunnit tas bort?"
+          } else {
+            msg =
+              "Något gick snett när vi försökte markera det här trädet för radering. " +
+              err
+          }
+          this.$emit("error", msg)
+        })
+        .finally(() => {
+          this.working = false
+          this.close()
+        })
+    },
     fetchTree() {
       const key = this.value
       const getData = new Promise(resolve => {
