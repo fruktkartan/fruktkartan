@@ -205,6 +205,7 @@ export default {
       const key = this.value
       fetch(`${process.env.VUE_APP_APIBASE}/flag/${key}/delete`, {
         method: "POST",
+        body: JSON.stringify({ reason: this.deleteReason }),
       })
         .then(raiseOnHttpError)
         .then(() => {
