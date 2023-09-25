@@ -206,6 +206,7 @@ export default {
       fetch(`${process.env.VUE_APP_APIBASE}/flag/${key}/delete`, {
         method: "POST",
         body: JSON.stringify({ reason: this.deleteReason }),
+        headers: { "Content-Type": "application/json" },
       })
         .then(raiseOnHttpError)
         .then(() => {
