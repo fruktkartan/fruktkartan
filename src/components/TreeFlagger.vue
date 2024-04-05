@@ -5,7 +5,7 @@
     <v-card-text>
       <v-form @input="$emit('input', req)">
         <p>
-          Tala om varför det här trädet ska raderas, så tar en av oss hand om
+          Tala om varför det här trädet ska tas bort, så tar en av oss hand om
           det så snart som bara möjligt.
         </p>
         <v-textarea
@@ -15,7 +15,7 @@
               if (v && v.trim()) {
                 return true
               }
-              return 'Du behöver tala om varför trädet ska raderas'
+              return 'Du behöver tala om varför trädet ska tas bort'
             },
           ]"
           required
