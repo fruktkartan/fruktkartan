@@ -1,6 +1,6 @@
 # Fruktkartan
 
-<img src="https://github.com/fruktkartan/fruktkartan/workflows/Build/badge.svg?branch=master" title="master branch" />
+[![Build](https://github.com/fruktkartan/fruktkartan/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/fruktkartan/fruktkartan/actions/workflows/build.yml)
 
 Branch [`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
 is deployed [automatically](https://github.com/fruktkartan/fruktkartan/actions/workflows/deploy-production.yml)
