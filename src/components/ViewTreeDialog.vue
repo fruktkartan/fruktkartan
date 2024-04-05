@@ -222,8 +222,8 @@ export default {
               "Kanske har det redan hunnit tas bort?"
           } else {
             msg =
-              "Något gick snett när vi försökte markera det här trädet för borttagning. " +
-              err
+              "Något gick snett när vi försökte markera det här trädet "
+              "för borttagning. " + err
           }
           this.$emit("error", msg)
         })
