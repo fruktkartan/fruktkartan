@@ -223,7 +223,8 @@ export default {
           } else {
             msg =
               "Något gick snett när vi försökte markera det här trädet " +
-              "för borttagning. " + err
+              "för borttagning. " +
+              err
           }
           this.$emit("error", msg)
         })
