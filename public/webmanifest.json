@@ -1,0 +1,12 @@
+{
+  "short_name": "Fruktkartan",
+  "name": "Fruktkartan: en kollaborativ karta över fruktträd",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
