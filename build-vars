@@ -3,4 +3,4 @@
 f=.env.production.local
 
 printf  >"$f" 'VUE_APP_GITHASH="%s"\n' "$(git rev-parse --short HEAD)"
-printf >>"$f" 'VUE_APP_TIMESTAMP="%s"\n' "$(date +"%F %T %Z")"
+printf >>"$f" 'VUE_APP_TIMESTAMP="%s"\n' "$(TZ=Europe/Stockholm date +"%F %T %Z")"

@@ -6,14 +6,29 @@
         <p>
           Fruktkartan är en öppen databas med fruktträd på allmänningar och i
           parker. Vem som helst kan lägga till nya träd, och redigera eller ta
-          bort sådana som inte passar här. Sajten utvecklas sedan 2019 av Leo
-          Wallentin och Daniel Lublin. Fruktikoner av Pedro Loureiro. Tidigare
-          bidragsgivare: Matti Ryhänen.
+          bort sådana som inte passar här.
         </p>
 
         <p>
-          Andra sajter och appar kan använda information härifrån, via ett öppet
-          API. Informationen är licensierad med
+          <strong>
+            Om du plockar frukt är det ditt ansvar att säkerställa att du har
+            rätt att plocka frukten, både gällande sort och trädets, buskens etc
+            plats.
+          </strong>
+        </p>
+
+        <p>
+          Sajten utvecklas sedan 2019 av Leo Wallentin och Daniel Lublin.
+          Fruktikoner av Pedro Loureiro. Tidigare bidragsgivare är Matti
+          Ryhänen. Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open
+          Street Maps kartor. Källkoden är fri, öppen och licensierad med
+          <a
+            href="https://www.gnu.org/licenses/agpl-3.0.html"
+            target="_blank"
+            rel="noopener"
+            >AGPLv3</a
+          >
+          Informationen är licensierad med
           <a
             href="https://opendatacommons.org/licenses/odbl/summary/"
             target="_blank"
@@ -25,17 +40,7 @@
             target="_blank"
             rel="noopener"
             >CC0</a
-          >.
-        </p>
-        <p>
-          Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open Street Maps
-          kartor. Källkoden är fri, <em>copyleft</em> och licensierad med
-          <a
-            href="https://www.gnu.org/licenses/agpl-3.0.html"
-            target="_blank"
-            rel="noopener"
-            >AGPLv3</a
-          >.
+          >. Andra sajter och appar kan använda informationen via ett öppet API.
         </p>
         <p>
           Har du hittat en bugg? Rapportera det
@@ -78,7 +83,9 @@ export default {
   },
   computed: {
     gitcommit: function () {
-      return "https://github.com/fruktkartan/fruktkartan/commit/" + this.githash
+      return (
+        "https://github.com/fruktkartan/fruktkartan/commits/" + this.githash
+      )
     },
     displayDialog: {
       get: function () {
