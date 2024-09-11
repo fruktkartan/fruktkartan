@@ -36,7 +36,7 @@
       </template>
     </TreeViewer>
 
-    <TreeEditor v-if="step === 'edit'" v-model="newTree">
+    <TreeEditor v-if="step === 'edit'" v-model="newTree" :is-editing="true">
       <template #title> Redigera träd </template>
       <template #buttons>
         <v-row dense>

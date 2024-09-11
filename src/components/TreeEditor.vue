@@ -9,6 +9,8 @@
           required
           :rules="[v => !!v || 'Du måste ange en trädsort']"
           :items="insertableTrees"
+          :readonly="isEditing"
+          :disabled="isEditing"
           label="Trädsort"
         />
 
@@ -87,6 +89,10 @@ export default {
         valid: false,
         file: null,
       }),
+    },
+    isEditing: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
