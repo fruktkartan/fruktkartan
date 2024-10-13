@@ -1,63 +1,49 @@
 {
   "name": "fruktkartan",
-  "version": "0.2.0",
-  "description": "A new frontend in Vue/Vuetify for the (new) Fruktkartan API",
-  "author": "Daniel Lublin <daniel@lublin.se>",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "lint-fix": "vue-cli-service lint --fix",
-    "prebuild": "./build-vars"
-  },
-  "dependencies": {
-    "@mdi/js": "7.2.96",
-    "core-js": "3.32.0",
-    "leaflet": "1.8.0",
-    "register-service-worker": "1.7.2",
-    "vue-router": "3.5.4",
-    "vue2-leaflet": "2.7.1",
-    "vue2-leaflet-markercluster": "3.1.0",
-    "vuetify": "2.6.12",
-    "vuex": "3.6.2",
-    "whatwg-fetch": "3.6.17"
-  },
-  "devDependencies": {
-    "@mdi/font": "7.2.96",
-    "@vue/cli-plugin-babel": "5.0.8",
-    "@vue/cli-plugin-eslint": "5.0.8",
-    "@vue/cli-plugin-pwa": "5.0.8",
-    "@vue/cli-service": "5.0.8",
-    "cache-loader": "4.1.0",
-    "dayjs": "1.11.9",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-loader": "4.0.2",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-vue": "8.7.1",
-    "prettier": "2.7.1",
-    "sass": "1.59.3",
-    "sass-loader": "10.4.1",
-    "vue-cli-plugin-vuetify": "2.5.8",
-    "vue-eslint-parser": "8.3.0",
-    "vue-template-compiler": "2.7.13",
-    "vuetify-loader": "1.9.2",
-    "webpack": "4.46.0"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ],
+  "version": "0.3.0",
+  "type": "module",
+  "description": "A frontend in Vue/Vuetify for fruktkartan.se",
+  "author": "Daniel Lublin <daniel@lublin.se>, Leo Wallentin <mejl@leowallentin.se>",
+  "license": "MIT",
   "engines": {
     "node": ">=18"
   },
-  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore",
+    "lint-fix": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "prebuild": "./build-vars"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "5.1.4",
+    "@vue-leaflet/vue-leaflet": "0.10.1",
+    "leaflet": "1.9.4",
+    "pinia": "2.2.4",
+    "register-service-worker": "1.7.2",
+    "vue": "3.5.12",
+    "vue-leaflet-markercluster": "0.6.1",
+    "vue-router": "4.4.5",
+    "vuetify": "3.7.2"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.4.47",
+    "@mdi/js": "7.4.47",
+    "dayjs": "1.11.13",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-vue": "9.29.0",
+    "prettier": "3.3.3",
+    "sass": "1.79.5",
+    "vite": "5.4.8",
+    "vite-plugin-vuetify": "^2.0.4",
+    "vite-svg-loader": "^5.1.0",
+    "vue-eslint-parser": "9.4.3"
+  },
   "optionalDependencies": {
-    "fsevents": "^2.1.2"
+    "fsevents": "^2.3.3"
   },
   "repository": {
     "type": "git",
