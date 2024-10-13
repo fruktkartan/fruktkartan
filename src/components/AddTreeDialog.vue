@@ -19,10 +19,10 @@
           <v-spacer />
           <v-col>
             <v-btn
-              @click="
+              @click="() => {
                 $emit('input', false)
                 $emit('abort')
-              "
+              }"
             >
               Avbryt
             </v-btn>
@@ -47,11 +47,11 @@
           <v-spacer />
           <v-col>
             <v-btn
-              @click="
+              @click="() => {
                 step = 'edit'
                 $emit('input', false)
                 $emit('abort')
-              "
+              }"
             >
               Avbryt
             </v-btn>
@@ -104,7 +104,7 @@ export default {
       }
       treePayload.type = treePayload.type.trim()
       treePayload.desc = treePayload.desc.trim()
-      fetch(`${process.env.VUE_APP_APIBASE}/tree`, {
+      fetch(`${import.meta.env.VITE_APIBASE}/tree`, {
         method: "PUT",
         body: JSON.stringify(treePayload),
         headers: { "Content-Type": "application/json" },

@@ -1,16 +1,13 @@
-// polyfill fetch() for IE (and more?)
-import "whatwg-fetch"
+import { createApp } from 'vue'
+import App from './App.vue'
+import vuetify from './plugins/vuetify.js'
 
-import Vue from "vue"
-import App from "./App.vue"
-import vuetify from "./plugins/vuetify"
-import VueRouter from "vue-router"
-import Vuex from "vuex"
+import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
 import "./registerServiceWorker"
 
-Vue.config.productionTip = false
-Vue.use(Vuex)
-const store = new Vuex.Store({
+const app = createApp(App)
+const pinia = createPinia({
   state: {
     offline: navigator && !navigator.onLine,
   },
@@ -20,23 +17,23 @@ const store = new Vuex.Store({
     },
   },
 })
-
-Vue.use(VueRouter)
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: "/om",
-    },
-    {
+      component: () => import("./components/About.vue"),
+    }, {
+      path: "/",
+      component: () => import("./App.vue"),
+    }, {
       path: "/t/:tree",
       props: true,
     },
   ],
 })
-
-new Vue({
-  vuetify,
-  router,
-  store,
-  render: h => h(App),
-}).$mount("#app")
+app
+  .use(vuetify)
+  .use(pinia)
+  .use(router)
+  .mount('#app')

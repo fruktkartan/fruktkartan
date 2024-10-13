@@ -26,8 +26,11 @@
   </div>
 </template>
 
+<script setup>
+import placeholder from "../assets/placeholder.jpg"
+</script>
 <script>
-const S3_BASE = process.env.VUE_APP_S3_BASE
+const S3_BASE = import.meta.env.VITE_S3_BASE
 const WIDTH = 400
 
 export default {
@@ -46,7 +49,6 @@ export default {
     return {
       err: false,
       width: WIDTH,
-      placeholder: require("@/assets/placeholder.jpg"),
       timer: null,
       timerTicks: 0,
     }
