@@ -136,7 +136,7 @@ export default {
       }
 
       this.uploading = true
-      fetch(`${process.env.VUE_APP_APIBASE}/sign`, {
+      fetch(`${import.meta.env.VITE_APIBASE}/sign`, {
         method: "POST",
         body: JSON.stringify({ "file-name": this.file.name }),
         headers: { "Content-Type": "application/json" },

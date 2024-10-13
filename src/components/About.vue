@@ -54,7 +54,7 @@
         </small>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click.stop="close"> Stäng </v-btn>
+        <v-btn @click="close"> Stäng </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -71,8 +71,8 @@ export default {
   },
   data() {
     return {
-      timestamp: process.env.VUE_APP_TIMESTAMP ?? "?",
-      githash: process.env.VUE_APP_GITHASH ?? "?",
+      timestamp: import.meta.env.VITE_TIMESTAMP ?? "?",
+      githash: import.meta.env.VITE_GITHASH ?? "?",
     }
   },
   computed: {
@@ -84,13 +84,19 @@ export default {
         return this.value ? true : false
       },
       set: function (val) {
-        this.$emit("input", val)
+        // This will be called when dialog is closed by clicking outside
+        if (!val) {
+          this.$router.push("/")
+        }
+        this.$emit("update:modelValue", val)
       },
     },
   },
   methods: {
     close() {
-      this.$emit("input", false)
+      // This will be called when close button is clicked or Esc is pressed
+      this.$router.push("/")
+      this.$emit("update:modelValue", false)
     },
   },
 }

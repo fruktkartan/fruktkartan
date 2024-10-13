@@ -1,15 +1,18 @@
-import Vue from "vue"
-import Vuetify from "vuetify/lib"
+import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css'
+import { createVuetify } from 'vuetify'
+import { aliases as defaultAliases } from 'vuetify/iconsets/mdi'
+import trees from '@/assets/icons/trees.js'
 
-Vue.use(Vuetify)
+// Merge our tree icons with the default mdi icons,
+// so that we can use them seemlessly with Vuetify.
+const iconAliases = {
+  ...defaultAliases,
+  ...trees,
+}
 
-export default new Vuetify({
+export default createVuetify({
   icons: {
-    iconfont: "mdiSvg",
-  },
-  theme: {
-    options: {
-      variations: false,
-    },
+    aliases: iconAliases,
   },
 })

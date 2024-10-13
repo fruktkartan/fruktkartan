@@ -24,10 +24,10 @@
           <v-col>
             <v-btn
               :disabled="$store.state.offline"
-              @click="
+              @click="() => {
                 step = 'edit'
                 newTree = { ...tree }
-              "
+              }"
             >
               Redigera
             </v-btn>
@@ -203,7 +203,7 @@ export default {
     flagForDeletion() {
       this.working = true
       const key = this.value
-      fetch(`${process.env.VUE_APP_APIBASE}/flag/${key}/delete`, {
+      fetch(`${import.meta.env.VITE_APIBASE}/flag/${key}/delete`, {
         method: "POST",
         body: JSON.stringify({ reason: this.deleteReason }),
         headers: { "Content-Type": "application/json" },
@@ -238,7 +238,7 @@ export default {
         if (this.treeCache[key]) {
           resolve(this.treeCache[key])
         } else {
-          fetch(`${process.env.VUE_APP_APIBASE}/tree/${key}`)
+          fetch(`${import.meta.env.VITE_APIBASE}/tree/${key}`)
             .then(raiseOnHttpError)
             .then(response => response.json())
             .then(resolve)
@@ -295,7 +295,7 @@ export default {
       let treePayload = this.newTree
       treePayload.type = treePayload.type.trim()
       treePayload.desc = treePayload.desc.trim()
-      fetch(`${process.env.VUE_APP_APIBASE}/tree/${this.value}`, {
+      fetch(`${import.meta.env.VITE_APIBASE}/tree/${this.value}`, {
         method: "POST",
         body: JSON.stringify(treePayload),
         headers: {
