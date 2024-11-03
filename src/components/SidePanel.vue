@@ -86,7 +86,7 @@
       </v-list>
     </template>
 
-    </v-navigation-drawer>
+  </v-navigation-drawer>
 
 </template>
 <script setup>
@@ -97,6 +97,7 @@ import mLogo2x from "@/assets/img/fruktkartan_m2.png"
 import mLogo3x from "@/assets/img/fruktkartan_m3.png"
 import logo from "@/assets/img/fruktkartan_a.png"
 import logoTiny from "@/assets/img/f_t.png"
+import { useSidebarStore  } from "@/stores/app" 
 
 // v-model: filters
 const props = defineProps({
@@ -111,8 +112,29 @@ watch(
   { deep: true }
 )
 
-const drawer = ref(true)
-const miniVariant = ref(false)
+// null means ”closed” on mobile and ”open” on desktop
+const drawer = ref(null)
+
+// We have a global store for collapsing/expanding
+// the sidebar, so that map elements can easily trigger
+// sidebar to show.
+const sidebarStore = useSidebarStore()
+const miniVariant = ref(!sidebarStore.drawer)
+watch(
+  () => sidebarStore.drawer,
+  newValue => {
+    drawer.value = newValue || null // default is null, not false
+    miniVariant.value = !newValue
+  }
+)
+watch(
+  () => miniVariant.value,
+  newValue => {
+    if (newValue) {
+      sidebarStore.setDrawer(false)
+    }
+  }
+)
 
 const getSelectedTreeIcon = computed(() => 
   localFilters.tree === "*" ? "$tree" : `$${localFilters.tree}`
