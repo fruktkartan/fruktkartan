@@ -2,9 +2,9 @@
   <v-app>
     <side-panel
       v-model="filters"
-      @show-about-us="showFAQ = true"
+      :tree-is-being-added="addTreeStatus !== null"
+      @add-tree="addTreeStatus = 'stage_1'"
     />
-
     <v-main>
       <!--position:absolute för att lira med navigation drawer-->
       <v-card
@@ -13,51 +13,76 @@
         width="100%"
         height="100%"
       >
-        <karta
+        <fruit-map
           ref="map"
+          v-model:center="center"
+          v-model:zoom="zoom"
+          :add-tree="addTreeStatus === 'stage_1'"
           :filters="filters"
+          @tree-added="t => {console.log('tillbaka' + t); newTree={lat: t.lat, lon: t.lng}; addTreeStatus = 'stage_2'}"
+          @abort-add-tree="addTreeStatus = null"
         />
       </v-card>
       <about-us v-model="showFAQ" />
+      <view-tree-dialog
+        v-model="showTree"
+        @tree-loaded="adjustMapToTree"
+      />
+      <add-tree-dialog
+        v-model="showAddTree"
+        :new-tree="newTree"
+        @finished="() => {addTreeStatus = null; showAddTree = false}"
+      />
       <user-message />
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useAppStore, useUserMessageStore } from './stores/app'
-import { useRoute } from "vue-router";
+const DEFAULT_MAP_CENTER = [62.3908, 17.3069] // fallback
+const MINIMUM_TREE_VIEW_ZOOM = 16 // zoom at least to here when viewing a tree
 
-import Karta from "./components/Karta.vue"
+import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue"
+import { useAppStore, useUserMessageStore } from "./stores/app"
+import { useRoute, useRouter } from "vue-router"
+
+import FruitMap from "./components/Map.vue"
 // import TheMap from "./components/Map.vue"
 import AboutUs from "./components/About.vue"
+import ViewTreeDialog from "./components/ViewTreeDialog.vue"
+import AddTreeDialog from "./components/AddTreeDialog.vue"
 import SidePanel from "./components/SidePanel.vue"
 import UserMessage from "./components/UserMessage.vue"
 
-const map = ref()
+const map = ref(null)
 const appStore = useAppStore()
 const userMessageStore = useUserMessageStore()
+const center = ref(DEFAULT_MAP_CENTER)
+const zoom = ref(15)
 
 const route = useRoute()
+const router = useRouter()
 const showFAQ = ref(route.path == "/om")
-
+const showTree = ref(router.currentRoute.value?.params?.tree || null)
 const filters = ref({ 
   tree: "*",
 })
+const newTree = ref(null)
 
-const selectedTreeName = computed(() => {
-  let treeKey = filters.tree
-  if (treeKey === "*") {
-    return "alla träd"
-  } else {
-    return selectTreeTypes.find(x => x.value === treeKey).text
-  }
-})
+// ROUTING
+// Watch route to add event to goatcounter,
+// and to display FAQ and trees.
+// A simple routing hack, but does the work
+watch(() => route.path, r => {
 
-//watch route to add event to goatcounter
-watch(() => route.path, (r) => {
   showFAQ.value = r === "/om"
+
+  if (r.startsWith("/t/")) {
+    showTree.value = router.currentRoute.value.params.tree
+  } else {
+    showTree.value = null
+  }
+
   if ("goatcounter" in window) {
     // send a page view to goatcounter
     // window.goatcounter.allow_local = true
@@ -69,9 +94,9 @@ watch(() => route.path, (r) => {
 })
 
 onMounted(() => {
-    // There might be a vue plugin for this, but on the other hand quite straightforward
-    window.addEventListener("online", updateOnlineStatus)
-    window.addEventListener("offline", updateOnlineStatus)
+  // There might be a vue plugin for this, but on the other hand quite straightforward
+  window.addEventListener("online", updateOnlineStatus)
+  window.addEventListener("offline", updateOnlineStatus)
 })
 onBeforeUnmount(() => {
   window.removeEventListener("online", updateOnlineStatus)
@@ -89,6 +114,23 @@ const updateOnlineStatus = ({ type }) => {
   }
 }
 updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
+
+/**
+ * Make sure a specific tree is visible on the map.
+ *
+ * After opening a tree dialog, we want to make sure the tree is visible.
+ *
+ * @param {Object} tree A tree object
+ */
+const adjustMapToTree = tree => {
+  zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
+  center.value = [tree.lat, tree.lng]
+  //center.value = { lat: tree.lat, lng: tree.lng }
+}
+
+// ADD TREE STEPS
+const addTreeStatus = ref(null) // null, 'stage_1', 'stage_2'
+const showAddTree = computed(() => addTreeStatus.value === "stage_2")
 </script>
 
 <style>

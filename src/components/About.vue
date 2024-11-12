@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="displayDialog" max-width="500" @keydown.esc="close">
+  <v-dialog
+    v-model="modelValue"
+    max-width="500"
+    @after-leave="close"
+  >
     <v-card>
       <v-card-title>Om Fruktkartan</v-card-title>
       <v-card-text>
@@ -17,14 +21,12 @@
             href="https://opendatacommons.org/licenses/odbl/summary/"
             target="_blank"
             rel="noopener"
-            >Open Database License</a
-          >, bilder med
+          >Open Database License</a>, bilder med
           <a
             href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
             target="_blank"
             rel="noopener"
-            >CC0</a
-          >.
+          >CC0</a>.
         </p>
         <p>
           Fruktkartan är byggd med Vue/Vuetify samt Leaflet med Open Street Maps
@@ -33,8 +35,7 @@
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
             rel="noopener"
-            >AGPLv3</a
-          >.
+          >AGPLv3</a>.
         </p>
         <p>
           Har du hittat en bugg? Rapportera det
@@ -42,62 +43,47 @@
             href="https://github.com/fruktkartan/fruktkartan/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
             target="_blank"
             rel="noopener"
-            >på Github!</a
-          ><br />
+          >på Github!</a><br>
           Frågor? Skicka ett
           <a href="mailto:mejl@leowallentin.se">mejl</a>!
         </p>
         <small>
           Byggd {{ timestamp }} från
-          <a :href="gitcommit" target="_blank" rel="noopener">{{ githash }}</a
-          >.
+          <a
+            :href="gitcommit"
+            target="_blank"
+            rel="noopener"
+          >{{ githash }}</a>.
         </small>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="close"> Stäng </v-btn>
+        <v-btn @click="close">
+          Stäng
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
-<script>
-export default {
-  name: "AboutUs",
-  props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      timestamp: import.meta.env.VITE_TIMESTAMP ?? "?",
-      githash: import.meta.env.VITE_GITHASH ?? "?",
-    }
-  },
-  computed: {
-    gitcommit: function () {
-      return "https://github.com/fruktkartan/fruktkartan/commit/" + this.githash
-    },
-    displayDialog: {
-      get: function () {
-        return this.value ? true : false
-      },
-      set: function (val) {
-        // This will be called when dialog is closed by clicking outside
-        if (!val) {
-          this.$router.push("/")
-        }
-        this.$emit("update:modelValue", val)
-      },
-    },
-  },
-  methods: {
-    close() {
-      // This will be called when close button is clicked or Esc is pressed
-      this.$router.push("/")
-      this.$emit("update:modelValue", false)
-    },
-  },
+<script setup>
+import { computed } from "vue"
+import { useRouter } from "vue-router"
+const router = useRouter()
+
+const modelValue = defineModel({
+  type: Boolean,
+  default: false
+})
+
+const timestamp = import.meta.env.VITE_TIMESTAMP ?? "?"
+const githash = import.meta.env.VITE_GITHASH ?? "?"
+
+// Computed properties
+const gitcommit = computed(() => 
+  `https://github.com/fruktkartan/fruktkartan/commit/${githash}`
+)
+// Methods
+const close = () => {
+  router.push("/")
 }
 </script>
