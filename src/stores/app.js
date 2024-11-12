@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia"
 
 
 // States related to the app in general (e.g. offline status)
-export const useAppStore = defineStore('appStore', {
+export const useAppStore = defineStore("appStore", {
   state: () => {
     return {
       offline: false,
@@ -15,8 +15,11 @@ export const useAppStore = defineStore('appStore', {
   },
 })
 
-export const useSidebarStore = defineStore('sidebarStore', {
+export const useSidebarStore = defineStore("sidebarStore", {
   state: () => ({ drawer: false }),
+  getters: {
+    isOpen: state => state.drawer,
+  },
   actions: {
     setDrawer(status) {
       this.drawer = status
