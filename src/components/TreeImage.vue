@@ -12,12 +12,22 @@
       @load="stopPolling()"
     >
       <template #placeholder>
-        <v-row class="fill-height ma-0" align="center" justify="center">
-          <v-progress-circular indeterminate color="grey lighten-1" />
+        <v-row
+          class="fill-height ma-0"
+          align="center"
+          justify="center"
+        >
+          <v-progress-circular
+            indeterminate
+            color="grey lighten-1"
+          />
         </v-row>
       </template>
     </v-img>
-    <v-card v-if="err" class="warning">
+    <v-card
+      v-if="err"
+      class="warning"
+    >
       <v-card-text>
         Bilden kunde inte visas just nu. Det kan bero på att den nyss laddats
         upp och fortfarande bearbetas, eller på att den är trasig.
@@ -76,7 +86,7 @@ export default {
       this.timer = null
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // This is probably never really needed
     this.stopPolling()
   },

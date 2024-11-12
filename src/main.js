@@ -1,9 +1,9 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify.js'
+import { createApp } from "vue"
+import App from "./App.vue"
+import vuetify from "./plugins/vuetify.js"
 
-import { createRouter, createWebHistory } from 'vue-router'
-import { createPinia } from 'pinia'
+import { createRouter, createWebHistory } from "vue-router"
+import { createPinia } from "pinia"
 import "./registerServiceWorker"
 
 const app = createApp(App)
@@ -28,7 +28,11 @@ const router = createRouter({
       component: () => import("./App.vue"),
     }, {
       path: "/t/:tree",
+      component: () => import("./components/ViewTreeDialog.vue"),
       props: true,
+    }, {
+      path: "/nytt",
+      component: () => import("./components/AddTreeDialog.vue"),
     },
   ],
 })
@@ -36,4 +40,4 @@ app
   .use(vuetify)
   .use(pinia)
   .use(router)
-  .mount('#app')
+  .mount("#app")

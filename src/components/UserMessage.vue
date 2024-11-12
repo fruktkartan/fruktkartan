@@ -1,5 +1,9 @@
 <template>
-  <v-snackbar v-model="snack" :timeout="-1" :color="snackType">
+  <v-snackbar
+    v-model="snack"
+    :timeout="-1"
+    :color="snackType"
+  >
     {{ snackMessage }}
     <template #actions>
       <v-btn
@@ -13,15 +17,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue"
 
 import { useUserMessageStore } from "@/stores/app" 
 
 const userMessageStore = useUserMessageStore()
 
 const snack = ref(false)
-const snackMessage = ref('')
-const snackType = ref('error')
+const snackMessage = ref("")
+const snackType = ref("error")
 
 const checkAndDisplayMessage = () => {
   if (userMessageStore.num > 0) {
