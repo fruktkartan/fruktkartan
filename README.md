@@ -24,6 +24,27 @@ and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1
 
 *Fruktkartan* is built using Vue/Vuetify, and Leaflet with OpenStreetMap.
 
+### Internal changes in Vue3 upgrade
+
+- Snackbar messages handled in a central pinia store, and queued
+- DayJS (only used in one place) replaced with native JS toLocaleDateString
+
+**Dev:**
+
+- Prettier temporarily removed as I had issues setting it up (config still left)
+
+**WIP**
+- Adding tree
+- store position in localStorage
+
+
+
+### Roadmap
+
+- Move backend into this repo, so that we can use the same logic for tree types, etc.
+- (Now that we are on Vue3, that can be quickly setup with Nuxt: https://nuxt.com/docs/guide/directory-structure/server)
+
+
 ## Contributing
 
 ### Project setup
