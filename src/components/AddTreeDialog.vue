@@ -14,7 +14,10 @@
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="close">
+            <v-btn @click="() => {
+              close()
+              emit('back')
+            }">
               Tillbaka
             </v-btn>
           </v-col>
@@ -86,7 +89,7 @@ import TreeViewer from "./TreeViewer.vue"
 import { defineEmits, ref, watch } from "vue"
 import { useUserMessageStore } from "../stores/app"
 
-const emit = defineEmits(["finished"])
+const emit = defineEmits(["finished", "back"])
 
 const userMessageStore = useUserMessageStore()
 const loading = ref(false)
@@ -110,17 +113,16 @@ const close = () => {
   step.value = "edit"
   tree.value = {}
   displayDialog.value = false
+  emit("finished")
 }
 
 const addTree = () => {
   loading.value = true
-  console.log(tree.value)
   let treePayload = {
     ...tree.value,
     type: tree.value.type.trim(),
     desc: tree.value.desc.trim(),
   }
-  console.log(treePayload)
   fetch(`${import.meta.env.VITE_APIBASE}/tree`, {
     method: "PUT",
     body: JSON.stringify(treePayload),

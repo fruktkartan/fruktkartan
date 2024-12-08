@@ -17,9 +17,12 @@
           ref="map"
           v-model:center="center"
           v-model:zoom="zoom"
-          :add-tree="addTreeStatus === 'stage_1'"
+          :add-tree="['stage_1', 'stage_2'].includes(addTreeStatus)"
           :filters="filters"
-          @tree-added="t => {console.log('tillbaka' + t); newTree={lat: t.lat, lon: t.lng}; addTreeStatus = 'stage_2'}"
+          @tree-added="t => {
+            newTree={lat: t.lat, lon: t.lng}
+            addTreeStatus = 'stage_2'
+          }"
           @abort-add-tree="addTreeStatus = null"
         />
       </v-card>
@@ -31,7 +34,13 @@
       <add-tree-dialog
         v-model="showAddTree"
         :new-tree="newTree"
-        @finished="() => {addTreeStatus = null; showAddTree = false}"
+        @finished="() => {
+          addTreeStatus = null
+          showAddTree = false
+          // trigger map reload, through exposed method in Map.vue
+          $refs.map.fetchMarkers()
+        }"
+        @back="addTreeStatus = 'stage_1'"
       />
       <user-message />
     </v-main>
@@ -53,6 +62,7 @@ import ViewTreeDialog from "./components/ViewTreeDialog.vue"
 import AddTreeDialog from "./components/AddTreeDialog.vue"
 import SidePanel from "./components/SidePanel.vue"
 import UserMessage from "./components/UserMessage.vue"
+import { mdiPacMan } from "@mdi/js";
 
 const map = ref(null)
 const appStore = useAppStore()
