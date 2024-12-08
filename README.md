@@ -35,14 +35,15 @@ and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1
 
 **WIP**
 - Adding tree
-- store position in localStorage
-
+- store last map coordinates in localStorage
 
 
 ### Roadmap
 
 - Move backend into this repo, so that we can use the same logic for tree types, etc.
-- (Now that we are on Vue3, that can be quickly setup with Nuxt: https://nuxt.com/docs/guide/directory-structure/server)
+    -- Now that we are on Vue3, that can be quickly setup with Nuxt: https://nuxt.com/docs/guide/directory-structure/server
+- Clean up routing, that is currently a half-baked mess
+- The Vue Leaflet package is abandonware, and also integrates quite poorly into the Vue system. Sooenr or later we will want to replace that with something else.
 
 
 ## Contributing
