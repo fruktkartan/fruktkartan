@@ -14,7 +14,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ignore-pattern dist/",
-    "lint-fix": "eslint --ignore-pattern dist/ --fix src",
+    "lint-fix": "eslint --ignore-pattern dist/ --fix",
     "prebuild": "./build-vars"
   },
   "dependencies": {
