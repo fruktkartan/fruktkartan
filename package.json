@@ -10,8 +10,9 @@
   },
   "scripts": {
     "dev": "vite",
+    "serve": "echo Run a dev server with: npm run dev",
     "build": "vite build",
-    "serve": "vite preview",
+    "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore",
     "lint-fix": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "prebuild": "./build-vars"
