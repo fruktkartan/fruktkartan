@@ -106,7 +106,7 @@ import L from "leaflet"
 globalThis.L = L
 import "vue-leaflet-markercluster/dist/style.css"
 
-import { ref, computed, defineEmits, defineExpose, watch } from "vue"
+import { ref, computed, watch } from "vue"
 import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
 import { latLng, icon as licon } from "leaflet"
