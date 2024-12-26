@@ -14,10 +14,12 @@
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="() => {
-              close()
-              emit('back')
-            }">
+            <v-btn
+              @click="() => {
+                close()
+                emit('back')
+              }"
+            >
               Tillbaka
             </v-btn>
           </v-col>
@@ -86,7 +88,7 @@
 <script setup>
 import TreeEditor from "./TreeEditor.vue"
 import TreeViewer from "./TreeViewer.vue"
-import { defineEmits, ref, watch } from "vue"
+import { ref, watch } from "vue"
 import { useUserMessageStore } from "../stores/app"
 
 const emit = defineEmits(["finished", "back"])
