@@ -62,7 +62,6 @@ import ViewTreeDialog from "./components/ViewTreeDialog.vue"
 import AddTreeDialog from "./components/AddTreeDialog.vue"
 import SidePanel from "./components/SidePanel.vue"
 import UserMessage from "./components/UserMessage.vue"
-import { mdiPacMan } from "@mdi/js";
 
 const map = ref(null)
 const appStore = useAppStore()
