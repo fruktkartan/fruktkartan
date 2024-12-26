@@ -133,8 +133,8 @@ updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
  */
 const adjustMapToTree = tree => {
   zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
-  center.value = [tree.lat, tree.lng]
-  //center.value = { lat: tree.lat, lng: tree.lng }
+  center.value = [tree.lat, tree.lon ]
+  //center.value = { lat: tree.lat, lng: tree.lon }
 }
 
 // ADD TREE STEPS
