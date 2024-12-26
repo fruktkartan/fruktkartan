@@ -97,7 +97,15 @@ const geoURI = computed(() => {
   }
   return `geo:${geoPos.value}`
 })
-const date = computed(() => preview ? new Date() : new Date(tree.added))
+const date = computed(() => {
+  if (preview) {
+    return new Date()
+  }
+  if (!tree || !tree.added) {
+    return null
+  }
+  return new Date(tree.added)
+})
 const prettyDate = computed(() => {
   if (!date.value) {
     return ""
