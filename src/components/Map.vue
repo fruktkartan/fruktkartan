@@ -86,7 +86,7 @@ grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
           >
             Lägg till träd här
           </v-btn>
-          <v-btn 
+          <v-btn
             color="warning"
             @click="emit('abortAddTree')"
           >
@@ -97,7 +97,7 @@ grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
     </l-control>
   </l-map>
 </template>
-  
+
 <script setup>
 const DEFAULT_MAP_SIZE = 750 // meters across map
 
@@ -110,7 +110,7 @@ import { ref, computed, watch } from "vue"
 import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
 import { latLng, icon as licon } from "leaflet"
-import { useSidebarStore, useUserMessageStore  } from "@/stores/app" 
+import { useSidebarStore, useUserMessageStore } from "@/stores/app"
 import groupData from "../assets/group-data.json"
 
 const props = defineProps({
@@ -268,5 +268,5 @@ defineExpose({
 </script>
 
 <style scope>
-  @import "leaflet/dist/leaflet.css"
+@import "leaflet/dist/leaflet.css"
 </style>
