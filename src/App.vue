@@ -20,7 +20,7 @@
           :add-tree="['stage_1', 'stage_2'].includes(addTreeStatus)"
           :filters="filters"
           @tree-added="t => {
-            newTree={lat: t.lat, lon: t.lng}
+            newTree = { lat: t.lat, lon: t.lng }
             addTreeStatus = 'stage_2'
           }"
           @abort-add-tree="addTreeStatus = null"
@@ -73,7 +73,7 @@ const route = useRoute()
 const router = useRouter()
 const showFAQ = ref(route.path == "/om")
 const showTree = ref(router.currentRoute.value?.params?.tree || null)
-const filters = ref({ 
+const filters = ref({
   tree: "*",
 })
 const newTree = ref(null)
@@ -133,7 +133,7 @@ updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
  */
 const adjustMapToTree = tree => {
   zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
-  center.value = [tree.lat, tree.lon ]
+  center.value = [tree.lat, tree.lon]
   //center.value = { lat: tree.lat, lng: tree.lon }
 }
 
@@ -142,5 +142,4 @@ const addTreeStatus = ref(null) // null, 'stage_1', 'stage_2'
 const showAddTree = computed(() => addTreeStatus.value === "stage_2")
 </script>
 
-<style>
-</style>
+<style></style>
