@@ -11,7 +11,7 @@
     :options="mapOptions"
     @update:bounds="b => {
       bounds = b;
-      fetchMarkers()
+      fetchMarkers();
     }"
     @ready="o => {
       bounds = o.getBounds()
@@ -262,6 +262,7 @@ const fetchMarkers = function () {
       loading.value = false
     })
 }
+
 defineExpose({
   fetchMarkers,
 })
