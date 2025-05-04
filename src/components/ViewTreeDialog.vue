@@ -23,7 +23,7 @@
               :disabled="appStore.offline || loading"
               @click="step = 'delete'"
             >
-              Radera
+              Ta bort
             </v-btn>
           </v-col>
           <v-col>
@@ -106,10 +106,10 @@
       v-if="step === 'delete'"
       :loading="loading"
     >
-      <v-card-title>Anmäl träd för radering</v-card-title>
+      <v-card-title>Anmäl träd för borttagning</v-card-title>
       <v-card-text>
         <p>
-          Tala om varför det här trädet ska raderas, så tar en av oss hand om
+          Tala om varför det här trädet ska tas bort, så tar en av oss hand om
           det så snart som bara möjligt.
         </p>
         <v-textarea
@@ -120,7 +120,7 @@
               if (v && v.trim()) {
                 return true
               }
-              return 'Du behöver tala om varför trädet ska raderas'
+              return 'Du behöver tala om varför trädet ska tas bort'
             },
           ]"
           required
@@ -146,7 +146,7 @@
               "
               @click="flagForDeletion"
             >
-              Anmäl för radering
+              Anmäl för borttagning
             </v-btn>
           </v-col>
         </v-row>
@@ -259,7 +259,7 @@ const flagForDeletion = () => {
   })
     .then(raiseOnHttpError)
     .then(() => {
-      const msg = "Trädet är markerat för radering. Vi tittar på det så snart vi kan."
+      const msg = "Trädet är markerat för borttagning. Vi tittar på det så snart vi kan."
       userMessageStore.push(msg, "success")
     })
     .catch(err => {
@@ -270,7 +270,7 @@ const flagForDeletion = () => {
           "Kanske har det redan hunnit tas bort?"
       } else {
         msg =
-          "Något gick snett när vi försökte markera det här trädet för radering. " +
+          "Något gick snett när vi försökte markera det här trädet för borttagning. " +
           err
       }
       userMessageStore.push(msg)
