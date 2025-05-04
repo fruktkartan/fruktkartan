@@ -66,7 +66,20 @@ import UserMessage from "./components/UserMessage.vue"
 const map = ref(null)
 const appStore = useAppStore()
 const userMessageStore = useUserMessageStore()
-const center = ref(DEFAULT_MAP_CENTER)
+
+const coordsFromLocalStorage = () => {
+  if (localStorage && localStorage.mapCenter) {
+    let [lat, lng] = localStorage.mapCenter.split(",")
+    lat = parseFloat(lat)
+    lng = parseFloat(lng)
+    if (lat && lng) {
+      return [lat, lng]
+    }
+  }
+  return null
+}
+const center = coordsFromLocalStorage() ? ref(coordsFromLocalStorage()) : ref(DEFAULT_MAP_CENTER)
+
 const zoom = ref(15)
 
 const route = useRoute()
@@ -102,10 +115,23 @@ watch(() => route.path, r => {
   }
 })
 
+watch(center, newCenter => {
+  if (!localStorage) {
+    return
+  }
+  if (center?.value?.lat && center.value.lat)
+  localStorage.mapCenter = [center.value.lat, center.value.lng]
+})
+
 onMounted(() => {
   // There might be a vue plugin for this, but on the other hand quite straightforward
   window.addEventListener("online", updateOnlineStatus)
   window.addEventListener("offline", updateOnlineStatus)
+
+  const savedCoords = coordsFromLocalStorage()
+  if (savedCoords) {
+    center.value = savedCoords
+  }
 })
 onBeforeUnmount(() => {
   window.removeEventListener("online", updateOnlineStatus)
