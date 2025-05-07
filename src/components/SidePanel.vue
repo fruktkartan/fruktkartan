@@ -1,4 +1,4 @@
-<!-- 
+<!--
   The sidebar is a navigation drawer that can be toggled on and off from i Pinia store,
   a global store, so that other components can easily trigger the sidebar to show or hide.
   ”On” means that the sidebar is visible (`drawer=true; miniVariant=false`),
@@ -17,13 +17,7 @@
       @click="miniVariant = !miniVariant"
     >
       <h1>
-        <v-img
-          :src="mLogo1x"
-          :srcset="`${mLogo1x} 1x,${mLogo2x} 2x,${mLogo3x} 3x`"
-          :max-width="280"
-          class="hidden-lg-and-up"
-        />
-        <div class="hidden-md-and-down">
+        <div>
           <v-img
             v-if="miniVariant"
             alt="Fruktkartan"
@@ -32,7 +26,9 @@
           <v-img
             v-else
             alt="Fruktkartan"
-            :src="logo"
+            :src="mLogo1x"
+            :srcset="`${mLogo1x} 1x,${mLogo2x} 2x,${mLogo3x} 3x`"
+            :max-width="280"
           />
         </div>
       </h1>
@@ -66,7 +62,7 @@
           </template>
         </v-select>
       </v-list-item>
-  
+
       <v-list-item
         prepend-icon="mdi-plus"
         :active="treeIsBeingAdded"
@@ -105,7 +101,7 @@ import mLogo2x from "@/assets/img/fruktkartan_m2.png"
 import mLogo3x from "@/assets/img/fruktkartan_m3.png"
 import logo from "@/assets/img/fruktkartan_a.png"
 import logoTiny from "@/assets/img/f_t.png"
-import { useSidebarStore } from "@/stores/app" 
+import { useSidebarStore } from "@/stores/app"
 
 // We have a global store for collapsing/expanding
 // the sidebar, so that map elements can easily trigger
@@ -148,7 +144,7 @@ watch(
   { immediate: true },
 )
 
-const getSelectedTreeIcon = computed(() => 
+const getSelectedTreeIcon = computed(() =>
   filters.value.tree === "*" ? "$tree" : `$${filters.value.tree}`
 )
 </script>
@@ -157,5 +153,5 @@ const getSelectedTreeIcon = computed(() =>
   /* Increadibly dirty hack. Vuetify isn't very clever about custom svg icons. */
   transform: scale(0.6);
   overflow: visible;
-} 
+}
 </style>
