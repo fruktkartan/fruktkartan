@@ -34,9 +34,6 @@ and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1
 
 - Prettier temporarily removed as I had issues setting it up (config still left)
 
-**WIP**
-- store last map coordinates in localStorage
-
 
 ### Roadmap
 
