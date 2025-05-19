@@ -5,7 +5,7 @@ import js from "@eslint/js"
 export default defineConfig([
   js.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", "public"]),
   {
     rules: {
       indent: ["error", 2, {
