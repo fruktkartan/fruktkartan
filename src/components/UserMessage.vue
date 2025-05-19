@@ -44,7 +44,7 @@ const close = () => {
   checkAndDisplayMessage()
 }
 
-userMessageStore.$subscribe((mutation, state) => {
+userMessageStore.$subscribe((_mutation, _state) => {
   if (snack.value) {
     // Already showing a message, wait for our turn
     // FIXME: use v-snackbar-queue to simplify this. Waiting for docs (till new in labs)
