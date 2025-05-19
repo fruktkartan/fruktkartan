@@ -15,4 +15,9 @@ export default createVuetify({
   icons: {
     aliases: iconAliases,
   },
+  defaults: {
+    VCardActions: {
+      VBtn: { variant: "elevated" },
+    },
+  },
 })
