@@ -99,7 +99,6 @@ import selectTreeTypes from "@/assets/selectTrees.json"
 import mLogo1x from "@/assets/img/fruktkartan_m.png"
 import mLogo2x from "@/assets/img/fruktkartan_m2.png"
 import mLogo3x from "@/assets/img/fruktkartan_m3.png"
-import logo from "@/assets/img/fruktkartan_a.png"
 import logoTiny from "@/assets/img/f_t.png"
 import { useSidebarStore } from "@/stores/app"
 
