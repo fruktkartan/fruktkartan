@@ -182,9 +182,9 @@ const deleteReason = ref(null)
 const router = useRouter()
 
 // Reset the reason when coming (back) to step delete
-watch(step, (newVal, oldVal) => {
-  if (newVal === 'delete') {
-    deleteReason.value = null;
+watch(step, (newVal) => {
+  if (newVal === "delete") {
+    deleteReason.value = null
   }
 })
 
