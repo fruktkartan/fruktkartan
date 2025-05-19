@@ -28,6 +28,10 @@ export default defineConfig([
       quotes: ["error", "double"],
       semi: ["error", "never"],
 
+      "no-unused-vars": ["error", {
+        argsIgnorePattern: "^_",
+      }],
+
       "max-len": [2, {
         code: 90,
         tabWidth: 2,
