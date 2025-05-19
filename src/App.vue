@@ -48,12 +48,13 @@
 </template>
 
 <script setup>
-const DEFAULT_MAP_CENTER = [62.3908, 17.3069] // fallback
+const DEFAULT_MAP_CENTER = latLng(62.3908, 17.3069) // fallback
 const MINIMUM_TREE_VIEW_ZOOM = 16 // zoom at least to here when viewing a tree
 
 import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue"
 import { useAppStore, useUserMessageStore } from "./stores/app"
 import { useRoute, useRouter } from "vue-router"
+import { latLng } from "leaflet"
 
 import FruitMap from "./components/Map.vue"
 // import TheMap from "./components/Map.vue"
@@ -73,12 +74,14 @@ const coordsFromLocalStorage = () => {
     lat = parseFloat(lat)
     lng = parseFloat(lng)
     if (lat && lng) {
-      return [lat, lng]
+      return latLng(lat, lng)
     }
   }
   return null
 }
-const center = coordsFromLocalStorage() ? ref(coordsFromLocalStorage()) : ref(DEFAULT_MAP_CENTER)
+const center = coordsFromLocalStorage()
+  ? ref(coordsFromLocalStorage())
+  : ref(DEFAULT_MAP_CENTER)
 
 const zoom = ref(15)
 
@@ -115,12 +118,12 @@ watch(() => route.path, r => {
   }
 })
 
-watch(center, newCenter => {
+watch(center => {
   if (!localStorage) {
     return
   }
   if (center?.value?.lat && center.value.lat)
-  localStorage.mapCenter = [center.value.lat, center.value.lng]
+    localStorage.mapCenter = [center.value.lat, center.value.lng]
 })
 
 onMounted(() => {
@@ -158,9 +161,8 @@ updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
  * @param {Object} tree A tree object
  */
 const adjustMapToTree = tree => {
+  center.value = latLng(tree.lat, tree.lon)
   zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
-  center.value = [tree.lat, tree.lon]
-  //center.value = { lat: tree.lat, lng: tree.lon }
 }
 
 // ADD TREE STEPS
