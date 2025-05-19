@@ -1,10 +1,11 @@
+import { defineConfig, globalIgnores } from "eslint/config"
 import pluginVue from "eslint-plugin-vue"
 import js from "@eslint/js"
 
-
-export default [
+export default defineConfig([
   js.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
+  globalIgnores(["dist"]),
   {
     rules: {
       indent: ["error", 2, {
@@ -38,4 +39,4 @@ export default [
       }],
     },
   },
-]
+])
