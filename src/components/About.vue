@@ -43,15 +43,15 @@
             target="_blank"
             rel="noopener"
           >CC0</a>. Andra sajter och appar kan använda databasen via ett öppet API.
-        </p>
-        <p>
           Hittat en bugg? Rapportera gärna på
           <a
             href="https://github.com/fruktkartan/fruktkartan/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
             target="_blank"
             rel="noopener"
-          >Github</a>! Frågor? Skicka ett
-          <a href="mailto:mejl@leowallentin.se">mejl</a>!
+          >Github</a>!
+        </p>
+        <p>
+          Frågor? Skicka ett <a href="mailto:mejl@leowallentin.se">mejl</a>!
         </p>
         <small>
           Byggd {{ timestamp }} från
