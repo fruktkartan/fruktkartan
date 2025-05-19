@@ -9,7 +9,7 @@
       <v-card-text>
         <p>
           Fruktkartan är en öppen databas med fruktträd på allmänningar och i
-          parker. Vem som helst kan lägga till nya träd, och redigera eller ta
+          parker. Vem som helst kan lägga till nya träd, redigera, eller ta
           bort sådana som inte passar här.
         </p>
 
@@ -24,15 +24,15 @@
         <p>
           Sajten utvecklas sedan 2019 av Leo Wallentin och Daniel Lublin.
           Fruktikoner av Pedro Loureiro. Tidigare bidragsgivare är Matti
-          Ryhänen. Fruktkartan är byggd med Vue3/Vuetify3 samt Leaflet med
-          Open Street Maps kartor. Källkoden är fri, öppen och licensierad
-          med <a
+          Ryhänen. Fruktkartan är byggd med Vue3 och Leaflet med
+          Open Street Maps kartor. Källkoden är öppen och frihetligt
+          licensierad med <a
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
             rel="noopener"
             >AGPLv3</a
-          >
-          Informationen är licensierad med
+          >.
+          Databasen är licensierad med
           <a
             href="https://opendatacommons.org/licenses/odbl/summary/"
             target="_blank"
@@ -42,16 +42,15 @@
             href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
             target="_blank"
             rel="noopener"
-          >CC0</a>. Andra sajter och appar kan använda informationen via ett öppet API.
+          >CC0</a>. Andra sajter och appar kan använda databasen via ett öppet API.
         </p>
         <p>
-          Har du hittat en bugg? Rapportera det
+          Hittat en bugg? Rapportera gärna på
           <a
             href="https://github.com/fruktkartan/fruktkartan/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
             target="_blank"
             rel="noopener"
-          >på Github!</a><br>
-          Frågor? Skicka ett
+          >Github</a>! Frågor? Skicka ett
           <a href="mailto:mejl@leowallentin.se">mejl</a>!
         </p>
         <small>
