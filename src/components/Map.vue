@@ -125,8 +125,8 @@ const props = defineProps({
   }
 })
 const { filters } = props
-const center = defineModel("center")
-const zoom = defineModel("zoom")
+const center = defineModel("center", { type: Object })
+const zoom = defineModel("zoom", { type: Number })
 const emit = defineEmits(["treeAdded", "abortAddTree"])
 
 const userMessageStore = useUserMessageStore()
