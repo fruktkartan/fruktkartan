@@ -25,7 +25,7 @@
           Sajten utvecklas sedan 2019 av Leo Wallentin och Daniel Lublin.
           Fruktikoner av Pedro Loureiro. Tidigare bidragsgivare är Matti
           Ryhänen. Fruktkartan är byggd med Vue3 och Leaflet med
-          Open Street Maps kartor. Källkoden är öppen och frihetligt
+          OpenStreetMaps kartor. Källkoden är öppen och frihetligt
           licensierad med <a
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
