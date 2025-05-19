@@ -30,8 +30,7 @@
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
             rel="noopener"
-            >AGPLv3</a
-          >.
+          >AGPLv3</a>.
           Databasen är licensierad med
           <a
             href="https://opendatacommons.org/licenses/odbl/summary/"
