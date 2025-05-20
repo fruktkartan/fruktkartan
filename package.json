@@ -13,8 +13,8 @@
     "serve": "echo Run a dev server with: npm run dev",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint --ignore-pattern dist/",
-    "lint-fix": "eslint --ignore-pattern dist/ --fix",
+    "lint": "eslint",
+    "lint-fix": "eslint --fix",
     "prebuild": "./build-vars"
   },
   "dependencies": {
