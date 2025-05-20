@@ -22,7 +22,7 @@ const router = createRouter({
   routes: [
     {
       path: "/om",
-      component: () => import("./components/About.vue"),
+      component: () => import("./components/AboutUs.vue"),
     }, {
       path: "/",
       component: () => import("./App.vue"),
