@@ -37,7 +37,7 @@
         @finished="() => {
           addTreeStatus = null
           showAddTree = false
-          // trigger map reload, through exposed method in Map.vue
+          // trigger map reload, through exposed method in FruitMap.vue
           $refs.map.fetchMarkers()
         }"
         @back="addTreeStatus = 'stage_1'"
@@ -56,9 +56,8 @@ import { useAppStore, useUserMessageStore } from "./stores/app"
 import { useRoute, useRouter } from "vue-router"
 import { latLng } from "leaflet"
 
-import FruitMap from "./components/Map.vue"
-// import TheMap from "./components/Map.vue"
-import AboutUs from "./components/About.vue"
+import FruitMap from "./components/FruitMap.vue"
+import AboutUs from "./components/AboutUs.vue"
 import ViewTreeDialog from "./components/ViewTreeDialog.vue"
 import AddTreeDialog from "./components/AddTreeDialog.vue"
 import SidePanel from "./components/SidePanel.vue"
