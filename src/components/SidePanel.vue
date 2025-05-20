@@ -108,7 +108,12 @@ import { useSidebarStore } from "@/stores/app"
 const sidebarStore = useSidebarStore()
 
 const filters = defineModel({ type: Object })
-const {treeIsBeingAdded} = defineProps(["treeIsBeingAdded"])
+const { treeIsBeingAdded } = defineProps({
+  treeIsBeingAdded: {
+    type: Boolean,
+    default: false,
+  },
+})
 const emit = defineEmits(["addTree"])
 
 // null means ”closed” on mobile and ”open” on desktop
