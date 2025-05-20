@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config"
 import pluginVue from "eslint-plugin-vue"
 import js from "@eslint/js"
+import eslintConfigPrettier from "eslint-config-prettier"
 
 export default defineConfig([
   js.configs.recommended,
@@ -39,4 +40,5 @@ export default defineConfig([
       }],
     },
   },
+  eslintConfigPrettier,
 ])
