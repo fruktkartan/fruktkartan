@@ -23,21 +23,20 @@ const router = createRouter({
     {
       path: "/om",
       component: () => import("./components/AboutUs.vue"),
-    }, {
+    },
+    {
       path: "/",
       component: () => import("./App.vue"),
-    }, {
+    },
+    {
       path: "/t/:tree",
       component: () => import("./components/ViewTreeDialog.vue"),
       props: true,
-    }, {
+    },
+    {
       path: "/nytt",
       component: () => import("./components/AddTreeDialog.vue"),
     },
   ],
 })
-app
-  .use(vuetify)
-  .use(pinia)
-  .use(router)
-  .mount("#app")
+app.use(vuetify).use(pinia).use(router).mount("#app")

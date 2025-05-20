@@ -1,24 +1,17 @@
 <template>
-  <v-dialog
-    v-model="displayDialog"
-    max-width="500"
-    persistent
-  >
-    <tree-editor
-      v-if="step === 'edit'"
-      v-model="tree"
-    >
-      <template #title>
-        Lägg till träd
-      </template>
+  <v-dialog v-model="displayDialog" max-width="500" persistent>
+    <tree-editor v-if="step === 'edit'" v-model="tree">
+      <template #title> Lägg till träd </template>
       <template #buttons>
         <v-row dense>
           <v-col>
             <v-btn
-              @click="() => {
-                close()
-                emit('back')
-              }"
+              @click="
+                () => {
+                  close()
+                  emit('back')
+                }
+              "
             >
               Tillbaka
             </v-btn>
@@ -35,10 +28,12 @@
           <v-spacer />
           <v-col>
             <v-btn
-              @click="() => {
-                close()
-                emit('finished')
-              }"
+              @click="
+                () => {
+                  close()
+                  emit('finished')
+                }
+              "
             >
               Avbryt
             </v-btn>
@@ -56,25 +51,20 @@
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="step = 'edit'">
-              Tillbaka
-            </v-btn>
+            <v-btn @click="step = 'edit'"> Tillbaka </v-btn>
           </v-col>
           <v-col>
-            <v-btn
-              color="green"
-              @click="addTree"
-            >
-              Publicera
-            </v-btn>
+            <v-btn color="green" @click="addTree"> Publicera </v-btn>
           </v-col>
           <v-spacer />
           <v-col>
             <v-btn
-              @click="() => {
-                close()
-                emit('finished')
-              }"
+              @click="
+                () => {
+                  close()
+                  emit('finished')
+                }
+              "
             >
               Avbryt
             </v-btn>
@@ -102,13 +92,16 @@ const displayDialog = defineModel({ type: Boolean })
 const { newTree } = defineProps({
   newTree: {
     type: [Object, null],
-    required: true
+    required: true,
+  },
+})
+const tree = ref({ ...newTree })
+watch(
+  () => newTree,
+  () => {
+    tree.value = { ...newTree }
   }
-})
-const tree = ref({...newTree})
-watch(() => newTree, () => {
-  tree.value = {...newTree}
-})
+)
 
 const step = ref("edit")
 const close = () => {

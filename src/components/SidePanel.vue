@@ -13,16 +13,10 @@
     :rail="miniVariant"
     location="right"
   >
-    <v-list-item
-      @click="miniVariant = !miniVariant"
-    >
+    <v-list-item @click="miniVariant = !miniVariant">
       <h1>
         <div>
-          <v-img
-            v-if="miniVariant"
-            alt="Fruktkartan"
-            :src="logoTiny"
-          />
+          <v-img v-if="miniVariant" alt="Fruktkartan" :src="logoTiny" />
           <v-img
             v-else
             alt="Fruktkartan"
@@ -35,14 +29,9 @@
     </v-list-item>
 
     <v-list nav>
-      <v-list-item
-        @click="miniVariant = false"
-      >
+      <v-list-item @click="miniVariant = false">
         <template #prepend>
-          <v-icon
-            :icon="getSelectedTreeIcon"
-            width="100%"
-          />
+          <v-icon :icon="getSelectedTreeIcon" width="100%" />
         </template>
         <v-select
           v-model="filters.tree"
@@ -55,10 +44,7 @@
               {{ props.header }}
             </v-list-subheader>
             <v-divider v-else-if="props.divider" />
-            <v-list-item
-              v-else
-              v-bind="props"
-            />
+            <v-list-item v-else v-bind="props" />
           </template>
         </v-select>
       </v-list-item>
@@ -123,7 +109,7 @@ const miniVariant = ref(!sidebarStore.isOpen)
 // Listen to store changes (request from other components to open/close)
 watch(
   () => sidebarStore.isOpen,
-  (isOpen) => {
+  isOpen => {
     if (isOpen) {
       drawer.value = true
       miniVariant.value = false
@@ -132,7 +118,7 @@ watch(
       miniVariant.value = true
     }
   },
-  { immediate: true },
+  { immediate: true }
 )
 // Update store when sidebar is toggled. Careful not to enter a loop here.
 watch(
@@ -145,7 +131,7 @@ watch(
       sidebarStore.setDrawer(false)
     }
   },
-  { immediate: true },
+  { immediate: true }
 )
 
 const getSelectedTreeIcon = computed(() =>

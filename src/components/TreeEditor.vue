@@ -14,17 +14,8 @@
         />
 
         <div>
-          <v-img
-            v-if="file"
-            :src="previewSource"
-            height="194"
-            alt="Ny bild"
-          />
-          <tree-image
-            v-else
-            :image="tree.file"
-            alt="Nuvarande bild"
-          />
+          <v-img v-if="file" :src="previewSource" height="194" alt="Ny bild" />
+          <tree-image v-else :image="tree.file" alt="Nuvarande bild" />
         </div>
         <div v-if="tree.file && !file">
           <v-btn
@@ -71,7 +62,6 @@
 </template>
 
 <script setup>
-
 import TreeImage from "./TreeImage.vue"
 import ConfirmDialog from "./ConfirmDialog.vue"
 import { computed, ref, useTemplateRef } from "vue"
@@ -161,7 +151,10 @@ const fileChanged = () => {
             // pass
           } else {
             uploadOk.value = false
-            userMessageStore.push("Något gick fel vid uppladdning av bilden", "error")
+            userMessageStore.push(
+              "Något gick fel vid uppladdning av bilden",
+              "error"
+            )
           }
         }
       }
@@ -169,7 +162,10 @@ const fileChanged = () => {
       tree.value.file = response.filename
     })
     .catch(err => {
-      userMessageStore.push("Något gick fel vid uppladdning av bilden: " + err, "error")
+      userMessageStore.push(
+        "Något gick fel vid uppladdning av bilden: " + err,
+        "error"
+      )
       uploadingProgress.value = 0
       uploadOk.value = false
     })

@@ -3,26 +3,27 @@
     v-if="loading"
     color="primary"
     indeterminate
-    style="position: fixed; top: 0; left: 0; z-index: 100;"
+    style="position: fixed; top: 0; left: 0; z-index: 100"
   />
   <l-map
     v-model:bounds="bounds"
     v-model:center="center"
     v-model:zoom="zoom"
     :options="mapOptions"
-    @update:bounds="b => {
-      bounds = b;
-      fetchMarkers();
-    }"
-    @ready="o => {
-      bounds = o.getBounds()
-      fetchMarkers()
-    } /* needed from start in geopositioning */"
+    @update:bounds="
+      b => {
+        bounds = b
+        fetchMarkers()
+      }
+    "
+    @ready="
+      o => {
+        bounds = o.getBounds()
+        fetchMarkers()
+      } /* needed from start in geopositioning */
+    "
   >
-    <l-control
-      position="bottomleft"
-      class="hidden-md-and-up control"
-    >
+    <l-control position="bottomleft" class="hidden-md-and-up control">
       <v-btn
         prepend-icon="mdi-menu"
         text="meny"
@@ -31,11 +32,7 @@
         @click="sidebarStore.showDrawer()"
       />
     </l-control>
-    <l-control
-      v-if="canGeoLocate"
-      position="topleft"
-      class="control"
-    >
+    <l-control v-if="canGeoLocate" position="topleft" class="control">
       <v-btn
         icon="mdi-crosshairs-gps"
         flat
@@ -72,27 +69,14 @@ grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
       :z-index-offset="999"
       draggable
     />
-    <l-control
-      v-if="addTree"
-      position="bottomleft"
-    >
+    <l-control v-if="addTree" position="bottomleft">
       <v-card>
-        <v-card-text>
-          Flytta markören till rätt plats
-        </v-card-text>
+        <v-card-text> Flytta markören till rätt plats </v-card-text>
         <v-card-actions>
-          <v-btn
-            color="success"
-            @click="emit('treeAdded', newTree)"
-          >
+          <v-btn color="success" @click="emit('treeAdded', newTree)">
             Lägg till träd här
           </v-btn>
-          <v-btn
-            color="warning"
-            @click="emit('abortAddTree')"
-          >
-            Avbryt
-          </v-btn>
+          <v-btn color="warning" @click="emit('abortAddTree')"> Avbryt </v-btn>
         </v-card-actions>
       </v-card>
     </l-control>
@@ -122,7 +106,7 @@ const props = defineProps({
   addTree: {
     type: Boolean,
     required: false,
-  }
+  },
 })
 const { filters } = props
 const center = defineModel("center", { type: Object })
@@ -132,11 +116,14 @@ const emit = defineEmits(["treeAdded", "abortAddTree"])
 const userMessageStore = useUserMessageStore()
 
 const newTree = ref(center.value)
-watch(() => props.addTree, () => {
-  if (props.addTree) {
-    newTree.value = center.value
+watch(
+  () => props.addTree,
+  () => {
+    if (props.addTree) {
+      newTree.value = center.value
+    }
   }
-})
+)
 
 /* Middleware for fetch calls */
 const raiseForErrors = response => {
@@ -154,7 +141,10 @@ const mapOptions = {
   minZoom: 3,
   zoomSnap: 0.5,
   noWrap: true,
-  maxBounds: [[-90, -180], [90, 180]],
+  maxBounds: [
+    [-90, -180],
+    [90, 180],
+  ],
 }
 
 const bounds = ref(null)
@@ -245,7 +235,7 @@ const retrieveUserPosition = manually => {
 const fetchMarkers = function () {
   loading.value = true
   fetch(
-    // eslint-disable-next-line max-len
+    // prettier-ignore
     `${import.meta.env.VITE_APIBASE}/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
   )
     .then(raiseForErrors)
@@ -280,5 +270,4 @@ defineExpose({
 .marker-cluster-large div {
   background-color: rgba(230, 180, 43, 0.4) !important;
 }
-
 </style>
