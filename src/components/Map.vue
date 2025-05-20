@@ -270,5 +270,15 @@ defineExpose({
 </script>
 
 <style scope>
-@import "leaflet/dist/leaflet.css"
+@import "leaflet/dist/leaflet.css";
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large,
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: rgba(230, 180, 43, 0.4) !important;
+}
+
 </style>
