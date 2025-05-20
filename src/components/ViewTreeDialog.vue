@@ -1,21 +1,10 @@
 <template>
-  <v-dialog
-    v-model="showTree"
-    max-width="440"
-    persistent
-    @keydown.esc="close"
-  >
-    <tree-viewer
-      v-if="step === 'view'"
-      :loading="loading"
-      :tree="tree"
-    >
+  <v-dialog v-model="showTree" max-width="440" persistent @keydown.esc="close">
+    <tree-viewer v-if="step === 'view'" :loading="loading" :tree="tree">
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="close">
-              Stäng
-            </v-btn>
+            <v-btn @click="close"> Stäng </v-btn>
           </v-col>
           <v-spacer />
           <v-col>
@@ -29,10 +18,12 @@
           <v-col>
             <v-btn
               :disabled="appStore.offline || loading"
-              @click="() => {
-                step = 'edit'
-                newTree = { ...tree }
-              }"
+              @click="
+                () => {
+                  step = 'edit'
+                  newTree = { ...tree }
+                }
+              "
             >
               Redigera
             </v-btn>
@@ -46,15 +37,11 @@
       v-model="newTree"
       :is-existing-tree="true"
     >
-      <template #title>
-        Redigera träd
-      </template>
+      <template #title> Redigera träd </template>
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="step = 'view'">
-              Tillbaka
-            </v-btn>
+            <v-btn @click="step = 'view'"> Tillbaka </v-btn>
           </v-col>
           <v-spacer />
           <v-col>
@@ -79,9 +66,7 @@
       <template #buttons>
         <v-row dense>
           <v-col>
-            <v-btn @click="step = 'edit'">
-              Tillbaka
-            </v-btn>
+            <v-btn @click="step = 'edit'"> Tillbaka </v-btn>
           </v-col>
           <v-col>
             <v-btn
@@ -94,18 +79,13 @@
           </v-col>
           <v-spacer />
           <v-col>
-            <v-btn @click="close">
-              Avbryt
-            </v-btn>
+            <v-btn @click="close"> Avbryt </v-btn>
           </v-col>
         </v-row>
       </template>
     </tree-viewer>
 
-    <v-card
-      v-if="step === 'delete'"
-      :loading="loading"
-    >
+    <v-card v-if="step === 'delete'" :loading="loading">
       <v-card-title>Anmäl träd för borttagning</v-card-title>
       <v-card-text>
         <p>
@@ -130,9 +110,7 @@
       <v-card-actions>
         <v-row dense>
           <v-col>
-            <v-btn @click="step = 'view'">
-              Tillbaka
-            </v-btn>
+            <v-btn @click="step = 'view'"> Tillbaka </v-btn>
           </v-col>
           <v-spacer />
           <v-col>
@@ -140,9 +118,9 @@
               color="red"
               :disabled="
                 loading ||
-                  appStore.offline ||
-                  !deleteReason ||
-                  !deleteReason.trim()
+                appStore.offline ||
+                !deleteReason ||
+                !deleteReason.trim()
               "
               @click="flagForDeletion"
             >
@@ -167,7 +145,7 @@ import { raiseOnHttpError } from "@/utils/http"
 
 const modelValue = defineModel({
   type: [String, null],
-  required: true
+  required: true,
 })
 const emit = defineEmits(["treeLoaded"])
 
@@ -182,7 +160,7 @@ const deleteReason = ref(null)
 const router = useRouter()
 
 // Reset the reason when coming (back) to step delete
-watch(step, (newVal) => {
+watch(step, newVal => {
   if (newVal === "delete") {
     deleteReason.value = null
   }
@@ -208,9 +186,7 @@ const fetchTree = () => {
           "Du har följt en länk till ett träd som inte finns. " +
           "Kanske har det tagits bort?"
       } else {
-        msg =
-          "Något gick snett när vi försökte hämta det här trädet. " +
-          err
+        msg = "Något gick snett när vi försökte hämta det här trädet. " + err
       }
       userMessageStore.push(msg)
       close()
@@ -265,7 +241,8 @@ const flagForDeletion = () => {
   })
     .then(raiseOnHttpError)
     .then(() => {
-      const msg = "Trädet är markerat för borttagning. Vi tittar på det så snart vi kan."
+      const msg =
+        "Trädet är markerat för borttagning. Vi tittar på det så snart vi kan."
       userMessageStore.push(msg, "success")
     })
     .catch(err => {

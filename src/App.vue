@@ -7,39 +7,35 @@
     />
     <v-main>
       <!--position:absolute för att lira med navigation drawer-->
-      <v-card
-        class="fill-height"
-        absolute
-        width="100%"
-        height="100%"
-      >
+      <v-card class="fill-height" absolute width="100%" height="100%">
         <fruit-map
           ref="map"
           v-model:center="center"
           v-model:zoom="zoom"
           :add-tree="['stage_1', 'stage_2'].includes(addTreeStatus)"
           :filters="filters"
-          @tree-added="t => {
-            newTree = { lat: t.lat, lon: t.lng }
-            addTreeStatus = 'stage_2'
-          }"
+          @tree-added="
+            t => {
+              newTree = { lat: t.lat, lon: t.lng }
+              addTreeStatus = 'stage_2'
+            }
+          "
           @abort-add-tree="addTreeStatus = null"
         />
       </v-card>
       <about-us v-model="showFAQ" />
-      <view-tree-dialog
-        v-model="showTree"
-        @tree-loaded="adjustMapToTree"
-      />
+      <view-tree-dialog v-model="showTree" @tree-loaded="adjustMapToTree" />
       <add-tree-dialog
         v-model="showAddTree"
         :new-tree="newTree"
-        @finished="() => {
-          addTreeStatus = null
-          showAddTree = false
-          // trigger map reload, through exposed method in FruitMap.vue
-          $refs.map.fetchMarkers()
-        }"
+        @finished="
+          () => {
+            addTreeStatus = null
+            showAddTree = false
+            // trigger map reload, through exposed method in FruitMap.vue
+            $refs.map.fetchMarkers()
+          }
+        "
         @back="addTreeStatus = 'stage_1'"
       />
       <user-message />
@@ -97,25 +93,27 @@ const newTree = ref(null)
 // Watch route to add event to goatcounter,
 // and to display FAQ and trees.
 // A simple routing hack, but does the work
-watch(() => route.path, r => {
+watch(
+  () => route.path,
+  r => {
+    showFAQ.value = r === "/om"
 
-  showFAQ.value = r === "/om"
+    if (r.startsWith("/t/")) {
+      showTree.value = router.currentRoute.value.params.tree
+    } else {
+      showTree.value = null
+    }
 
-  if (r.startsWith("/t/")) {
-    showTree.value = router.currentRoute.value.params.tree
-  } else {
-    showTree.value = null
+    if ("goatcounter" in window) {
+      // send a page view to goatcounter
+      // window.goatcounter.allow_local = true
+      window.goatcounter.count({
+        path: () => r.path,
+        event: true,
+      })
+    }
   }
-
-  if ("goatcounter" in window) {
-    // send a page view to goatcounter
-    // window.goatcounter.allow_local = true
-    window.goatcounter.count({
-      path: () => r.path,
-      event: true,
-    })
-  }
-})
+)
 
 watch(center => {
   if (!localStorage) {
@@ -144,7 +142,7 @@ const updateOnlineStatus = ({ type }) => {
     appStore.setOffline(true)
     userMessageStore.push(
       "Du är offline, och kommer inte kunna lägga till eller ta bort träd",
-      "warning",
+      "warning"
     )
   } else {
     appStore.setOffline(false)

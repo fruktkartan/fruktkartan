@@ -3,11 +3,11 @@
  */
 
 /**
- * 
+ *
  * Throw an error on non 2xx HTTP status codes,
  * to be used in a promise chain
- * 
- * @param {*} response 
+ *
+ * @param {*} response
  */
 export const raiseOnHttpError = response => {
   if (response.status >= 200 && response.status < 300) {

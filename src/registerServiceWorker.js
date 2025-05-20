@@ -1,5 +1,3 @@
- 
-
 import { register } from "register-service-worker"
 
 if ("serviceWorker" in navigator && import.meta.env.NODE_ENV === "production") {

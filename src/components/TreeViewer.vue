@@ -3,9 +3,7 @@
 <template>
   <v-card :loading="loading">
     <v-card-text v-if="preview">
-      <div class="pt-4">
-        FÖRHANDSGRANSKNING
-      </div>
+      <div class="pt-4">FÖRHANDSGRANSKNING</div>
       <div>
         <small>
           <em>
@@ -13,11 +11,13 @@
             <a
               href="https://opendatacommons.org/licenses/odbl/summary/"
               target="_blank"
-            >Open Database License</a>, bilder med
+              >Open Database License</a
+            >, bilder med
             <a
               href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
               target="_blank"
-            >CC0</a>.
+              >CC0</a
+            >.
           </em>
         </small>
       </div>
@@ -27,12 +27,8 @@
       <p>
         <small>
           <em>Uppdaterat den {{ prettyDate }}</em>
-          <br>
-          <v-icon
-            alt="Koordinater"
-            x-small
-            class="mr-1 text-grey"
-          >
+          <br />
+          <v-icon alt="Koordinater" x-small class="mr-1 text-grey">
             mdi-map-marker
           </v-icon>
           <var>
@@ -50,10 +46,7 @@
       <p class="description mt-4">
         {{ tree.desc ? tree.desc.trim() : "" }}
       </p>
-      <tree-image
-        :image="tree.file"
-        alt="Bild av trädet"
-      />
+      <tree-image :image="tree.file" alt="Bild av trädet" />
     </v-card-text>
     <v-card-actions>
       <slot name="buttons" />
@@ -115,10 +108,12 @@ const prettyDate = computed(() => {
     month: "long",
     day: "numeric",
   })
-  const timePart = date.value.toLocaleTimeString("sv-SE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }).replace(":", ".")  // CLDR has a weird default for sv-SE
+  const timePart = date.value
+    .toLocaleTimeString("sv-SE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(":", ".") // CLDR has a weird default for sv-SE
   return `${datePart} kl. ${timePart}`
 })
 </script>

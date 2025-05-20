@@ -11,20 +11,13 @@
         </p>
         <p>
           Skriv då <code>ja</code> nedan och tryck
-          <code>{{ options.positiveText }}</code>.
+          <code>{{ options.positiveText }}</code
+          >.
         </p>
-        <v-text-field
-          v-model="confirm"
-          label="skriv här"
-        />
+        <v-text-field v-model="confirm" label="skriv här" />
       </v-card-text>
       <v-card-actions class="pt-0">
-        <v-btn
-          small
-          @click="negative"
-        >
-          Nej
-        </v-btn>
+        <v-btn small @click="negative"> Nej </v-btn>
         <v-spacer />
         <v-btn
           small
@@ -55,8 +48,7 @@ const defaultOptions = {
 const options = ref({})
 const confirmed = computed(() => {
   return (
-    confirm.value &&
-    confirm.value.toLowerCase().replace(/[ "']/g, "") === "ja"
+    confirm.value && confirm.value.toLowerCase().replace(/[ "']/g, "") === "ja"
   )
 })
 
