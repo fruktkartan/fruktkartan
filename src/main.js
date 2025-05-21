@@ -2,7 +2,7 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import vuetify from "./plugins/vuetify.js"
 
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router"
 import { createPinia } from "pinia"
 import "./registerServiceWorker"
 
@@ -18,7 +18,7 @@ const pinia = createPinia({
   },
 })
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: "/om",
