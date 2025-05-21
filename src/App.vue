@@ -93,6 +93,11 @@ const newTree = ref(null)
 // Watch route to add event to goatcounter,
 // and to display FAQ and trees.
 // A simple routing hack, but does the work
+if (route.path === "/om") {
+  showFAQ.value = true
+} else {
+  showFAQ.value = false
+}
 watch(
   () => route.path,
   r => {
@@ -158,8 +163,12 @@ updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
  * @param {Object} tree A tree object
  */
 const adjustMapToTree = tree => {
-  center.value = latLng(tree.lat, tree.lon)
   zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
+  // Workaround a Leaflet bug that sometimes prevent the map from centering
+  // during a zoom animation.
+  setTimeout(() => {
+    center.value = latLng(tree.lat, tree.lon)
+  }, 1500)
 }
 
 // ADD TREE STEPS
