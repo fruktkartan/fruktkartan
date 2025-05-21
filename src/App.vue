@@ -99,11 +99,11 @@ if (route.path === "/om") {
   showFAQ.value = false
 }
 watch(
-  () => route.path,
+  route,
   r => {
-    showFAQ.value = r === "/om"
+    showFAQ.value = r.path === "/om"
 
-    if (r.startsWith("/t/")) {
+    if (r.path.startsWith("/t/")) {
       showTree.value = router.currentRoute.value.params.tree
     } else {
       showTree.value = null
@@ -120,13 +120,16 @@ watch(
   }
 )
 
-watch(center => {
-  if (!localStorage) {
-    return
+watch(
+  center,
+  c => {
+    if (!localStorage) {
+      return
+    }
+    if (c.lat && c.lat)
+      localStorage.mapCenter = [c.lat, c.lng]
   }
-  if (center?.value?.lat && center.value.lat)
-    localStorage.mapCenter = [center.value.lat, center.value.lng]
-})
+)
 
 onMounted(() => {
   // There might be a vue plugin for this, but on the other hand quite straightforward
@@ -164,16 +167,10 @@ updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
  */
 const adjustMapToTree = tree => {
   zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
-  // Workaround a Leaflet bug that sometimes prevent the map from centering
-  // during a zoom animation.
-  setTimeout(() => {
-    center.value = latLng(tree.lat, tree.lon)
-  }, 1500)
+  center.value = latLng(tree.lat, tree.lon)
 }
 
 // ADD TREE STEPS
 const addTreeStatus = ref(null) // null, 'stage_1', 'stage_2'
 const showAddTree = computed(() => addTreeStatus.value === "stage_2")
 </script>
-
-<style></style>
