@@ -84,7 +84,7 @@ It loads [`.env`](.env).
 - `npm run lint` -- runs `eslint`
 - `npm run lint-fix` -- runs `eslint --fix`
 - `npm run format` -- runs `prettier` on relevant files in src/
-- `npm run lint-fix` -- runs `prettier --write` on relevant files in src/
+- `npm run format-write` -- runs `prettier --write` on relevant files in src/
 
 ## License
 
