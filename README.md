@@ -32,50 +32,59 @@ and submitted images under [CC0](https://creativecommons.org/publicdomain/zero/1
 
 ### Roadmap
 
-- Move backend into this repo, so that we can use the same logic for tree types, etc.
-    -- Now that we are on Vue3, that can be quickly setup with Nuxt: https://nuxt.com/docs/guide/directory-structure/server
-- Clean up routing, that is currently a half-baked mess
-- The Vue Leaflet package is abandonware, and also integrates quite poorly into the Vue system. Sooner or later we will want to replace that with something else.
+- Move backend into this repo, so that we can use the same logic for tree
+  types, etc.
+  - Now that we are on Vue3, that can be quickly setup with Nuxt:
+    https://nuxt.com/docs/guide/directory-structure/server
 
+- Clean up routing, that is currently a half-baked mess
+- The Vue Leaflet package is abandonware, and also integrates quite poorly into
+  the Vue system. Sooner or later we will want to replace that with something
+  else.
 
 ## Contributing
 
 ### Project setup
 
-Set up your project by running:
+Clone the repository and set up the project by running the following. Currently
+nodejs v22.x (LTS) is recommended.
+
 ```
 npm install
 ```
 
-Due to bit rot (old dependencies), this currently needs to be set:
+This no longer seems to be needed: `export NODE_OPTIONS=--openssl-legacy-provider`
+
+### Run development server
+
+The following servers up the app in a localhost web server with hot-reloads
+(code is reloaded when edited and saved). It will run towards the S3 dev-bucket
+(the photos), the dev-instance of the API (and therefore also the dev-instance
+of the Postgres database).
+
 ```
-export NODE_OPTIONS=--openssl-legacy-provider
+npm run dev
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+It loads [`.env`](.env) and [`.env.development`](.env.development), and also
+`.env.development.local`, if you have one. Can be useful for overriding.
 
-Loads [`.env`](.env) and [`.env.development`](.env.development) (and
-`.env.development.local`, if you have one! useful for overriding)
+### Build for production
 
-### Compiles and minifies for production
+The following compiles and minifies for production:
+
 ```
 npm run build
 ```
 
-Loads [`.env`](.env).
+It loads [`.env`](.env).
 
-### Run your tests
-```
-npm run test
-```
+### Lint and format code
 
-### Lints and fixes files
-```
-npm run lint
-```
+- `npm run lint` -- runs `eslint`
+- `npm run lint-fix` -- runs `eslint --fix`
+- `npm run format` -- runs `prettier` on relevant files in src/
+- `npm run lint-fix` -- runs `prettier --write` on relevant files in src/
 
 ## License
 
