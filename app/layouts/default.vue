@@ -75,7 +75,7 @@ const zoom = ref(15)
 const route = useRoute()
 const router = useRouter()
 const showFAQ = ref(route.path == "/om")
-const showTree = ref(router.currentRoute.value?.params?.tree || null)
+const showTree = ref(route.params.tree ?? null)
 const filters = ref({
   tree: "*",
 })
@@ -96,7 +96,7 @@ watch(
     showFAQ.value = r.path === "/om"
 
     if (r.path.startsWith("/t/")) {
-      showTree.value = router.currentRoute.value.params.tree
+      showTree.value = r.params.tree ?? null
     } else {
       showTree.value = null
     }
