@@ -65,9 +65,11 @@
 import TreeImage from "./TreeImage.vue"
 import ConfirmDialog from "./ConfirmDialog.vue"
 import { computed, ref, useTemplateRef } from "vue"
-import predefinedTrees from "../assets/insertableTrees.json"
-import { useUserMessageStore } from "@/stores/app"
-import { raiseOnHttpError } from "@/utils/http"
+import predefinedTrees from "~/assets/insertableTrees.json"
+import { useUserMessageStore } from "~/stores/app"
+import { raiseOnHttpError } from "~/utils/http"
+
+const config = useRuntimeConfig()
 const userMessageStore = useUserMessageStore()
 
 const confirm = useTemplateRef("confirm")
@@ -124,7 +126,7 @@ const fileChanged = () => {
   }
 
   uploading.value = true
-  fetch(`${import.meta.env.VITE_APIBASE}/sign`, {
+  fetch(`${config.public.apiBase}/sign`, {
     method: "POST",
     body: JSON.stringify({ "file-name": file.value.name }),
     headers: { "Content-Type": "application/json" },

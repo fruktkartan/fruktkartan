@@ -95,8 +95,10 @@ import { ref, computed, watch } from "vue"
 import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
 import { latLng, icon as licon } from "leaflet"
-import { useSidebarStore, useUserMessageStore } from "@/stores/app"
-import groupData from "../assets/group-data.json"
+import { useSidebarStore, useUserMessageStore } from "~/stores/app"
+import groupData from "~/assets/group-data.json"
+
+const config = useRuntimeConfig()
 
 const props = defineProps({
   filters: {
@@ -236,7 +238,7 @@ const fetchMarkers = function () {
   loading.value = true
   fetch(
     // prettier-ignore
-    `${import.meta.env.VITE_APIBASE}/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
+    `${config.public.apiBase}/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
   )
     .then(raiseForErrors)
     .then(response => response.json())

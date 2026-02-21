@@ -1,0 +1,33 @@
+/* only the fonts we seem to need */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url("/fonts/roboto-v20-latin-regular.woff2") format("woff2"),
+    url("/fonts/roboto-v20-latin-regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Roboto Italic"), local("Roboto-Italic"),
+    url("/fonts/roboto-v20-latin-italic.woff2") format("woff2"),
+    url("/fonts/roboto-v20-latin-italic.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Roboto Medium"), local("Roboto-Medium"),
+    url("/fonts/roboto-v20-latin-500.woff2") format("woff2"),
+    url("/fonts/roboto-v20-latin-500.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("/fonts/roboto-v20-latin-700.woff2") format("woff2"),
+    url("/fonts/roboto-v20-latin-700.woff") format("woff");
+}

@@ -39,25 +39,17 @@
         @back="addTreeStatus = 'stage_1'"
       />
       <user-message />
+      <slot />
     </v-main>
   </v-app>
 </template>
 
 <script setup>
+import { latLng } from "leaflet"
+import { useAppStore, useUserMessageStore } from "~/stores/app"
+
 const DEFAULT_MAP_CENTER = latLng(62.3908, 17.3069) // fallback
 const MINIMUM_TREE_VIEW_ZOOM = 16 // zoom at least to here when viewing a tree
-
-import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue"
-import { useAppStore, useUserMessageStore } from "./stores/app"
-import { useRoute, useRouter } from "vue-router"
-import { latLng } from "leaflet"
-
-import FruitMap from "./components/FruitMap.vue"
-import AboutUs from "./components/AboutUs.vue"
-import ViewTreeDialog from "./components/ViewTreeDialog.vue"
-import AddTreeDialog from "./components/AddTreeDialog.vue"
-import SidePanel from "./components/SidePanel.vue"
-import UserMessage from "./components/UserMessage.vue"
 
 const map = ref(null)
 const appStore = useAppStore()
@@ -111,7 +103,6 @@ watch(
 
     if ("goatcounter" in window) {
       // send a page view to goatcounter
-      // window.goatcounter.allow_local = true
       window.goatcounter.count({
         path: () => r.path,
         event: true,
@@ -126,8 +117,7 @@ watch(
     if (!localStorage) {
       return
     }
-    if (c.lat && c.lat)
-      localStorage.mapCenter = [c.lat, c.lng]
+    if (c.lat && c.lat) localStorage.mapCenter = [c.lat, c.lng]
   }
 )
 

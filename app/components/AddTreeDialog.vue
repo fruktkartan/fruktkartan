@@ -79,16 +79,15 @@
 import TreeEditor from "./TreeEditor.vue"
 import TreeViewer from "./TreeViewer.vue"
 import { ref, watch } from "vue"
-import { useUserMessageStore } from "../stores/app"
+import { useUserMessageStore } from "~/stores/app"
 
+const config = useRuntimeConfig()
 const emit = defineEmits(["finished", "back"])
 
 const userMessageStore = useUserMessageStore()
 const loading = ref(false)
 
 const displayDialog = defineModel({ type: Boolean })
-// Vi kan göra detta till ett modelvalue,
-// och nolla när vi är klara istf att använda en emit
 const { newTree } = defineProps({
   newTree: {
     type: [Object, null],
@@ -118,7 +117,7 @@ const addTree = () => {
     type: tree.value.type.trim(),
     desc: tree.value.desc.trim(),
   }
-  fetch(`${import.meta.env.VITE_APIBASE}/tree`, {
+  fetch(`${config.public.apiBase}/tree`, {
     method: "PUT",
     body: JSON.stringify(treePayload),
     headers: { "Content-Type": "application/json" },

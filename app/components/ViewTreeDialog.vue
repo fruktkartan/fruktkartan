@@ -140,8 +140,10 @@ import TreeEditor from "./TreeEditor.vue"
 import ConfirmDialog from "./ConfirmDialog.vue"
 import { ref, onMounted, watch, computed } from "vue"
 import { useRouter } from "vue-router"
-import { useAppStore, useUserMessageStore, useSidebarStore } from "@/stores/app"
-import { raiseOnHttpError } from "@/utils/http"
+import { useAppStore, useUserMessageStore, useSidebarStore } from "~/stores/app"
+import { raiseOnHttpError } from "~/utils/http"
+
+const config = useRuntimeConfig()
 
 const modelValue = defineModel({
   type: [String, null],
@@ -171,7 +173,7 @@ const fetchTree = () => {
   if (!key) {
     return
   }
-  fetch(`${import.meta.env.VITE_APIBASE}/tree/${key}`)
+  fetch(`${config.public.apiBase}/tree/${key}`)
     .then(raiseOnHttpError)
     .then(response => response.json())
     .then(response => {
@@ -206,10 +208,6 @@ watch(modelValue, () => {
 
 const showTree = computed(() => modelValue.value !== null)
 
-/*
-const treesAreEqual = (a, b) => {
-  return JSON.stringify(a) === JSON.stringify(b)
-}*/
 /* Check if there are differences we really care about betw trees*/
 const treesAreEqual = computed(() => {
   const type1 = tree.value.type ? tree.value.type.trim() : ""
@@ -234,7 +232,7 @@ const close = () => {
 const flagForDeletion = () => {
   loading.value = true
   const key = modelValue.value
-  fetch(`${import.meta.env.VITE_APIBASE}/flag/${key}/delete`, {
+  fetch(`${config.public.apiBase}/flag/${key}/delete`, {
     method: "POST",
     body: JSON.stringify({ reason: deleteReason.value }),
     headers: { "Content-Type": "application/json" },
@@ -268,7 +266,7 @@ const submitTree = () => {
   const key = modelValue.value
   let treePayload = newTree.value
   treePayload.desc = treePayload.desc.trim()
-  fetch(`${import.meta.env.VITE_APIBASE}/tree/${key}`, {
+  fetch(`${config.public.apiBase}/tree/${key}`, {
     method: "POST",
     body: JSON.stringify(treePayload),
     headers: {

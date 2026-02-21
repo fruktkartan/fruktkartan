@@ -67,15 +67,17 @@
 <script setup>
 import { computed } from "vue"
 import { useRouter } from "vue-router"
+
 const router = useRouter()
+const config = useRuntimeConfig()
 
 const modelValue = defineModel({
   type: Boolean,
   default: false,
 })
 
-const timestamp = import.meta.env.VITE_TIMESTAMP ?? "?"
-const githash = import.meta.env.VITE_GITHASH ?? "?"
+const timestamp = config.public.timestamp
+const githash = config.public.githash
 
 // Computed properties
 const gitcommit = computed(

@@ -1,8 +1,8 @@
 <!--
   The sidebar is a navigation drawer that can be toggled on and off from i Pinia store,
   a global store, so that other components can easily trigger the sidebar to show or hide.
-  ”On” means that the sidebar is visible (`drawer=true; miniVariant=false`),
-  while ”off” means that the sidebar is collapsed on desktop
+  "On" means that the sidebar is visible (`drawer=true; miniVariant=false`),
+  while "off" means that the sidebar is collapsed on desktop
   and hidden on mobile (`drawer=null; miniVariant=true`).
  -->
 <template>
@@ -81,12 +81,12 @@
 </template>
 <script setup>
 import { computed, watch, ref } from "vue"
-import selectTreeTypes from "@/assets/selectTrees.json"
-import mLogo1x from "@/assets/img/fruktkartan_m.png"
-import mLogo2x from "@/assets/img/fruktkartan_m2.png"
-import mLogo3x from "@/assets/img/fruktkartan_m3.png"
-import logoTiny from "@/assets/img/f_t.png"
-import { useSidebarStore } from "@/stores/app"
+import selectTreeTypes from "~/assets/selectTrees.json"
+import mLogo1x from "~/assets/img/fruktkartan_m.png"
+import mLogo2x from "~/assets/img/fruktkartan_m2.png"
+import mLogo3x from "~/assets/img/fruktkartan_m3.png"
+import logoTiny from "~/assets/img/f_t.png"
+import { useSidebarStore } from "~/stores/app"
 
 // We have a global store for collapsing/expanding
 // the sidebar, so that map elements can easily trigger
@@ -102,7 +102,7 @@ const { treeIsBeingAdded } = defineProps({
 })
 const emit = defineEmits(["addTree"])
 
-// null means ”closed” on mobile and ”open” on desktop
+// null means "closed" on mobile and "open" on desktop
 const drawer = ref(sidebarStore.isOpen ? true : null)
 const miniVariant = ref(!sidebarStore.isOpen)
 
