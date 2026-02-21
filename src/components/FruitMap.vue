@@ -6,7 +6,7 @@
     style="position: fixed; top: 0; left: 0; z-index: 100"
   />
   <l-map
-    v-model:bounds="bounds"
+    :bounds="bounds"
     v-model:center="center"
     v-model:zoom="zoom"
     :options="mapOptions"
