@@ -4,9 +4,8 @@ node_modules
 /.nuxt
 /.output
 
-# local env files
-.env.local
-.env.*.local
+.env
+.env*
 
 # Log files
 npm-debug.log*
