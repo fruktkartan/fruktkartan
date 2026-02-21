@@ -97,8 +97,6 @@ import { latLng, icon as licon } from "leaflet"
 import { useSidebarStore, useUserMessageStore } from "~/stores/app"
 import groupData from "~/assets/group-data.json"
 
-const config = useRuntimeConfig()
-
 const props = defineProps({
   filters: {
     type: Object,
@@ -237,7 +235,7 @@ const fetchMarkers = function () {
   loading.value = true
   fetch(
     // prettier-ignore
-    `${config.public.apiBase}/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
+    `/api/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
   )
     .then(raiseForErrors)
     .then(response => response.json())

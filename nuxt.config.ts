@@ -17,7 +17,6 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: "",
       s3Base: "",
       githash: "?",
       timestamp: "?",

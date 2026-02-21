@@ -78,7 +78,6 @@
 <script setup>
 import { useUserMessageStore } from "~/stores/app"
 
-const config = useRuntimeConfig()
 const emit = defineEmits(["finished", "back"])
 
 const userMessageStore = useUserMessageStore()
@@ -114,7 +113,7 @@ const addTree = () => {
     type: tree.value.type.trim(),
     desc: tree.value.desc.trim(),
   }
-  fetch(`${config.public.apiBase}/tree`, {
+  fetch(`/api/tree`, {
     method: "PUT",
     body: JSON.stringify(treePayload),
     headers: { "Content-Type": "application/json" },

@@ -138,8 +138,6 @@
 import { useAppStore, useUserMessageStore, useSidebarStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"
 
-const config = useRuntimeConfig()
-
 const modelValue = defineModel({
   type: [String, null],
   required: true,
@@ -170,7 +168,7 @@ const fetchTree = () => {
     return
   }
   loading.value = true
-  fetch(`${config.public.apiBase}/tree/${key}`)
+  fetch(`/api/tree/${key}`)
     .then(raiseOnHttpError)
     .then(response => response.json())
     .then(response => {
@@ -236,7 +234,7 @@ const close = () => {
 const flagForDeletion = () => {
   loading.value = true
   const key = modelValue.value
-  fetch(`${config.public.apiBase}/flag/${key}/delete`, {
+  fetch(`/api/flag/${key}/delete`, {
     method: "POST",
     body: JSON.stringify({ reason: deleteReason.value }),
     headers: { "Content-Type": "application/json" },
@@ -270,7 +268,7 @@ const submitTree = () => {
   const key = modelValue.value
   let treePayload = newTree.value
   treePayload.desc = treePayload.desc.trim()
-  fetch(`${config.public.apiBase}/tree/${key}`, {
+  fetch(`/api/tree/${key}`, {
     method: "POST",
     body: JSON.stringify(treePayload),
     headers: {

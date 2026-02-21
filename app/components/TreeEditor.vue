@@ -66,7 +66,6 @@ import predefinedTrees from "~/assets/insertableTrees.json"
 import { useUserMessageStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"
 
-const config = useRuntimeConfig()
 const userMessageStore = useUserMessageStore()
 
 const confirm = useTemplateRef("confirm")
@@ -123,7 +122,7 @@ const fileChanged = () => {
   }
 
   uploading.value = true
-  fetch(`${config.public.apiBase}/sign`, {
+  fetch(`/api/sign`, {
     method: "POST",
     body: JSON.stringify({ "file-name": file.value.name }),
     headers: { "Content-Type": "application/json" },
