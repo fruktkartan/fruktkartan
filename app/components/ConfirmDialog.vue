@@ -33,8 +33,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
-
 const displayDialog = ref(false)
 const confirm = ref(null)
 const resolve = ref(null)

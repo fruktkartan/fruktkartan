@@ -76,9 +76,6 @@
 </template>
 
 <script setup>
-import TreeEditor from "./TreeEditor.vue"
-import TreeViewer from "./TreeViewer.vue"
-import { ref, watch } from "vue"
 import { useUserMessageStore } from "~/stores/app"
 
 const config = useRuntimeConfig()

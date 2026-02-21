@@ -2,7 +2,6 @@ import svgLoader from "vite-svg-loader"
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
-  future: { compatibilityVersion: 4 },
   ssr: false,
   modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module"],
   css: ["@mdi/font/css/materialdesignicons.css", "~/assets/fonts.css"],

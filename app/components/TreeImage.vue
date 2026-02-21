@@ -28,7 +28,6 @@
 
 <script setup>
 import placeholder from "~/assets/placeholder.jpg"
-import { ref, computed, watch, onBeforeUnmount } from "vue"
 
 const S3_BASE = useRuntimeConfig().public.s3Base
 const WIDTH = 400
@@ -52,11 +51,14 @@ const img_srcset = computed(() =>
     .join(",")
 )
 
-watch(() => props.image, () => {
-  err.value = false
-  stopPolling()
-  timerTicks.value = 0
-})
+watch(
+  () => props.image,
+  () => {
+    err.value = false
+    stopPolling()
+    timerTicks.value = 0
+  }
+)
 
 onBeforeUnmount(() => stopPolling())
 

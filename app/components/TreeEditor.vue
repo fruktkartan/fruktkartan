@@ -62,9 +62,6 @@
 </template>
 
 <script setup>
-import TreeImage from "./TreeImage.vue"
-import ConfirmDialog from "./ConfirmDialog.vue"
-import { computed, ref, useTemplateRef } from "vue"
 import predefinedTrees from "~/assets/insertableTrees.json"
 import { useUserMessageStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"

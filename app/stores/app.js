@@ -1,5 +1,3 @@
-import { defineStore } from "pinia"
-
 // States related to the app in general (e.g. offline status)
 export const useAppStore = defineStore("appStore", {
   state: () => {

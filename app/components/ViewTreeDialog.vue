@@ -135,11 +135,6 @@
 </template>
 
 <script setup>
-import TreeViewer from "./TreeViewer.vue"
-import TreeEditor from "./TreeEditor.vue"
-import ConfirmDialog from "./ConfirmDialog.vue"
-import { ref, onMounted, watch, computed } from "vue"
-import { useRouter } from "vue-router"
 import { useAppStore, useUserMessageStore, useSidebarStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"
 
@@ -160,6 +155,7 @@ const tree = ref({})
 const newTree = ref({})
 const deleteReason = ref(null)
 const router = useRouter()
+const route = useRoute()
 
 // Reset the reason when coming (back) to step delete
 watch(step, newVal => {
@@ -173,6 +169,7 @@ const fetchTree = () => {
   if (!key) {
     return
   }
+  loading.value = true
   fetch(`${config.public.apiBase}/tree/${key}`)
     .then(raiseOnHttpError)
     .then(response => response.json())
@@ -199,6 +196,11 @@ onMounted(() => {
 })
 watch(modelValue, () => {
   if (modelValue.value) {
+    // Dialog opened (including via browser forward/back)
+    step.value = "view"
+    tree.value = {}
+    newTree.value = {}
+    deleteReason.value = null
     sidebarStore.hideDrawer()
     fetchTree()
   }
@@ -222,11 +224,13 @@ const treesAreEqual = computed(() => {
 /* METHODS */
 
 const close = () => {
-  step.value = "view"
-  tree.value = {}
-  newTree.value = {}
-  deleteReason.value = null
-  router.push("/")
+  // Don't reset state here — the dialog is still visible until the route
+  // change commits. State is reset in the modelValue watcher on next open.
+  // Guard against double-navigation if an async callback fires after the
+  // user has already navigated away (e.g. browser back during a slow request).
+  if (route.path.startsWith("/t/")) {
+    router.push("/")
+  }
 }
 
 const flagForDeletion = () => {

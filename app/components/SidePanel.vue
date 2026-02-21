@@ -60,7 +60,7 @@
 
       <v-list-item
         prepend-icon="mdi-information"
-        :active="$route == '/om'"
+        :active="$route.path === '/om'"
         to="/om"
       >
         Om Fruktkartan
@@ -80,7 +80,6 @@
   </v-navigation-drawer>
 </template>
 <script setup>
-import { computed, watch, ref } from "vue"
 import selectTreeTypes from "~/assets/selectTrees.json"
 import mLogo1x from "~/assets/img/fruktkartan_m.png"
 import mLogo2x from "~/assets/img/fruktkartan_m2.png"

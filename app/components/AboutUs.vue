@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="modelValue" max-width="500" @after-leave="close">
+  <v-dialog v-model="modelValue" max-width="500">
     <v-card>
       <v-card-title>Om Fruktkartan</v-card-title>
       <v-card-text>
@@ -65,10 +65,8 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
-import { useRouter } from "vue-router"
-
 const router = useRouter()
+const route = useRoute()
 const config = useRuntimeConfig()
 
 const modelValue = defineModel({
@@ -83,8 +81,14 @@ const githash = config.public.githash
 const gitcommit = computed(
   () => `https://github.com/fruktkartan/fruktkartan/commit/${githash}`
 )
-// Methods
-const close = () => {
-  router.push("/")
-}
+// Navigate to "/" whenever the dialog closes, regardless of how it was closed
+// (close button, Escape, or clicking outside). Guard against double-push
+// if the route already changed (e.g. close button already navigated).
+watch(modelValue, v => {
+  if (!v && route.path !== "/") {
+    router.push("/")
+  }
+})
+
+const close = () => router.push("/")
 </script>

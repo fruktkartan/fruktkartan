@@ -6,9 +6,9 @@
     style="position: fixed; top: 0; left: 0; z-index: 100"
   />
   <l-map
-    :bounds="bounds"
     v-model:center="center"
     v-model:zoom="zoom"
+    :bounds="bounds"
     :options="mapOptions"
     @update:bounds="
       b => {
@@ -91,7 +91,6 @@ import L from "leaflet"
 globalThis.L = L
 import "vue-leaflet-markercluster/dist/style.css"
 
-import { ref, computed, watch } from "vue"
 import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
 import { latLng, icon as licon } from "leaflet"
@@ -213,7 +212,7 @@ const retrieveUserPosition = manually => {
       if (typeof e === "undefined") {
         // Interface not available.
         msg = "Din webbläsare har inte stöd för att hämta position"
-        this.canGeoLocate = false
+        canGeoLocate.value = false
       } else if (e.code == e.PERMISSION_DENIED) {
         // Interface is available, but has been blocked.
         msg = "Du har blockerat åtkomst till din position"
@@ -261,7 +260,7 @@ defineExpose({
 })
 </script>
 
-<style scope>
+<style>
 @import "leaflet/dist/leaflet.css";
 
 .marker-cluster-small,

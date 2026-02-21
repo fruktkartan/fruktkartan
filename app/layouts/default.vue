@@ -31,7 +31,6 @@
         @finished="
           () => {
             addTreeStatus = null
-            showAddTree = false
             // trigger map reload, through exposed method in FruitMap.vue
             $refs.map.fetchMarkers()
           }
@@ -66,14 +65,11 @@ const coordsFromLocalStorage = () => {
   }
   return null
 }
-const center = coordsFromLocalStorage()
-  ? ref(coordsFromLocalStorage())
-  : ref(DEFAULT_MAP_CENTER)
+const center = ref(coordsFromLocalStorage() ?? DEFAULT_MAP_CENTER)
 
 const zoom = ref(15)
 
 const route = useRoute()
-const router = useRouter()
 const showFAQ = ref(route.path == "/om")
 const showTree = ref(route.params.tree ?? null)
 const filters = ref({
@@ -85,51 +81,35 @@ const newTree = ref(null)
 // Watch route to add event to goatcounter,
 // and to display FAQ and trees.
 // A simple routing hack, but does the work
-if (route.path === "/om") {
-  showFAQ.value = true
-} else {
-  showFAQ.value = false
-}
-watch(
-  route,
-  r => {
-    showFAQ.value = r.path === "/om"
+watch(route, r => {
+  showFAQ.value = r.path === "/om"
 
-    if (r.path.startsWith("/t/")) {
-      showTree.value = r.params.tree ?? null
-    } else {
-      showTree.value = null
-    }
-
-    if ("goatcounter" in window) {
-      // send a page view to goatcounter
-      window.goatcounter.count({
-        path: () => r.path,
-        event: true,
-      })
-    }
+  if (r.path.startsWith("/t/")) {
+    showTree.value = r.params.tree ?? null
+  } else {
+    showTree.value = null
   }
-)
 
-watch(
-  center,
-  c => {
-    if (!localStorage) {
-      return
-    }
-    if (c.lat && c.lat) localStorage.mapCenter = [c.lat, c.lng]
+  if ("goatcounter" in window) {
+    // send a page view to goatcounter
+    window.goatcounter.count({
+      path: () => r.path,
+      event: true,
+    })
   }
-)
+})
+
+watch(center, c => {
+  if (!localStorage) {
+    return
+  }
+  if (c.lat && c.lng) localStorage.mapCenter = [c.lat, c.lng]
+})
 
 onMounted(() => {
   // There might be a vue plugin for this, but on the other hand quite straightforward
   window.addEventListener("online", updateOnlineStatus)
   window.addEventListener("offline", updateOnlineStatus)
-
-  const savedCoords = coordsFromLocalStorage()
-  if (savedCoords) {
-    center.value = savedCoords
-  }
 })
 onBeforeUnmount(() => {
   window.removeEventListener("online", updateOnlineStatus)

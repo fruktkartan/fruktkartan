@@ -8,8 +8,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
-
 import { useUserMessageStore } from "~/stores/app"
 
 const userMessageStore = useUserMessageStore()
