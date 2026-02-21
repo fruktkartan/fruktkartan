@@ -37,6 +37,7 @@
     "eslint-plugin-vue": "^9.33.0",
     "globals": "^16.5.0",
     "nuxt": "^3.16.0",
+    "vuetify-nuxt-module": "^0.19.5",
     "prettier": "^3.8.1",
     "sass": "1.97.3",
     "vite-svg-loader": "^5.1.0"

@@ -4,16 +4,17 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   future: { compatibilityVersion: 4 },
   ssr: false,
-  modules: ["@pinia/nuxt", "@vite-pwa/nuxt"],
-  css: [
-    "vuetify/styles",
-    "@mdi/font/css/materialdesignicons.css",
-    "~/assets/fonts.css",
-  ],
-  build: { transpile: ["vuetify"] },
+  modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module"],
+  css: ["@mdi/font/css/materialdesignicons.css", "~/assets/fonts.css"],
   vite: {
     plugins: [svgLoader()],
-    ssr: { noExternal: ["vuetify"] },
+  },
+  vuetify: {
+    vuetifyOptions: {
+      defaults: {
+        VCardActions: { VBtn: { variant: "elevated" } },
+      },
+    },
   },
   runtimeConfig: {
     public: {
