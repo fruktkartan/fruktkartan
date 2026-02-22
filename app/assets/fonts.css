@@ -1,3 +1,8 @@
+html,
+body {
+  overflow: hidden;
+}
+
 /* only the fonts we seem to need */
 @font-face {
   font-family: "Roboto";
