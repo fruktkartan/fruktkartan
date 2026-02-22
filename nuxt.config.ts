@@ -1,13 +1,12 @@
-import svgLoader from "vite-svg-loader"
-
 export default defineNuxtConfig({
   compatibilityDate: "2026-02-01",
   ssr: false,
-  modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module"],
-  css: ["@mdi/font/css/materialdesignicons.css", "~/assets/fonts.css"],
-  vite: {
-    plugins: [svgLoader()],
+  modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
+  svgo: {
+    svgo: false,
+    defaultImport: "component",
   },
+  css: ["@mdi/font/css/materialdesignicons.css", "~/assets/fonts.css"],
   vuetify: {
     vuetifyOptions: {
       defaults: {

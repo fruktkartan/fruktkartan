@@ -12,7 +12,12 @@ import berryRowanberry from "./berry-rowanberry.svg"
 import berrySeabuckthorn from "./berry-seabuckthorn.svg"
 import berrySloeberry from "./berry-sloeberry.svg"
 import berryWildstrawberry from "./berry-wildstrawberry.svg"
+import herb from "./herb.svg"
 import herbChamomille from "./herb-chamomille.svg"
+import herbChervil from "./herb-chervil.svg"
+import herbNettle from "./herb-nettle.svg"
+import herbWildgarlic from "./herb-wildgarlic.svg"
+import addnew from "./addnew.svg"
 import nut from "./nut.svg"
 import nutWalnut from "./nut-walnut.svg"
 import nutHazelnut from "./nut-hazelnut.svg"
@@ -40,7 +45,12 @@ export default {
   berrySeabuckthorn,
   berrySloeberry,
   berryWildstrawberry,
+  herb,
   herbChamomille,
+  herbChervil,
+  herbNettle,
+  herbWildgarlic,
+  addnew,
   nut,
   nutWalnut,
   nutHazelnut,
@@ -59,13 +69,19 @@ export default {
   "berry-elder": berryElder,
   "berry-goji": berryGoji,
   "berry-mulberry": berryMulberry,
+  "berry-mullberry": berryMulberry,
   "berry-raspberry": berryRaspberry,
   "berry-rosehip": berryRosehip,
   "berry-rowanberry": berryRowanberry,
   "berry-seabuckthorn": berrySeabuckthorn,
   "berry-sloeberry": berrySloeberry,
+  "tree-sloeberry": berrySloeberry,
   "berry-wildstrawberry": berryWildstrawberry,
   "herb-chamomille": herbChamomille,
+  "herb-chervil": herbChervil,
+  "herb-nettle": herbNettle,
+  "herb-wildgarlic": herbWildgarlic,
+  addnew,
   "nut-walnut": nutWalnut,
   "nut-hazelnut": nutHazelnut,
   "nut-sweetchestnut": nutSweetchestnut,

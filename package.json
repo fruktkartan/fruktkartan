@@ -26,6 +26,7 @@
     "@vue-leaflet/vue-leaflet": "0.10.1",
     "leaflet": "1.9.4",
     "murmurhash": "^2.0.1",
+    "nuxt-svgo": "^4.2.6",
     "pg": "^8.18.0",
     "pinia": "3.0.4",
     "vue-leaflet-markercluster": "0.6.1",
@@ -44,7 +45,6 @@
     "nuxt": "^4.3.1",
     "prettier": "^3.8.1",
     "sass": "1.97.3",
-    "vite-svg-loader": "^5.1.0",
     "vuetify-nuxt-module": "^0.19.5"
   },
   "optionalDependencies": {
