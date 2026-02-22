@@ -1,48 +1,24 @@
 <template>
-  <v-snackbar v-model="snack" :timeout="-1" :color="snackType">
-    {{ snackMessage }}
-    <template #actions>
-      <v-btn variant="text" @click="close"> Stäng </v-btn>
+  <v-snackbar-queue v-model="queue">
+    <template #actions="{ props }">
+      <v-btn variant="text" v-bind="props">Stäng</v-btn>
     </template>
-  </v-snackbar>
+  </v-snackbar-queue>
 </template>
 
 <script setup>
 import { useUserMessageStore } from "~/stores/app"
 
 const userMessageStore = useUserMessageStore()
+const queue = ref([])
 
-const snack = ref(false)
-const snackMessage = ref("")
-const snackType = ref("error")
-
-const checkAndDisplayMessage = () => {
-  if (userMessageStore.num > 0) {
-    const { type, message } = userMessageStore.pop()
-    snackMessage.value = message
-    snackType.value = type
-    snack.value = true
-    return true
+const drainStore = () => {
+  while (userMessageStore.num > 0) {
+    const { message, type } = userMessageStore.pop()
+    queue.value.push({ text: message, color: type, timeout: -1 })
   }
-  return false
 }
 
-const close = () => {
-  snack.value = false
-  // Pick the next, if any
-  checkAndDisplayMessage()
-}
-
-userMessageStore.$subscribe((_mutation, _state) => {
-  if (snack.value) {
-    // Already showing a message, wait for our turn
-    // FIXME: use v-snackbar-queue to simplify this. Waiting for docs (till new in labs)
-    // https://vuetifyjs.com/en/components/snackbar-queue/
-    return
-  }
-  checkAndDisplayMessage()
-})
-
-// If some component emitted a message before we were mounted
-checkAndDisplayMessage()
+userMessageStore.$subscribe(drainStore)
+drainStore()
 </script>

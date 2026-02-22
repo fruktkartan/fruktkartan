@@ -124,7 +124,7 @@ const addTree = () => {
         "Vi lyckades inte spara trädet just nu: " +
         err +
         "\nFörsök gärna igen om en stund!"
-      userMessageStore.addMessage(msg)
+      userMessageStore.push(msg)
     })
     .finally(() => {
       loading.value = false

@@ -95,6 +95,7 @@ import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
 import { latLng, icon as licon } from "leaflet"
 import { useSidebarStore, useUserMessageStore } from "~/stores/app"
+import { raiseOnHttpError } from "~/utils/http"
 import groupData from "~/assets/group-data.json"
 
 const props = defineProps({
@@ -123,14 +124,6 @@ watch(
     }
   }
 )
-
-/* Middleware for fetch calls */
-const raiseForErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText)
-  }
-  return response
-}
 
 const sidebarStore = useSidebarStore()
 const canGeoLocate = ref(navigator.geolocation ? true : false)
@@ -170,12 +163,9 @@ function icon(filename) {
     shadowSize: [0, 0],
   })
 }
-const icons = Object.entries(groupData)
-  .map(([k, v]) => [k, icon(v.icon)])
-  .reduce((o, [k, v]) => {
-    o[k] = v
-    return o
-  }, {})
+const icons = Object.fromEntries(
+  Object.entries(groupData).map(([k, v]) => [k, icon(v.icon)])
+)
 
 /**
  * Use geolocation interface to re-center map, if possible.
@@ -237,7 +227,7 @@ const fetchMarkers = function () {
     // prettier-ignore
     `/api/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
   )
-    .then(raiseForErrors)
+    .then(raiseOnHttpError)
     .then(response => response.json())
     .then(json => {
       markers.value = json.map(m => ({

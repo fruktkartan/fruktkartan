@@ -17,10 +17,10 @@
         <v-text-field v-model="confirm" label="skriv här" />
       </v-card-text>
       <v-card-actions class="pt-0">
-        <v-btn small @click="negative"> Nej </v-btn>
+        <v-btn size="small" @click="negative"> Nej </v-btn>
         <v-spacer />
         <v-btn
-          small
+          size="small"
           :color="options.positiveColor"
           :disabled="!confirmed"
           @click="positive"
@@ -41,7 +41,7 @@ const message = ref(null)
 const defaultOptions = {
   width: 350,
   positiveText: "Ta bort",
-  positiveColor: "red lighten-3",
+  positiveColor: "red-lighten-3",
 }
 const options = ref({})
 const confirmed = computed(() => {

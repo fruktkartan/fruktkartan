@@ -19,9 +19,9 @@
         </div>
         <div v-if="tree.file && !file">
           <v-btn
-            small
+            size="small"
             class="px-2 mt-1"
-            color="red lighten-3"
+            color="red-lighten-3"
             @click="deleteImage"
           >
             <v-icon>mdiDeleteOutline </v-icon>Ta bort bilden
