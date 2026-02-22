@@ -2,11 +2,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2026-02-01",
   ssr: false,
   modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
+
   svgo: {
     svgo: false,
     defaultImport: "component",
   },
+
   css: ["@mdi/font/css/materialdesignicons.css", "~/assets/fonts.css"],
+
   vuetify: {
     vuetifyOptions: {
       defaults: {
@@ -14,6 +17,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   runtimeConfig: {
     public: {
       s3Base: "",
@@ -21,6 +25,7 @@ export default defineNuxtConfig({
       timestamp: "?",
     },
   },
+
   pwa: {
     manifest: {
       name: "Fruktkartan: en kollaborativ karta över fruktträd",
@@ -29,6 +34,7 @@ export default defineNuxtConfig({
       icons: [{ src: "favicon.png", sizes: "any" }],
     },
   },
+
   app: {
     head: {
       htmlAttrs: { lang: "sv" },
