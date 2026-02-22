@@ -22,6 +22,5 @@ export const sanitizeText = (rawText: string): string => {
 export const userHash = (event: H3Event): number => {
   const forwarded = getRequestHeader(event, 'x-forwarded-for')
   const remote = event.node.req.socket?.remoteAddress ?? ''
-  // @ts-ignore — murmurhash typings are missing
   return murmurhash.v3(forwarded || remote)
 }

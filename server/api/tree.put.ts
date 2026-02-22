@@ -19,7 +19,6 @@ export default defineEventHandler(async event => {
   const lon = parseFloat(body.lon)
   const type = body.type
   const desc = body.desc || ''
-  // @ts-ignore — murmurhash typings are missing
   const key = murmurhash.v3('' + body.lat + body.lon, Date.now())
   const user_ip = userHash(event)
   const img = body.file || ''
