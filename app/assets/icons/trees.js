@@ -81,7 +81,6 @@ export default {
   "herb-chervil": herbChervil,
   "herb-nettle": herbNettle,
   "herb-wildgarlic": herbWildgarlic,
-  addnew,
   "nut-walnut": nutWalnut,
   "nut-hazelnut": nutHazelnut,
   "nut-sweetchestnut": nutSweetchestnut,
