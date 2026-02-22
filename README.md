@@ -47,8 +47,6 @@ nodejs v22.x (LTS) is recommended.
 npm install
 ```
 
-This no longer seems to be needed: `export NODE_OPTIONS=--openssl-legacy-provider`
-
 ### Run development server
 
 The following servers up the app in a localhost web server with hot-reloads
@@ -60,8 +58,7 @@ of the Postgres database).
 npm run dev
 ```
 
-It loads [`.env`](.env) and [`.env.development`](.env.development), and also
-`.env.development.local`, if you have one. Can be useful for overriding.
+It loads [`.env.development`](.env.development). If you want to start a dev server _but_ use productions settings from `.env`, you can tell Nuxt to do so explicitly: `npx nuxt dev --dotenv .env`
 
 ### Build for production
 
