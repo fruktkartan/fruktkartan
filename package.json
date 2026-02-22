@@ -17,7 +17,8 @@
     "lint": "eslint",
     "lint-fix": "eslint --fix",
     "format": "prettier --check 'app/**/*.{js,json,vue}'",
-    "format-write": "prettier --write 'app/**/*.{js,json,vue}'"
+    "format-write": "prettier --write 'app/**/*.{js,json,vue}'",
+    "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.995.0",
