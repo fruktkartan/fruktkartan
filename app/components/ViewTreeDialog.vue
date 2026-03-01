@@ -174,7 +174,7 @@ const fetchTree = () => {
     .then(response => {
       tree.value = response
       loading.value = false
-      emit("treeLoaded", response)
+      emit("treeLoaded", tree.value)
     })
     .catch(err => {
       let msg
