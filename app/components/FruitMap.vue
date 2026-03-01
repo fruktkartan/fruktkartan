@@ -18,6 +18,7 @@
     "
     @ready="
       o => {
+        leafletMap = o
         bounds = o.getBounds()
         fetchMarkers()
       } /* needed from start in geopositioning */
@@ -243,8 +244,11 @@ const fetchMarkers = function () {
     })
 }
 
+let leafletMap = null
+
 defineExpose({
   fetchMarkers,
+  setView: (center, zoom) => leafletMap?.setView(center, zoom),
 })
 </script>
 

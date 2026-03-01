@@ -137,7 +137,9 @@ updateOnlineStatus({ type: navigator.onLine ? "online" : "offline" })
  */
 const adjustMapToTree = tree => {
   zoom.value = Math.max(zoom.value, MINIMUM_TREE_VIEW_ZOOM)
-  center.value = latLng(tree.lat, tree.lon)
+  // center.value = latLng(tree.lat, tree.lon)
+  // jobba runt en knepig Leaflet-begränsning här:
+  map.value.setView(latLng(tree.lat, tree.lon), zoom.value)
 }
 
 // ADD TREE STEPS
