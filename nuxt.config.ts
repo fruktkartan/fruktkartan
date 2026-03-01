@@ -3,10 +3,6 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
 
-  routeRules: {
-    "/om/": { redirect: "/om" },
-  },
-
   svgo: {
     svgo: false,
     defaultImport: "component",
