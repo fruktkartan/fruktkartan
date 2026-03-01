@@ -3,6 +3,23 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
 
+  vite: {
+    plugins: [
+      {
+        // leaflet.locatecontrol ships a CSS with a broken sourceMappingURL path
+        // (dist/dist/... double prefix). Strip it before Vite tries to load it.
+        name: "strip-leaflet-locate-sourcemap",
+        load(id) {
+          if (id.includes("leaflet.locatecontrol") && id.endsWith(".css")) {
+            const { readFileSync } = require("node:fs")
+            const content = readFileSync(id, "utf-8")
+            return content.replace(/\/\*#\s*sourceMappingURL=[^*]*\*\//g, "")
+          }
+        },
+      },
+    ],
+  },
+
   svgo: {
     svgo: false,
     defaultImport: "component",

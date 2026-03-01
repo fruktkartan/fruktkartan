@@ -15,13 +15,7 @@
         fetchMarkers()
       }
     "
-    @ready="
-      o => {
-        leafletMap = o
-        bounds = o.getBounds()
-        fetchMarkers()
-      } /* needed from start in geopositioning */
-    "
+    @ready="onMapReady"
   >
     <l-control position="bottomleft" class="hidden-md-and-up control">
       <v-btn
@@ -32,14 +26,7 @@
         @click="sidebarStore.showDrawer()"
       />
     </l-control>
-    <l-control v-if="canGeoLocate" position="topleft" class="control">
-      <v-btn
-        icon="mdi-crosshairs-gps"
-        flat
-        slim
-        @click.stop="() => retrieveUserPosition(true)"
-      />
-    </l-control>
+
     <l-tile-layer
       url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
       :attribution="`
@@ -84,16 +71,16 @@ grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
 </template>
 
 <script setup>
-const DEFAULT_MAP_SIZE = 750 // meters across map
-
 // This ugly hack is required by vue-leaflet-markercluster
 import L from "leaflet"
 globalThis.L = L
 import "vue-leaflet-markercluster/dist/style.css"
+import { LocateControl } from "leaflet.locatecontrol"
+import "leaflet.locatecontrol/dist/L.Control.Locate.css"
 
 import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
-import { latLng, icon as licon } from "leaflet"
+import { icon as licon } from "leaflet"
 import { useSidebarStore, useUserMessageStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"
 import groupData from "~/assets/group-data.json"
@@ -126,7 +113,6 @@ watch(
 )
 
 const sidebarStore = useSidebarStore()
-const canGeoLocate = ref(navigator.geolocation ? true : false)
 
 // map settings
 const mapOptions = {
@@ -167,58 +153,45 @@ const icons = Object.fromEntries(
   Object.entries(groupData).map(([k, v]) => [k, icon(v.icon)])
 )
 
-/**
- * Use geolocation interface to re-center map, if possible.
- *
- * This method will also cause trees to be fetched and updated.
- *
- * @param {Boolean} manually Did the user manually ask for the position?
- */
-const retrieveUserPosition = manually => {
-  loading.value = true
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      const ll = latLng(pos.coords.latitude, pos.coords.longitude)
-      const newBounds = ll.toBounds(
-        pos.coords.accuracy
-          ? Math.max(pos.coords.accuracy, DEFAULT_MAP_SIZE)
-          : DEFAULT_MAP_SIZE
-      )
-      // Only adjust bounds if it would mean zooming in.
-      // Zooming out on geolocating is disruptive
-      const oldWidth = bounds.value.getEast() - bounds.value.getWest()
-      const newWidth = newBounds.getEast() - newBounds.getWest()
-      if (newWidth < oldWidth) {
-        bounds.value = newBounds
-      } else {
-        center.value = ll
-      }
-      loading.value = false
+let leafletMap = null
+
+function onMapReady(o) {
+  leafletMap = o
+  bounds.value = o.getBounds()
+
+  const lc = new LocateControl({
+    strings: {
+      title: "Visa min position",
+      metersUnit: "meter",
+      feetUnit: "fot",
+      popup: "Du är inom {distance} {unit} från denna punkt",
+      outsideMapBoundsMsg: "Du verkar befinna dig utanför kartan",
     },
-    e => {
-      let msg
-      if (typeof e === "undefined") {
-        // Interface not available.
-        msg = "Din webbläsare har inte stöd för att hämta position"
-        canGeoLocate.value = false
-      } else if (e.code == e.PERMISSION_DENIED) {
-        // Interface is available, but has been blocked.
-        msg = "Du har blockerat åtkomst till din position"
-      } else if (e.code == e.POSITION_UNAVAILABLE) {
-        // Interface is available, but position is not.
-        msg = "Vi kunde inte hämta din position just nu."
-      } else {
-        msg = `Vi kunde inte hämta din position: ${e.message}`
-      }
-      if (manually) {
-        // Only show error message if user actively tried to geolocate
-        userMessageStore.push(msg)
-      }
-      // keep default bounds
-      // fetchMarkers()
-      loading.value = false
+    locateOptions: { enableHighAccuracy: true },
+    setView: "untilPan",
+  })
+  lc.addTo(o)
+
+  o.on("locationfound", () => {
+    loading.value = false
+  })
+  o.on("locationerror", e => {
+    loading.value = false
+    let msg
+    if (e.code === 1) {
+      msg = "Du har blockerat åtkomst till din position"
+    } else if (e.code === 2) {
+      msg = "Vi kunde inte hämta din position just nu."
+    } else {
+      msg = `Vi kunde inte hämta din position: ${e.message}`
     }
-  )
+    userMessageStore.push(msg)
+  })
+  o.on("locatestart", () => {
+    loading.value = true
+  })
+
+  fetchMarkers()
 }
 
 const fetchMarkers = function () {
@@ -242,8 +215,6 @@ const fetchMarkers = function () {
       loading.value = false
     })
 }
-
-let leafletMap = null
 
 defineExpose({
   fetchMarkers,
