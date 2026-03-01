@@ -27,6 +27,11 @@ export default defineNuxtConfig({
   },
 
   pwa: {
+    workbox: {
+      // Include html so that index.html is precached and
+      // createHandlerBoundToURL('/') works without throwing non-precached-url.
+      globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff2}"],
+    },
     manifest: {
       name: "Fruktkartan: en kollaborativ karta över fruktträd",
       short_name: "Fruktkartan",
