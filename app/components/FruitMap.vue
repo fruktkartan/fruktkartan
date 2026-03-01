@@ -3,7 +3,6 @@
     v-if="loading"
     color="primary"
     indeterminate
-    style="position: fixed; top: 0; left: 0; z-index: 100"
   />
   <l-map
     v-model:center="center"
