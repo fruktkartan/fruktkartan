@@ -1,6 +1,11 @@
 <template>
   <v-dialog v-model="showTree" max-width="440" persistent @keydown.esc="close">
-    <tree-viewer v-if="step === 'view'" :loading="loading" :tree="tree">
+    <tree-viewer
+      v-if="step === 'view'"
+      :loading="loading"
+      :tree="tree"
+      @close="close"
+    >
       <template #buttons>
         <v-row dense>
           <v-col>

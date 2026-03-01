@@ -2,6 +2,14 @@
 
 <template>
   <v-card :loading="loading">
+    <v-btn
+      v-if="!preview"
+      size="x-small"
+      flat
+      icon="mdi-close"
+      style="position:absolute; top:8px; right:8px"
+      @click="$emit('close')"
+    />
     <v-card-text v-if="preview">
       <div class="pt-4">FÖRHANDSGRANSKNING</div>
       <div>
@@ -62,6 +70,8 @@
  */
 import TreeImage from "./TreeImage.vue"
 import { computed } from "vue"
+
+defineEmits(["close"])
 
 const { loading, preview, tree } = defineProps({
   loading: {
