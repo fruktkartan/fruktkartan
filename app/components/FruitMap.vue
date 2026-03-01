@@ -164,11 +164,11 @@ function onMapReady(o) {
       title: "Visa min position",
       metersUnit: "meter",
       feetUnit: "fot",
-      popup: "Du är inom {distance} {unit} från denna punkt",
+      popup: "Du är inom {distance} {unit} härifrån",
       outsideMapBoundsMsg: "Du verkar befinna dig utanför kartan",
     },
     locateOptions: { enableHighAccuracy: true },
-    setView: "untilPan",
+    setView: "untilPan", // undvik att zooma ut
   })
   lc.addTo(o)
 
@@ -181,9 +181,9 @@ function onMapReady(o) {
     if (e.code === 1) {
       msg = "Du har blockerat åtkomst till din position"
     } else if (e.code === 2) {
-      msg = "Vi kunde inte hämta din position just nu."
+      msg = "Kunde inte hämta din position just nu"
     } else {
-      msg = `Vi kunde inte hämta din position: ${e.message}`
+      msg = `Kunde inte hämta din position: ${e.message}`
     }
     userMessageStore.push(msg)
   })
