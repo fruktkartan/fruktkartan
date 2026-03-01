@@ -143,4 +143,13 @@ const adjustMapToTree = tree => {
 // ADD TREE STEPS
 const addTreeStatus = ref(null) // null, 'stage_1', 'stage_2'
 const showAddTree = computed(() => addTreeStatus.value === "stage_2")
+
+useHead(() => ({
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://fruktkartan.se' + route.path,
+    },
+  ],
+}))
 </script>
