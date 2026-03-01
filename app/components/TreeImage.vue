@@ -8,6 +8,7 @@
       :srcset="img_srcset"
       :alt="alt"
       :width="width"
+      :max-height="400"
       @error="startPolling()"
       @load="stopPolling()"
     >
