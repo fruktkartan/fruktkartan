@@ -3,6 +3,10 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
 
+  routeRules: {
+    "/om/": { redirect: "/om" },
+  },
+
   svgo: {
     svgo: false,
     defaultImport: "component",
@@ -57,6 +61,14 @@ export default defineNuxtConfig({
       ],
       link: [{ rel: "icon", href: "/favicon.ico" }],
       script: [
+        {
+          // Redirect legacy hash-based URLs (e.g. /#/t/123) before Vue Router
+          // initialises, otherwise it warns about invalid CSS selectors.
+          innerHTML: `(function(){
+            var h = window.location.hash;
+            if (h.startsWith('#/')) window.location.replace(h.slice(1));
+          })();`,
+        },
         {
           innerHTML: `if (window.location.hostname == "fruktkartan.se") {
             window.goatcounter = { endpoint: "https://frukt.goatcounter.com/count" }
