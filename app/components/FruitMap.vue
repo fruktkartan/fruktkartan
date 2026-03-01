@@ -248,6 +248,7 @@ let leafletMap = null
 defineExpose({
   fetchMarkers,
   setView: (center, zoom) => leafletMap?.setView(center, zoom),
+  invalidateSize: () => leafletMap?.invalidateSize(),
 })
 </script>
 
