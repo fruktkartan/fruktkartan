@@ -6,8 +6,7 @@
       @add-tree="addTreeStatus = 'stage_1'"
     />
     <v-main>
-      <!--position:absolute för att lira med navigation drawer-->
-      <v-card class="fill-height" absolute width="100%" height="100%">
+      <v-card class="fill-height" flat>
         <fruit-map
           ref="map"
           v-model:center="center"
