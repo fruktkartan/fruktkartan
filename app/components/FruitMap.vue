@@ -3,7 +3,9 @@
     v-if="loading"
     color="primary"
     indeterminate
+    style="position: fixed; top: 0; left: 0; z-index: 100"
   />
+  <!-- the style argument is there to make sure the map is not bouncing arounf -->
   <l-map
     v-model:center="center"
     v-model:zoom="zoom"
