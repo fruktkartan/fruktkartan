@@ -2,5 +2,5 @@
 
 f=.env.production.local
 
-printf  >"$f" 'NUXT_PUBLIC_GITHASH="%s"\n'   "$(git rev-parse --short HEAD)"
+printf  >"$f" 'NUXT_PUBLIC_GITHASH="%s"\n'   "${SOURCE_VERSION:0:7}" > "$f"
 printf >>"$f" 'NUXT_PUBLIC_TIMESTAMP="%s"\n' "$(TZ=Europe/Stockholm date +"%F %T %Z")"
