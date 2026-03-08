@@ -38,8 +38,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       s3Base: "",
-      githash: "?",
-      timestamp: "?",
+      githash: process.env.NUXT_PUBLIC_GITHASH ?? "?",
+      timestamp: process.env.NUXT_PUBLIC_TIMESTAMP ?? "?",
     },
   },
 
