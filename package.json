@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "nuxt dev --dotenv .env.development",
-    "build": "nuxt build",
+    "build": "nuxt build --dotenv .env.production.local",
     "preview": "nuxt preview",
     "generate": "nuxt generate",
     "prebuild": "./build-vars",
