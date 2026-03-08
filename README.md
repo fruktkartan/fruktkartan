@@ -1,15 +1,9 @@
 # Fruktkartan
 
-[![Build](https://github.com/fruktkartan/fruktkartan/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/fruktkartan/fruktkartan/actions/workflows/build.yml) \
-[![Deploy](https://github.com/fruktkartan/fruktkartan/actions/workflows/deploy-production.yml/badge.svg?branch=production)](https://github.com/fruktkartan/fruktkartan/actions/workflows/deploy-production.yml) to production
-
 Branch [`production`](https://github.com/fruktkartan/fruktkartan/tree/production)
-is deployed [automatically](https://github.com/fruktkartan/fruktkartan/actions/workflows/deploy-production.yml)
-to the [fruktkartan.github.io repo](https://github.com/fruktkartan/fruktkartan.github.io)
-which is published at https://fruktkartan.se
+is deployed automatically to Heroku, and visible on https://fruktkartan.se
 
-Branch `master` is deployed [automatically](https://app.netlify.com/sites/fruktkartan/deploys)
-to https://master--fruktkartan.netlify.app
+Branch `master` is deployed to https://fruktkartan-fullstack-dev-c46777b188b0.herokuapp.com/
 
 ## What is Fruktkartan?
 
