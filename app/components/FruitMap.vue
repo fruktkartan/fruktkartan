@@ -171,6 +171,7 @@ function onMapReady(o) {
     },
     locateOptions: { enableHighAccuracy: true },
     setView: "untilPan", // undvik att zooma ut
+    onLocationError: () => {},
   })
   lc.addTo(o)
 
