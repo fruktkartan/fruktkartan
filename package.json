@@ -21,8 +21,8 @@
     "start": "node .output/server/index.mjs"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1004.0",
-    "@aws-sdk/s3-request-presigner": "^3.1004.0",
+    "@aws-sdk/client-s3": "^3.1014.0",
+    "@aws-sdk/s3-request-presigner": "^3.1014.0",
     "@vue-leaflet/vue-leaflet": "0.10.1",
     "leaflet": "1.9.4",
     "leaflet.locatecontrol": "0.89.0",
@@ -38,15 +38,14 @@
     "@mdi/font": "^7.4.47",
     "@mdi/js": "7.4.47",
     "@pinia/nuxt": "^0.11.3",
-    "@types/node": "^25.4.0",
+    "@types/node": "^25.5.0",
     "@vite-pwa/nuxt": "^1.1.1",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
-    "nuxt": "^4.3.1",
+    "nuxt": "^4.4.2",
     "prettier": "^3.8.1",
-    "sass": "1.97.3",
     "vuetify-nuxt-module": "^0.19.5"
   },
   "optionalDependencies": {
