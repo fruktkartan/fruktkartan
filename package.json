@@ -44,7 +44,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
-    "nuxt": "^4.4.2",
+    "nuxt": "^4.4.6",
     "prettier": "^3.8.1",
     "vuetify-nuxt-module": "^0.19.5"
   },
