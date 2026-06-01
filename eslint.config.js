@@ -21,6 +21,7 @@ export default defineConfig([
         onBeforeUnmount: "readonly",
         onUnmounted: "readonly",
         nextTick: "readonly",
+        useHead: "readonly",
         useTemplateRef: "readonly",
         // Nuxt auto-imports
         useRuntimeConfig: "readonly",
