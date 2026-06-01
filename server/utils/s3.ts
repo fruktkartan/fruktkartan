@@ -1,5 +1,5 @@
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
 
 export async function getSignedRequest(key: string, bucket: string, region: string) {
   const accessKeyId = process.env.S3_ACCESS_KEY
