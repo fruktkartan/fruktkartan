@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2026-02-01",
   ssr: false,
-  modules: ["@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
+  modules: ["@nuxt/eslint", "@pinia/nuxt", "@vite-pwa/nuxt", "vuetify-nuxt-module", "nuxt-svgo"],
 
   vite: {
     plugins: [
