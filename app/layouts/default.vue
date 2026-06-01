@@ -146,8 +146,8 @@ const showAddTree = computed(() => addTreeStatus.value === "stage_2")
 useHead(() => ({
   link: [
     {
-      rel: 'canonical',
-      href: 'https://fruktkartan.se' + route.path,
+      rel: "canonical",
+      href: "https://fruktkartan.se" + route.path,
     },
   ],
 }))

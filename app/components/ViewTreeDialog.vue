@@ -271,7 +271,7 @@ const flagForDeletion = () => {
 
 const submitTree = () => {
   const key = modelValue.value
-  let treePayload = newTree.value
+  const treePayload = newTree.value
   treePayload.desc = treePayload.desc.trim()
   fetch(`/api/tree/${key}`, {
     method: "POST",

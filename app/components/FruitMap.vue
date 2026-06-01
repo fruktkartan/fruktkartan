@@ -75,7 +75,6 @@ grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
 <script setup>
 // This ugly hack is required by vue-leaflet-markercluster
 import L from "leaflet"
-globalThis.L = L
 import "vue-leaflet-markercluster/dist/style.css"
 import { LocateControl } from "leaflet.locatecontrol"
 import "leaflet.locatecontrol/dist/L.Control.Locate.css"
@@ -86,6 +85,7 @@ import { icon as licon } from "leaflet"
 import { useSidebarStore, useUserMessageStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"
 import groupData from "~/assets/group-data.json"
+globalThis.L = L
 
 const props = defineProps({
   filters: {

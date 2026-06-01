@@ -108,12 +108,12 @@ const close = () => {
 
 const addTree = () => {
   loading.value = true
-  let treePayload = {
+  const treePayload = {
     ...tree.value,
     type: tree.value.type.trim(),
     desc: tree.value.desc.trim(),
   }
-  fetch(`/api/tree`, {
+  fetch("/api/tree", {
     method: "PUT",
     body: JSON.stringify(treePayload),
     headers: { "Content-Type": "application/json" },

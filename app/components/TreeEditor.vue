@@ -91,7 +91,7 @@ const uploadOk = ref(null)
 const file = ref(null)
 
 const insertableTrees = computed(() => {
-  let treeList = predefinedTrees
+  const treeList = predefinedTrees
     .filter(tree => tree.value)
     .map(tree => tree.value)
   // There are legacy tree types in the database. Make them work here
@@ -122,7 +122,7 @@ const fileChanged = () => {
   }
 
   uploading.value = true
-  fetch(`/api/sign`, {
+  fetch("/api/sign", {
     method: "POST",
     body: JSON.stringify({ "file-name": file.value.name }),
     headers: { "Content-Type": "application/json" },
@@ -132,10 +132,10 @@ const fileChanged = () => {
     .then(response => {
       // Rename file. File.name is readonly in most environs
       // Creating a new file object works, except for IE and some Opera versions
-      let renamedFile = new File([file.value], response.filename, {
+      const renamedFile = new File([file.value], response.filename, {
         type: file.value.type,
       })
-      let request = new XMLHttpRequest()
+      const request = new XMLHttpRequest()
       request.open("PUT", response.signedRequest)
       request.upload.addEventListener("progress", e => {
         uploadingProgress.value = (e.loaded / e.total) * 100
