@@ -1,6 +1,6 @@
-import { createClient } from '../utils/db'
-import { isValidCoords } from '../utils/helpers'
-import treeGroupMap from '../utils/treeGroupMap'
+import { createClient } from "../utils/db"
+import { isValidCoords } from "../utils/helpers"
+import treeGroupMap from "../utils/treeGroupMap"
 
 export default defineEventHandler(async event => {
   const query = getQuery(event)
@@ -8,7 +8,7 @@ export default defineEventHandler(async event => {
 
   if (query.bbox) {
     bbox = String(query.bbox)
-      .split(',')
+      .split(",")
       .map(x => parseFloat(x.trim()))
 
     if (
@@ -24,7 +24,7 @@ export default defineEventHandler(async event => {
   await client.connect()
   try {
     const result = await client.query({
-      name: 'trees',
+      name: "trees",
       text: `SELECT ssm_key, description, img, type
                   , ST_Y(point) AS lat, ST_X(point) AS lon
              FROM trees
@@ -38,10 +38,10 @@ export default defineEventHandler(async event => {
       key: x.ssm_key.trim(),
       lat: x.lat,
       lng: x.lon,
-      desc: x.description !== '',
-      img: x.img !== '',
+      desc: x.description !== "",
+      img: x.img !== "",
       type: x.type.trim(),
-      group: treeGroupMap[x.type.trim()] || 'tree',
+      group: treeGroupMap[x.type.trim()] || "tree",
     }))
   } finally {
     await client.end()

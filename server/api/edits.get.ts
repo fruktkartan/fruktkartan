@@ -1,4 +1,4 @@
-import { createClient } from '../utils/db'
+import { createClient } from "../utils/db"
 
 export default defineEventHandler(async _event => {
   const client = createClient()

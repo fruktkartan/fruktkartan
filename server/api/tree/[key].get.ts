@@ -1,9 +1,9 @@
-import { createClient } from '../../utils/db'
+import { createClient } from "../../utils/db"
 
 export default defineEventHandler(async event => {
-  const key = getRouterParam(event, 'key')
+  const key = getRouterParam(event, "key")
   if (!key) {
-    throw createError({ statusCode: 400, message: 'Key missing' })
+    throw createError({ statusCode: 400, message: "Key missing" })
   }
 
   const client = createClient()

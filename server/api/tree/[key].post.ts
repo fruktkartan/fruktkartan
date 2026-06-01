@@ -1,19 +1,19 @@
-import { createClient } from '../../utils/db'
-import { isValidCoords, sanitizeText, userHash } from '../../utils/helpers'
+import { createClient } from "../../utils/db"
+import { isValidCoords, sanitizeText, userHash } from "../../utils/helpers"
 
 export default defineEventHandler(async event => {
-  const key = getRouterParam(event, 'key')
+  const key = getRouterParam(event, "key")
   if (!key) {
-    throw createError({ statusCode: 400, message: 'Missing key!' })
+    throw createError({ statusCode: 400, message: "Missing key!" })
   }
 
   const body = await readBody(event)
   if (!body) {
-    throw createError({ statusCode: 400, message: 'Request body missing!' })
+    throw createError({ statusCode: 400, message: "Request body missing!" })
   }
 
   let idx = 1
-  const queryParts = ['UPDATE trees SET added_at = now()']
+  const queryParts = ["UPDATE trees SET added_at = now()"]
   const values: unknown[] = []
 
   queryParts.push(`, added_by = $${idx}`)
@@ -22,22 +22,22 @@ export default defineEventHandler(async event => {
 
   const idx_noparams = idx
 
-  if ('type' in body) {
+  if ("type" in body) {
     queryParts.push(`, type = $${idx}`)
     values.push(body.type)
     idx++
   }
-  if ('desc' in body) {
+  if ("desc" in body) {
     queryParts.push(`, description = $${idx}`)
-    values.push(sanitizeText(body.desc || ''))
+    values.push(sanitizeText(body.desc || ""))
     idx++
   }
-  if ('file' in body) {
+  if ("file" in body) {
     queryParts.push(`, img = $${idx}`)
-    values.push(body.file || '')
+    values.push(body.file || "")
     idx++
   }
-  if ('lat' in body && 'lon' in body) {
+  if ("lat" in body && "lon" in body) {
     if (!isValidCoords(body.lat, body.lon)) {
       throw createError({
         statusCode: 400,
@@ -50,7 +50,7 @@ export default defineEventHandler(async event => {
   }
 
   if (idx === idx_noparams) {
-    throw createError({ statusCode: 400, message: 'Nothing to update' })
+    throw createError({ statusCode: 400, message: "Nothing to update" })
   }
 
   queryParts.push(` WHERE ssm_key = $${idx}`)
@@ -59,7 +59,7 @@ export default defineEventHandler(async event => {
   const client = createClient()
   await client.connect()
   try {
-    const result = await client.query(queryParts.join(' '), values as string[])
+    const result = await client.query(queryParts.join(" "), values as string[])
     if (!result.rowCount) {
       throw createError({
         statusCode: 404,

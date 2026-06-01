@@ -1,27 +1,27 @@
-import murmurhash from 'murmurhash'
-import { createClient } from '../utils/db'
-import { isValidCoords, sanitizeText, userHash } from '../utils/helpers'
+import murmurhash from "murmurhash"
+import { createClient } from "../utils/db"
+import { isValidCoords, sanitizeText, userHash } from "../utils/helpers"
 
 export default defineEventHandler(async event => {
   const body = await readBody(event)
 
-  if (!['lat', 'lon', 'type'].every(x => x in body)) {
+  if (!["lat", "lon", "type"].every(x => x in body)) {
     throw createError({
       statusCode: 400,
-      message: 'Missing parameter! lat, lon and type are all required',
+      message: "Missing parameter! lat, lon and type are all required",
     })
   }
   if (!isValidCoords(body.lat, body.lon)) {
-    throw createError({ statusCode: 400, message: 'Invalid coordinates' })
+    throw createError({ statusCode: 400, message: "Invalid coordinates" })
   }
 
   const lat = parseFloat(body.lat)
   const lon = parseFloat(body.lon)
   const type = body.type
-  const desc = body.desc || ''
-  const key = murmurhash.v3('' + body.lat + body.lon, Date.now())
+  const desc = body.desc || ""
+  const key = murmurhash.v3("" + body.lat + body.lon, Date.now())
   const user_ip = userHash(event)
-  const img = body.file || ''
+  const img = body.file || ""
 
   const client = createClient()
   await client.connect()
