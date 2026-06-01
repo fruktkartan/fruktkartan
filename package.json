@@ -27,7 +27,7 @@
     "leaflet": "1.9.4",
     "leaflet.locatecontrol": "0.90.0",
     "murmurhash": "2.0.1",
-    "nuxt-svgo": "4.2.6",
+    "nuxt-svgo": "5.3.0",
     "pg": "8.21.0",
     "pinia": "3.0.4",
     "vue-leaflet-markercluster": "0.6.1",
