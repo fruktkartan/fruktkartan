@@ -74,14 +74,13 @@ grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
 
 <script setup>
 // This ugly hack is required by vue-leaflet-markercluster
-import L from "leaflet"
+import L, { icon as licon } from "leaflet"
 import "vue-leaflet-markercluster/dist/style.css"
 import { LocateControl } from "leaflet.locatecontrol"
 import "leaflet.locatecontrol/dist/L.Control.Locate.css"
 
 import { LMap, LTileLayer, LControl, LMarker } from "@vue-leaflet/vue-leaflet"
 import { LMarkerClusterGroup } from "vue-leaflet-markercluster"
-import { icon as licon } from "leaflet"
 import { useSidebarStore, useUserMessageStore } from "~/stores/app"
 import { raiseOnHttpError } from "~/utils/http"
 import groupData from "~/assets/group-data.json"
@@ -201,6 +200,7 @@ const fetchMarkers = function () {
   loading.value = true
   fetch(
     // prettier-ignore
+    // eslint-disable-next-line max-len
     `/api/trees?bbox=${bounds.value._southWest.lat},${bounds.value._southWest.lng},${bounds.value._northEast.lat},${bounds.value._northEast.lng}`
   )
     .then(raiseOnHttpError)

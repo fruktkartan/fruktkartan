@@ -43,7 +43,8 @@
             <!-- Migration in next Vuetify release:   -->
             <!-- 1. Update selectTrees.json entries from -->
             <!-- { "props": { "divider": true } } → { "type": "divider" } --> 
-            <!-- and { "props": { "header": "Nötter" } } → { "type": "subheader", "title": "Nötter" } -->
+            <!-- and { "props": { "header": "Nötter" } } → -->
+            <!-- { "type": "subheader", "title": "Nötter" } -->
             <!-- 2. Remove this whole template slot override -->
             <v-list-subheader v-if="props.header">
               {{ props.header }}
