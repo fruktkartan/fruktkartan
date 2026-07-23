@@ -5,6 +5,7 @@ import berryChokeberry from "./berry-chokeberry.svg"
 import berryCurrant from "./berry-currant.svg"
 import berryElder from "./berry-elder.svg"
 import berryGoji from "./berry-goji.svg"
+import berryGooseberry from "./berry-gooseberry.svg"
 import berryMulberry from "./berry-mullberry.svg"
 import berryRaspberry from "./berry-raspberry.svg"
 import berryRosehip from "./berry-rosehip.svg"
@@ -33,6 +34,7 @@ export default {
   berryCurrant,
   berryElder,
   berryGoji,
+  berryGooseberry,
   berryMulberry,
   berryRaspberry,
   berryRosehip,
@@ -58,6 +60,7 @@ export default {
   "berry-currant": berryCurrant,
   "berry-elder": berryElder,
   "berry-goji": berryGoji,
+  "berry-gooseberry": berryGooseberry,
   "berry-mulberry": berryMulberry,
   "berry-raspberry": berryRaspberry,
   "berry-rosehip": berryRosehip,
