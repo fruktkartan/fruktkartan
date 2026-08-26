@@ -30,7 +30,7 @@
     </l-control>
 
     <l-tile-layer
-      url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+      url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_27sa_1_67c02e8b4fdb40e289fb9497"
       :attribution="`
 kartdata <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a>
 grafik <a href='https://carto.com/attribution/' target='_blank'>CARTO</a>`"
